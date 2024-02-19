@@ -1,0 +1,28 @@
+package object;
+
+import entity.Entity;
+import main.GamePanel;
+
+public class OBJ_Fire_Wand extends Entity {
+    GamePanel gp;
+    public OBJ_Fire_Wand(GamePanel gp) {
+        super(gp);
+        this.gp = gp;
+
+        weapon_id = 100;
+        type = type_wand;
+        name = "Fire wand";
+        down1 = setup("/objects/fire_wand",gp.tileSize, gp.tileSize);
+        attackValue = 0;
+        attackArea.width = 0;
+        attackArea.height = 0;
+        description = "Fire Wand\n\nFireball projectile\nis tripled";
+    }
+
+    public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
+        projectile2 = new OBJ_Fireball(gp);
+        projectile2.set(worldX, worldY, direction, true, this);
+        gp.projectileList.add(projectile2);
+        projectile2.substractResource(gp.player);
+    }
+}

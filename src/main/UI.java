@@ -367,12 +367,12 @@ public class UI {
         int dFrameX = frameX;
         int dFrameY = frameY + frameHeight;
         int dFrameWidth = frameWidth;
-        int dFrameHeight = gp.tileSize*3;
+        int dFrameHeight = gp.tileSize*4;
 
 
         int textX = dFrameX + 20;
         int textY = dFrameY + gp.tileSize;
-        g2.setFont(g2.getFont().deriveFont(28F));
+        g2.setFont(g2.getFont().deriveFont(20F));
         int itemIndex = getItemIndexOnSlot();
         if(itemIndex < gp.player.inventory.size()) {
             drawSubWindow(dFrameX,dFrameY,dFrameWidth,dFrameHeight);

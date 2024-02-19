@@ -52,6 +52,9 @@ public class Entity {
     public final int type_shield = 5;
     public final int type_consumable = 6;
     public final int type_pickupOnly = 7;
+    public final int type_wand = 8;
+    public int weapon_id;
+    public boolean canMeleeAttack = false;
 
     public int maxLife;
     public int life;
@@ -69,12 +72,16 @@ public class Entity {
     public Entity currentWeapon;
     public Entity currentShield;
     public Projectile projectile;
+    public Projectile projectile2;
+    public Projectile projectile3;
+    public Projectile projectile4;
     // item attributes
     public int value;
     public int attackValue;
     public int defenseValue;
     public String description = "";
     public int useCost;
+    public int manaCounter = 0;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -317,5 +324,7 @@ public class Entity {
         return haveResource;
     }
     public void substractResource(Entity user) {}
+    public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {}
+    public void set(int worldX, int worldY, String direction, boolean alive, Entity user) {}
 
 }

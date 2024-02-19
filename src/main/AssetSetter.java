@@ -72,6 +72,11 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 20 * gp.tileSize;
         i++;
+
+        gp.obj[mapNum][i] = new OBJ_Fire_Wand(gp);
+        gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 20 * gp.tileSize;
+        i++;
     }
 
     public void setNPC() {

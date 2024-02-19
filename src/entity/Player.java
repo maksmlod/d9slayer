@@ -65,9 +65,9 @@ public class Player extends Entity{
         coin = 0;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
-        projectile = new OBJ_Fireball(gp);
         attack = getAttack();
         defense = getDefense();
+        projectile = new OBJ_Fireball(gp);
     }
     public void setDefaultPositions() {
         worldX = gp.tileSize * 23;
@@ -94,6 +94,7 @@ public class Player extends Entity{
         return defense = dexterity * currentShield.defenseValue;
     }
     public void getPlayerImage() {
+        /*
         up1 = setup("/player/boy_up_1", gp.tileSize, gp.tileSize);
         up2 = setup("/player/boy_up_2", gp.tileSize, gp.tileSize);
         down1 = setup("/player/boy_down_1", gp.tileSize, gp.tileSize);
@@ -102,6 +103,15 @@ public class Player extends Entity{
         left2 = setup("/player/boy_left_2", gp.tileSize, gp.tileSize);
         right1 = setup("/player/boy_right_1", gp.tileSize, gp.tileSize);
         right2 = setup("/player/boy_right_2", gp.tileSize, gp.tileSize);
+         */
+        up1 = setup("/player/thaiboy/thaiboy1_up_1", gp.tileSize, gp.tileSize);
+        up2 = setup("/player/thaiboy/thaiboy1_up_2", gp.tileSize, gp.tileSize);
+        down1 = setup("/player/thaiboy/thaiboy1_down_1", gp.tileSize, gp.tileSize);
+        down2 = setup("/player/thaiboy/thaiboy1_down_2", gp.tileSize, gp.tileSize);
+        left1 = setup("/player/thaiboy/thaiboy1_left_1", gp.tileSize, gp.tileSize);
+        left2 = setup("/player/thaiboy/thaiboy1_left_2", gp.tileSize, gp.tileSize);
+        right1 = setup("/player/thaiboy/thaiboy1_right_1", gp.tileSize, gp.tileSize);
+        right2 = setup("/player/thaiboy/thaiboy1_right_2", gp.tileSize, gp.tileSize);
 
     }
     public void getPlayerAttackImage() {
@@ -127,6 +137,11 @@ public class Player extends Entity{
         }
     }
     public void update() {
+        if(manaCounter > 180) {
+            this.mana ++;
+            manaCounter = 0;
+        }
+        if(mana < maxMana) manaCounter++;
 
         if(attacking == true) {
             attacking();
@@ -187,7 +202,7 @@ public class Player extends Entity{
                 }
             }
 
-            if(keyH.enterPressed == true && attackCanceled == false) {
+            if(keyH.enterPressed == true && attackCanceled == false && this.currentWeapon.canMeleeAttack == true) {
                 attacking = true;
                 spriteCounter = 0;
             }
@@ -214,11 +229,37 @@ public class Player extends Entity{
             }
         }
 
-        if(gp.keyH.shotKeyPressed == true && projectile.alive == false &&
-                shotAvailableCounter == 30 && projectile.haveResource(this) == true) {
-            projectile.set(worldX, worldY, direction, true, this);
-            gp.projectileList.add(projectile);
+        if(shotAvailableCounter == 30 && projectile.useCost <= this.mana &&
+                (gp.keyH.rightArrowPressed == true || gp.keyH.leftArrowPressed == true ||
+                        gp.keyH.upArrowPressed == true || gp.keyH.downArrowPressed == true)) {
+            String shotDirection;
+            if(gp.keyH.rightArrowPressed == true) shotDirection = "right";
+            else if(gp.keyH.leftArrowPressed == true) shotDirection = "left";
+            else if(gp.keyH.upArrowPressed == true) shotDirection = "up";
+            else shotDirection = "down";
 
+
+            projectile4 = new OBJ_Fireball(gp);
+            projectile4.set(worldX, worldY, shotDirection, true, this);
+            gp.projectileList.add(projectile4);
+            if(this.currentWeapon.weapon_id == 100) {
+                if(shotDirection == "left" || shotDirection == "right") {
+                    projectile2 = new OBJ_Fireball(gp);
+                    projectile2.set(worldX, worldY + 30, shotDirection, true, this);
+                    gp.projectileList.add(projectile2);
+                    projectile3 = new OBJ_Fireball(gp);
+                    projectile3.set(worldX, worldY - 30, shotDirection, true, this);
+                    gp.projectileList.add(projectile3);
+                }
+                else if(shotDirection == "up" || shotDirection == "down") {
+                    projectile2 = new OBJ_Fireball(gp);
+                    projectile2.set(worldX + 30, worldY, shotDirection, true, this);
+                    gp.projectileList.add(projectile2);
+                    projectile3 = new OBJ_Fireball(gp);
+                    projectile3.set(worldX - 30, worldY, shotDirection, true, this);
+                    gp.projectileList.add(projectile3);
+                }
+            }
             projectile.substractResource(this);
             shotAvailableCounter = 0;
             gp.playSE(10);
@@ -386,7 +427,7 @@ public class Player extends Entity{
         int itemIndex = gp.ui.getItemIndexOnSlot();
         if(itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);
-            if(selectedItem.type == type_sword || selectedItem.type == type_axe) {
+            if(selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_wand) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
                 getPlayerAttackImage();

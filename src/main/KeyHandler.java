@@ -7,16 +7,14 @@ public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed;
+    public boolean upArrowPressed, downArrowPressed, leftArrowPressed, rightArrowPressed;
     boolean showDebugText = false;
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
-
-
     @Override
     public void keyTyped(KeyEvent e) {
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -96,6 +94,18 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.optionsState;
+        }
+        if(code == KeyEvent.VK_RIGHT) {
+            rightArrowPressed = true;
+        }
+        if(code == KeyEvent.VK_UP) {
+            upArrowPressed = true;
+        }
+        if(code == KeyEvent.VK_LEFT) {
+            leftArrowPressed = true;
+        }
+        if(code == KeyEvent.VK_DOWN) {
+            downArrowPressed = true;
         }
 
         //debug
@@ -261,6 +271,18 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_F) {
             shotKeyPressed = false;
+        }
+        if(code == KeyEvent.VK_RIGHT) {
+            rightArrowPressed = false;
+        }
+        if(code == KeyEvent.VK_UP) {
+            upArrowPressed = false;
+        }
+        if(code == KeyEvent.VK_LEFT) {
+            leftArrowPressed = false;
+        }
+        if(code == KeyEvent.VK_DOWN) {
+            downArrowPressed = false;
         }
     }
 }
