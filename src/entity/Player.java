@@ -168,8 +168,15 @@ public class Player extends Entity{
             attacking();
         }
         else if(keyH.upPressed == true || keyH.downPressed == true ||
-                keyH.leftPressed == true || keyH.rightPressed == true || keyH.enterPressed == true) {
+                keyH.leftPressed == true || keyH.rightPressed == true ||
+                keyH.upArrowPressed == true || keyH.downArrowPressed == true ||
+                keyH.leftArrowPressed == true || keyH.rightArrowPressed == true ||
+                keyH.enterPressed == true) {
 
+            boolean attackingNow = false;
+            if(keyH.upArrowPressed == true || keyH.downArrowPressed == true ||
+                    keyH.leftArrowPressed == true || keyH.rightArrowPressed == true)
+                attackingNow = true;
             if(keyH.upPressed == true) {
                 direction = "up";
             }
@@ -206,7 +213,7 @@ public class Player extends Entity{
             //check event
             gp.eHandler.checkEvent();
             // If collision is false, player can move
-            if(collisionOn == false && keyH.enterPressed == false) {
+            if(collisionOn == false && keyH.enterPressed == false && attackingNow == false) {
                 switch(direction) {
                     case "up":
                         worldY -= speed;
@@ -223,13 +230,17 @@ public class Player extends Entity{
                 }
             }
 
-            if(keyH.enterPressed == true && attackCanceled == false && this.currentWeapon.canMeleeAttack == true) {
+            if((keyH.rightArrowPressed == true || keyH.leftArrowPressed == true ||
+                    keyH.upArrowPressed == true ||
+                    keyH.downArrowPressed == true) && attackCanceled == false && this.currentWeapon.canMeleeAttack == true) {
                 attacking = true;
+                if(keyH.rightArrowPressed == true) attackDirection = "right";
+                else if(keyH.leftArrowPressed == true) attackDirection = "left";
+                else if(keyH.upArrowPressed == true) attackDirection = "up";
+                else attackDirection = "down";
                 spriteCounter = 0;
             }
-
             attackCanceled = false;
-            gp.keyH.enterPressed = false;
 
             spriteCounter++;
             if(spriteCounter > 12) {
@@ -261,7 +272,7 @@ public class Player extends Entity{
             this.currentWeapon.attack(worldX,worldY,shotDirection,true,this);
             shotAvailableCounter = 0;
         }
-
+        gp.keyH.enterPressed = false;
         if(invincible == true) {
             invincibleCounter ++;
             if(invincibleCounter > 60) {
@@ -299,9 +310,8 @@ public class Player extends Entity{
             int currentWorldY = worldY;
             int solidAreaWidth = solidArea.width;
             int solidAreaHeight = solidArea.height;
-
             //adjust players worldx/y for the attackArea
-            switch(direction) {
+            switch(attackDirection) {
                 case "up": worldY -= attackArea.height; break;
                 case "down": worldY += attackArea.height; break;
                 case "left": worldX -= attackArea.width; break;
@@ -322,7 +332,6 @@ public class Player extends Entity{
             worldY = currentWorldY;
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
-
         }
         if(spriteCounter > 25) {
             spriteNum = 1;
@@ -448,50 +457,50 @@ public class Player extends Entity{
         int tempScreenX = screenX;
         int tempScreenY = screenY;
 
-        switch(direction) {
-            case "up":
-                if(attacking == false) {
+        if(attacking == false) {
+            switch(direction) {
+                case "up":
                     if(spriteNum == 1) {image = up1;}
                     if(spriteNum == 2) {image = up2;}
-                }
-                if(attacking == true) {
+                    break;
+                case "down":
+                    if(spriteNum == 1) {image = down1;}
+                    if(spriteNum == 2) {image = down2;}
+                    break;
+                case "left":
+                    if(spriteNum == 1) {image = left1;}
+                    if(spriteNum == 2) {image = left2;}
+                    break;
+                case "right":
+                    if(spriteNum == 1) {image = right1;}
+                    if(spriteNum == 2) {image = right2;}
+                    break;
+            }
+        }
+        if(attacking == true) {
+            switch(attackDirection) {
+                case "up":
                     tempScreenY = screenY - gp.tileSize;
                     if(spriteNum == 1) {image = attackUp1;}
                     if(spriteNum == 2) {image = attackUp2;}
-                }
-                break;
-            case "down":
-                if(attacking == false) {
-                    if(spriteNum == 1) {image = down1;}
-                    if(spriteNum == 2) {image = down2;}
-                }
-                if(attacking == true) {
+                    break;
+                case "down":
                     if(spriteNum == 1) {image = attackDown1;}
                     if(spriteNum == 2) {image = attackDown2;}
-                }
-                break;
-            case "left":
-                if(attacking == false) {
-                    if(spriteNum == 1) {image = left1;}
-                    if(spriteNum == 2) {image = left2;}
-                }
-                if(attacking == true) {
+                    break;
+                case "left":
                     tempScreenX = screenX - gp.tileSize;
                     if(spriteNum == 1) {image = attackLeft1;}
                     if(spriteNum == 2) {image = attackLeft2;}
-                }
-                break;
-            case "right":
-                if(attacking == false) {
-                    if(spriteNum == 1) {image = right1;}
-                    if(spriteNum == 2) {image = right2;}
-                }
-                if(attacking == true) {
+                    break;
+                case "right":
                     if(spriteNum == 1) {image = attackRight1;}
                     if(spriteNum == 2) {image = attackRight2;}
-                }
-                break;
+                    break;
+            }
         }
+
+
 
         if(invincible == true) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));

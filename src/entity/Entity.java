@@ -25,6 +25,7 @@ public class Entity {
     public int worldX, worldY;
     public String direction = "down";
     public String direction2 = "";
+    public String attackDirection = "down";
     public boolean collision = false;
     public boolean invincible = false;
     public int spriteNum = 1;
