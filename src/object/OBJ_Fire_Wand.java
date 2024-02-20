@@ -20,6 +20,7 @@ public class OBJ_Fire_Wand extends Entity {
         projectile = new OBJ_Fireball(gp);
         castSpeed = 30;
         useCost = 2;
+        canMeleeAttack = false;
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {

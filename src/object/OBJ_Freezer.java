@@ -20,6 +20,7 @@ public class OBJ_Freezer extends Entity {
         projectile = new OBJ_Iceball(gp);
         castSpeed = 15;
         useCost = 1;
+        canMeleeAttack = false;
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {

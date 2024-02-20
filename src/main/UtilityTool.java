@@ -13,5 +13,16 @@ public class UtilityTool {
 
         return scaledImage;
     }
+    public BufferedImage rotateImage(BufferedImage img, int angle)
+    {
+        int width = img.getWidth();
+        int height = img.getHeight();
+        BufferedImage newImage = new BufferedImage(
+                img.getWidth(), img.getHeight(), img.getType());
+        Graphics2D g2 = newImage.createGraphics();
+        g2.rotate(Math.toRadians(angle),width / 2,height / 2);
+        g2.drawImage(img, null, 0, 0);
+        return newImage;
+    }
 }
 

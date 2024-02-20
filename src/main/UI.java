@@ -598,11 +598,17 @@ public class UI {
         g2.setColor(new Color(0,0,0));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
+        //wallpaper
+        BufferedImage wallpaper;
+        Entity entity = new Entity(gp);
+        wallpaper = entity.setup("/objects/wallp",1080,607);
+        g2.drawImage(wallpaper, 0, 24, gp.screenWidth,gp.screenHeight - 3*gp.tileSize, null);
+
         //title name
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));
-        String text = "tytul";
+        String text = "D9 Slayer";
         int x = getXforCenteredText(text);
-        int y = gp.tileSize*3;
+        int y = gp.tileSize*2;
         //shadow
         g2.setColor(Color.gray);
         g2.drawString(text, x+5, y+5);
@@ -612,8 +618,9 @@ public class UI {
         //character image
         x = gp.screenWidth/2 - (gp.tileSize*2)/2;
         y +=gp.tileSize*2;
-        g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
+
         //menu
+        y+=gp.tileSize;
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
         text = "New game";
         x = getXforCenteredText(text);

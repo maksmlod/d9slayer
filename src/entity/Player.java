@@ -90,6 +90,7 @@ public class Player extends Entity{
         return attack = strength * currentWeapon.attackValue;
     }
     public int getDefense() {
+
         return defense = dexterity * currentShield.defenseValue;
     }
     public void getPlayerImage(String skinName) {
@@ -172,11 +173,11 @@ public class Player extends Entity{
                 keyH.upArrowPressed == true || keyH.downArrowPressed == true ||
                 keyH.leftArrowPressed == true || keyH.rightArrowPressed == true ||
                 keyH.enterPressed == true) {
+            boolean meleeAttackingNow = false;
+            if((keyH.upArrowPressed == true || keyH.downArrowPressed == true ||
+                    keyH.leftArrowPressed == true || keyH.rightArrowPressed == true) &&
+                    this.currentWeapon.canMeleeAttack == true) meleeAttackingNow = true;
 
-            boolean attackingNow = false;
-            if(keyH.upArrowPressed == true || keyH.downArrowPressed == true ||
-                    keyH.leftArrowPressed == true || keyH.rightArrowPressed == true)
-                attackingNow = true;
             if(keyH.upPressed == true) {
                 direction = "up";
             }
@@ -193,27 +194,23 @@ public class Player extends Entity{
             // Check tile colission
             collisionOn = false;
             gp.cChecker.checkTile(this);
-
             // Check object collision
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
-
             //check npc collision
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
-
             //check monster collision
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             contactMonster(monsterIndex);
-
             //check interactive tile collision
             int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
-
-
             //check event
             gp.eHandler.checkEvent();
             // If collision is false, player can move
-            if(collisionOn == false && keyH.enterPressed == false && attackingNow == false) {
+            if(collisionOn == false && meleeAttackingNow == false &&
+                    (keyH.upPressed == true || keyH.downPressed == true ||
+                            keyH.leftPressed == true || keyH.rightPressed == true)) {
                 switch(direction) {
                     case "up":
                         worldY -= speed;
@@ -230,9 +227,8 @@ public class Player extends Entity{
                 }
             }
 
-            if((keyH.rightArrowPressed == true || keyH.leftArrowPressed == true ||
-                    keyH.upArrowPressed == true ||
-                    keyH.downArrowPressed == true) && attackCanceled == false && this.currentWeapon.canMeleeAttack == true) {
+
+            if(attackCanceled == false && meleeAttackingNow == true) {
                 attacking = true;
                 if(keyH.rightArrowPressed == true) attackDirection = "right";
                 else if(keyH.leftArrowPressed == true) attackDirection = "left";
@@ -240,8 +236,29 @@ public class Player extends Entity{
                 else attackDirection = "down";
                 spriteCounter = 0;
             }
-            attackCanceled = false;
 
+            if(keyH.rightArrowPressed == true || keyH.leftArrowPressed == true ||
+                    keyH.upArrowPressed == true ||
+                    keyH.downArrowPressed == true) {
+                if(keyH.rightArrowPressed == true) attackDirection = "right";
+                else if(keyH.leftArrowPressed == true) attackDirection = "left";
+                else if(keyH.upArrowPressed == true) attackDirection = "up";
+                else attackDirection = "down";
+            }
+
+            if(shotAvailableCounter == this.currentWeapon.castSpeed && this.currentWeapon.useCost <= this.mana &&
+                    (gp.keyH.rightArrowPressed == true || gp.keyH.leftArrowPressed == true ||
+                            gp.keyH.upArrowPressed == true || gp.keyH.downArrowPressed == true)) {
+                attackImageCounter = 0;
+                String shotDirection;
+                if(gp.keyH.rightArrowPressed == true) shotDirection = "right";
+                else if(gp.keyH.leftArrowPressed == true) shotDirection = "left";
+                else if(gp.keyH.upArrowPressed == true) shotDirection = "up";
+                else shotDirection = "down";
+                this.currentWeapon.attack(worldX,worldY,shotDirection,true,this);
+                shotAvailableCounter = 0;
+            }
+            attackCanceled = false;
             spriteCounter++;
             if(spriteCounter > 12) {
                 if(spriteNum == 1) {
@@ -261,17 +278,7 @@ public class Player extends Entity{
             }
         }
 
-        if(shotAvailableCounter == this.currentWeapon.castSpeed && this.currentWeapon.useCost <= this.mana &&
-                (gp.keyH.rightArrowPressed == true || gp.keyH.leftArrowPressed == true ||
-                        gp.keyH.upArrowPressed == true || gp.keyH.downArrowPressed == true)) {
-            String shotDirection;
-            if(gp.keyH.rightArrowPressed == true) shotDirection = "right";
-            else if(gp.keyH.leftArrowPressed == true) shotDirection = "left";
-            else if(gp.keyH.upArrowPressed == true) shotDirection = "up";
-            else shotDirection = "down";
-            this.currentWeapon.attack(worldX,worldY,shotDirection,true,this);
-            shotAvailableCounter = 0;
-        }
+
         gp.keyH.enterPressed = false;
         if(invincible == true) {
             invincibleCounter ++;
@@ -299,9 +306,10 @@ public class Player extends Entity{
         }
     }
     public void attacking() {
+        attackImageCounter = 0;
         spriteCounter++;
         if(spriteCounter <= 5) {
-            spriteNum = 1;
+            spriteNum = 2;
         }
         if(spriteCounter > 5 && spriteCounter <= 25) {
             spriteNum = 2;
@@ -334,7 +342,7 @@ public class Player extends Entity{
             solidArea.height = solidAreaHeight;
         }
         if(spriteCounter > 25) {
-            spriteNum = 1;
+            spriteNum = 2;
             spriteCounter = 0;
             attacking = false;
         }
@@ -454,6 +462,7 @@ public class Player extends Entity{
     }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
+        BufferedImage image2 = null;
         int tempScreenX = screenX;
         int tempScreenY = screenY;
 
@@ -480,40 +489,62 @@ public class Player extends Entity{
         if(attacking == true) {
             switch(attackDirection) {
                 case "up":
-                    tempScreenY = screenY - gp.tileSize;
-                    if(spriteNum == 1) {image = attackUp1;}
-                    if(spriteNum == 2) {image = attackUp2;}
+                    image = up1;
                     break;
                 case "down":
-                    if(spriteNum == 1) {image = attackDown1;}
-                    if(spriteNum == 2) {image = attackDown2;}
+                    image = down1;
                     break;
                 case "left":
-                    tempScreenX = screenX - gp.tileSize;
-                    if(spriteNum == 1) {image = attackLeft1;}
-                    if(spriteNum == 2) {image = attackLeft2;}
+                    image = left1;
                     break;
                 case "right":
-                    if(spriteNum == 1) {image = attackRight1;}
-                    if(spriteNum == 2) {image = attackRight2;}
+                    image = right1;
                     break;
             }
         }
-
-
 
         if(invincible == true) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
 
-        g2.drawImage(image, tempScreenX, tempScreenY, null);
 
+
+        g2.drawImage(image, tempScreenX, tempScreenY, null);
         //reset alpha
+        drawAttackImage(g2);
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
 
     }
-
+    public void drawAttackImage(Graphics2D g2) {
+        attackImageCounter ++;
+        int maxCounter;
+        if(currentWeapon.canMeleeAttack == true) maxCounter = 2;
+        else maxCounter = 60;
+        if(attackImageCounter < maxCounter) {
+            UtilityTool utool = new UtilityTool();
+            image2 = this.currentWeapon.down1;
+            int scale;
+            if (currentWeapon.canMeleeAttack == true) scale = 48;
+            else scale = 48;
+            image2 = utool.scaleImage(this.currentWeapon.down1, scale, scale);
+            if (attackDirection == "right") {
+                image2 = utool.rotateImage(image2, 90);
+                g2.drawImage(image2, screenX + gp.tileSize, screenY, null);
+            }
+            else if (attackDirection == "left") {
+                image2 = utool.rotateImage(image2, 270);
+                g2.drawImage(image2, screenX - gp.tileSize, screenY, null);
+            }
+            else if (attackDirection == "down") {
+                image2 = utool.rotateImage(image2, 180);
+                g2.drawImage(image2, screenX, screenY + gp.tileSize, null);
+            }
+            else if (attackDirection == "up") {
+                g2.drawImage(image2, screenX, screenY - gp.tileSize, null);
+            }
+        }
+    }
 }
 
 
