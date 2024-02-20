@@ -53,7 +53,7 @@ public class Player extends Entity{
         level = 1;
         maxLife = 6;
         life = maxLife;
-        maxMana = 4;
+        maxMana = 6;
         mana = maxMana;
         ammo = 10;
         strength = 1; // more strength = more dmg deals
@@ -136,7 +136,7 @@ public class Player extends Entity{
     }
     public void update() {
         if(manaCounter > 180) {
-            this.mana ++;
+            this.mana = this.mana + 2;
             manaCounter = 0;
         }
         if(mana < maxMana) manaCounter++;
@@ -227,7 +227,7 @@ public class Player extends Entity{
             }
         }
 
-        if(shotAvailableCounter == 30 && projectile.useCost <= this.mana &&
+        if(shotAvailableCounter == this.currentWeapon.castSpeed && projectile.useCost <= this.mana &&
                 (gp.keyH.rightArrowPressed == true || gp.keyH.leftArrowPressed == true ||
                         gp.keyH.upArrowPressed == true || gp.keyH.downArrowPressed == true)) {
             String shotDirection;
@@ -246,8 +246,11 @@ public class Player extends Entity{
                 invincibleCounter = 0;
             }
         }
-        if(shotAvailableCounter < 30) {
+        if(shotAvailableCounter < this.currentWeapon.castSpeed) {
             shotAvailableCounter++;
+        }
+        else if(shotAvailableCounter > this.currentWeapon.castSpeed) {
+            shotAvailableCounter = 0;
         }
         if(life > maxLife) life = maxLife;
         if(mana > maxMana) mana = maxMana;

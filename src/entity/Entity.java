@@ -83,6 +83,7 @@ public class Entity {
     public String description = "";
     public int useCost;
     public int manaCounter = 0;
+    public int castSpeed;
 
     public Entity(GamePanel gp) {
         this.gp = gp;

@@ -17,7 +17,6 @@ public class OBJ_Fireball extends Projectile {
         maxLife = 80;
         life = maxLife;
         attack = 2;
-        useCost = 1;
         alive = false;
         getImage();
 
@@ -42,9 +41,6 @@ public class OBJ_Fireball extends Projectile {
         right2 = setup("/projectile/fireball_right_2",gp.tileSize,gp.tileSize);
     }
 
-    public void substractResource(Entity user) {
-        user.mana -= useCost;
-    }
     public Color getParticleColor() {
         Color color = new Color(240,50,3);
         return color;

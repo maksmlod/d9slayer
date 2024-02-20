@@ -18,7 +18,7 @@ public class UI {
     Graphics2D g2;
     Font maruMonica, purisaB;
 
-    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_blank;
+    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_half, crystal_blank;
     public boolean messageOn = false;
     public boolean gameFinished = false;
     ArrayList<String> message = new ArrayList<>();
@@ -53,7 +53,8 @@ public class UI {
         heart_blank = heart.image3;
         Entity crystal = new OBJ_ManaCrystal(gp);
         crystal_full = crystal.image;
-        crystal_blank = crystal.image2;
+        crystal_half = crystal.image2;
+        crystal_blank = crystal.image3;
     }
     public void addMessage(String text) {
         message.add(text);
@@ -123,7 +124,7 @@ public class UI {
         x = (gp.tileSize/2)-3;
         y = (int)(gp.tileSize*1.5);
         i = 0;
-        while(i < gp.player.maxMana) {
+        while(i < gp.player.maxMana/2) {
             g2.drawImage(crystal_blank,x,y,null);
             i++;
             x += 35;
@@ -132,7 +133,11 @@ public class UI {
         y = (int)(gp.tileSize*1.5);
         i = 0;
         while(i < gp.player.mana) {
-            g2.drawImage(crystal_full,x,y,null);
+            g2.drawImage(crystal_half,x,y,null);
+            i++;
+            if(i < gp.player.mana) {
+                g2.drawImage(crystal_full, x, y, null);
+            }
             i++;
             x += 35;
         }

@@ -17,7 +17,6 @@ public class OBJ_Iceball extends Projectile {
         maxLife = 120;
         life = maxLife;
         attack = 2;
-        useCost = 1;
         alive = false;
         getImage();
 
@@ -42,9 +41,6 @@ public class OBJ_Iceball extends Projectile {
         right2 = setup("/projectile/iceball_right_1",gp.tileSize,gp.tileSize);
     }
 
-    public void substractResource(Entity user) {
-        user.mana -= useCost;
-    }
     public Color getParticleColor() {
         Color color = new Color(173,216,230);
         return color;

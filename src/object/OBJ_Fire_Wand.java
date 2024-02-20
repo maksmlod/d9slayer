@@ -18,6 +18,8 @@ public class OBJ_Fire_Wand extends Entity {
         attackArea.height = 0;
         description = "Fire Wand\n\nFireball projectile\nis tripled";
         projectile = new OBJ_Fireball(gp);
+        castSpeed = 30;
+        useCost = 2;
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
@@ -42,7 +44,7 @@ public class OBJ_Fire_Wand extends Entity {
             gp.projectileList.add(projectile3);
         }
 
-        projectile4.substractResource(user);
+        user.mana = user.mana - useCost;
         gp.playSE(10);
     }
 }
