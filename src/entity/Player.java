@@ -40,7 +40,8 @@ public class Player extends Entity{
         //attackArea.height = 36;
 
         setDefaultValues();
-        getPlayerImage();
+        String skinName = "bladee";
+        getPlayerImage(skinName);
         getPlayerAttackImage();
         setItems();
     }
@@ -91,7 +92,7 @@ public class Player extends Entity{
     public int getDefense() {
         return defense = dexterity * currentShield.defenseValue;
     }
-    public void getPlayerImage() {
+    public void getPlayerImage(String skinName) {
         /*
         up1 = setup("/player/boy_up_1", gp.tileSize, gp.tileSize);
         up2 = setup("/player/boy_up_2", gp.tileSize, gp.tileSize);
@@ -102,14 +103,36 @@ public class Player extends Entity{
         right1 = setup("/player/boy_right_1", gp.tileSize, gp.tileSize);
         right2 = setup("/player/boy_right_2", gp.tileSize, gp.tileSize);
          */
-        up1 = setup("/player/thaiboy/thaiboy1_up_1", gp.tileSize, gp.tileSize);
-        up2 = setup("/player/thaiboy/thaiboy1_up_2", gp.tileSize, gp.tileSize);
-        down1 = setup("/player/thaiboy/thaiboy1_down_1", gp.tileSize, gp.tileSize);
-        down2 = setup("/player/thaiboy/thaiboy1_down_2", gp.tileSize, gp.tileSize);
-        left1 = setup("/player/thaiboy/thaiboy1_left_1", gp.tileSize, gp.tileSize);
-        left2 = setup("/player/thaiboy/thaiboy1_left_2", gp.tileSize, gp.tileSize);
-        right1 = setup("/player/thaiboy/thaiboy1_right_1", gp.tileSize, gp.tileSize);
-        right2 = setup("/player/thaiboy/thaiboy1_right_2", gp.tileSize, gp.tileSize);
+        if(skinName == "thaiboy") {
+            up1 = setup("/player/thaiboy/thaiboy1_up_1", gp.tileSize, gp.tileSize);
+            up2 = setup("/player/thaiboy/thaiboy1_up_2", gp.tileSize, gp.tileSize);
+            down1 = setup("/player/thaiboy/thaiboy1_down_1", gp.tileSize, gp.tileSize);
+            down2 = setup("/player/thaiboy/thaiboy1_down_2", gp.tileSize, gp.tileSize);
+            left1 = setup("/player/thaiboy/thaiboy1_left_1", gp.tileSize, gp.tileSize);
+            left2 = setup("/player/thaiboy/thaiboy1_left_2", gp.tileSize, gp.tileSize);
+            right1 = setup("/player/thaiboy/thaiboy1_right_1", gp.tileSize, gp.tileSize);
+            right2 = setup("/player/thaiboy/thaiboy1_right_2", gp.tileSize, gp.tileSize);
+        }
+        else if(skinName == "ecco") {
+            up1 = setup("/player/ecco/ecco1_up_1", gp.tileSize, gp.tileSize);
+            up2 = setup("/player/ecco/ecco1_up_2", gp.tileSize, gp.tileSize);
+            down1 = setup("/player/ecco/ecco1_down_1", gp.tileSize, gp.tileSize);
+            down2 = setup("/player/ecco/ecco1_down_2", gp.tileSize, gp.tileSize);
+            left1 = setup("/player/ecco/ecco1_left_1", gp.tileSize, gp.tileSize);
+            left2 = setup("/player/ecco/ecco1_left_2", gp.tileSize, gp.tileSize);
+            right1 = setup("/player/ecco/ecco1_right_1", gp.tileSize, gp.tileSize);
+            right2 = setup("/player/ecco/ecco1_right_2", gp.tileSize, gp.tileSize);
+        }
+        else if(skinName == "bladee") {
+            up1 = setup("/player/bladee/bladee1_up_1", gp.tileSize, gp.tileSize);
+            up2 = setup("/player/bladee/bladee1_up_2", gp.tileSize, gp.tileSize);
+            down1 = setup("/player/bladee/bladee1_down_1", gp.tileSize, gp.tileSize);
+            down2 = setup("/player/bladee/bladee1_down_2", gp.tileSize, gp.tileSize);
+            left1 = setup("/player/bladee/bladee1_left_1", gp.tileSize, gp.tileSize);
+            left2 = setup("/player/bladee/bladee1_left_2", gp.tileSize, gp.tileSize);
+            right1 = setup("/player/bladee/bladee1_right_1", gp.tileSize, gp.tileSize);
+            right2 = setup("/player/bladee/bladee1_right_2", gp.tileSize, gp.tileSize);
+        }
 
     }
     public void getPlayerAttackImage() {

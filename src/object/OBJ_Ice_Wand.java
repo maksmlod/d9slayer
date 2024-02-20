@@ -24,7 +24,7 @@ public class OBJ_Ice_Wand extends Entity {
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
         projectile4 = new OBJ_Iceball(gp);
-        projectile4.set(worldX, worldY, direction, alive, user);
+        projectile4.set(worldX, worldY, direction, "",alive, user);
         gp.projectileList.add(projectile4);
 
         user.mana = user.mana - useCost;

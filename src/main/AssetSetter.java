@@ -13,10 +13,6 @@ public class AssetSetter {
     public void setObject() {
         int mapNum = 0;
         int i = 0;
-        gp.obj[mapNum][i] = new OBJ_Door(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize*20;
-        gp.obj[mapNum][i].worldY = gp.tileSize*21;
-        i++;
 
         gp.obj[mapNum][i] = new OBJ_Key(gp);
         gp.obj[mapNum][i].worldX = 23 * gp.tileSize;
@@ -26,21 +22,6 @@ public class AssetSetter {
         gp.obj[mapNum][i] = new OBJ_Key(gp);
         gp.obj[mapNum][i].worldX = 37 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 7 * gp.tileSize;
-        i++;
-
-        gp.obj[mapNum][i] = new OBJ_Door(gp);
-        gp.obj[mapNum][i].worldX = 10 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 11 * gp.tileSize;
-        i++;
-
-        gp.obj[mapNum][i] = new OBJ_Door(gp);
-        gp.obj[mapNum][i].worldX = 8 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 28 * gp.tileSize;
-        i++;
-
-        gp.obj[mapNum][i] = new OBJ_Door(gp);
-        gp.obj[mapNum][i].worldX = 12 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 22 * gp.tileSize;
         i++;
 
         gp.obj[mapNum][i] = new OBJ_Chest(gp);
@@ -80,6 +61,11 @@ public class AssetSetter {
 
         gp.obj[mapNum][i] = new OBJ_Ice_Wand(gp);
         gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 21 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Freezer(gp);
+        gp.obj[mapNum][i].worldX = 21 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 21 * gp.tileSize;
         i++;
     }

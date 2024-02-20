@@ -70,6 +70,9 @@ public class UI {
         if(gp.gameState == gp.titleState) {
             drawTitleScreen();
         }
+        if(gp.gameState == gp.skinsState) {
+            drawSkins();
+        }
         if(gp.gameState == gp.playState) {
             drawPlayerLife();
             drawMessage();
@@ -635,6 +638,77 @@ public class UI {
         if(commandNum == 2) {
             g2.drawString(">", x-gp.tileSize, y);
         }
+    }
+    public void drawSkins() {
+        g2.setColor(new Color(0,0,0));
+        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,35F));
+        g2.setColor(Color.WHITE);
+        String text = "Choose your skin";
+        int x = getXforCenteredText(text);
+        int y = (int)(gp.tileSize*1.5);
+        g2.drawString(text, x ,y);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,25F));
+        y+=gp.tileSize*2;
+        x = gp.tileSize *2;
+
+        //skins
+        BufferedImage skin;
+        Entity entity = new Entity(gp);
+        //ecco
+        g2.drawString("Ecco2k",x,y);
+        x += gp.tileSize*5;
+        y -= gp.tileSize+10;
+        skin = entity.setup("/player/ecco/ecco1_down_1",gp.tileSize*2,gp.tileSize*2);
+        g2.drawImage(skin, x,y,null);
+        y += gp.tileSize *4;
+        //thaiboy
+        x -= gp.tileSize*5;
+        g2.drawString("Thaiboy Digital",x,y);
+        x += gp.tileSize*5;
+        y -= gp.tileSize+10;
+        skin = entity.setup("/player/thaiboy/thaiboy1_down_1",gp.tileSize*2,gp.tileSize*2);
+        g2.drawImage(skin, x,y,null);
+        y += gp.tileSize *4;
+        //bladee
+        x -= gp.tileSize*5;
+        g2.drawString("Bladee",x,y);
+        x += gp.tileSize*5;
+        y -= gp.tileSize+10;
+        skin = entity.setup("/player/bladee/bladee1_down_1",gp.tileSize*2,gp.tileSize*2);
+        g2.drawImage(skin, x,y,null);
+        //cursor
+        x -= gp.tileSize*5;
+        y -= gp.tileSize*4 + 18;
+        if(commandNum == 0) {
+            g2.drawString(">",x-45,y);
+            if(gp.keyH.enterPressed == true) {
+                gp.player.getPlayerImage("ecco");
+                gp.gameState = gp.playState;
+                gp.playMusic(0);
+                gp.keyH.enterPressed = false;
+            }
+        }
+        if(commandNum == 1) {
+            g2.drawString(">",x-45,y + 3*gp.tileSize - 10);
+            if(gp.keyH.enterPressed == true) {
+                gp.player.getPlayerImage("thaiboy");
+                gp.gameState = gp.playState;
+                gp.playMusic(0);
+                gp.keyH.enterPressed = false;
+            }
+        }
+        if(commandNum == 2) {
+            g2.drawString(">",x-45,y + 6*gp.tileSize - 20);
+            if(gp.keyH.enterPressed == true) {
+                gp.player.getPlayerImage("bladee");
+                gp.gameState = gp.playState;
+                gp.playMusic(0);
+                gp.keyH.enterPressed = false;
+            }
+        }
+
     }
     public int getXforCenteredText(String text) {
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();

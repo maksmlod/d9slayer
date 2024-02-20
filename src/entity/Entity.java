@@ -24,6 +24,7 @@ public class Entity {
     //state
     public int worldX, worldY;
     public String direction = "down";
+    public String direction2 = "";
     public boolean collision = false;
     public boolean invincible = false;
     public int spriteNum = 1;
@@ -76,6 +77,8 @@ public class Entity {
     public Projectile projectile2;
     public Projectile projectile3;
     public Projectile projectile4;
+    public Projectile projectile5;
+    public Projectile projectile6;
     // item attributes
     public int value;
     public int attackValue;

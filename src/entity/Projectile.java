@@ -4,19 +4,23 @@ import main.GamePanel;
 
 public class Projectile extends Entity{
     Entity user;
+    int diagonalCounter;
     public Projectile(GamePanel gp) {
         super(gp);
     }
 
-    public void set(int worldX, int worldY, String direction, boolean alive, Entity user) {
+    public void set(int worldX, int worldY, String direction, String direction2, boolean alive, Entity user) {
         this.worldX = worldX;
         this.worldY = worldY;
         this.direction = direction;
+        this.direction2 = direction2;
         this.alive = alive;
         this.user = user;
         this.life = this.maxLife;
     }
     public void update() {
+        diagonalCounter ++;
+        if(diagonalCounter > 1) diagonalCounter = 0;
         if(user == gp.player) {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             if(monsterIndex != 999) {
@@ -33,12 +37,29 @@ public class Projectile extends Entity{
                 alive = false;
             }
         }
-
-        switch(direction) {
-            case "up": worldY -= speed; break;
-            case "down": worldY += speed; break;
-            case "left": worldX -= speed; break;
-            case "right": worldX += speed; break;
+        if(direction2.equals("")) {
+            switch (direction) {
+                case "up": worldY -= speed;break;
+                case "down": worldY += speed;break;
+                case "left": worldX -= speed;break;
+                case "right": worldX += speed;break;
+            }
+        }
+        else if(!direction2.equals("") && diagonalCounter == 1) {
+            switch (direction2) {
+                case "up": worldY -= speed;break;
+                case "down": worldY += speed;break;
+                case "left": worldX -= speed;break;
+                case "right": worldX += speed;break;
+            }
+        }
+        else if(!direction2.equals("") && diagonalCounter == 0) {
+            switch (direction) {
+                case "up": worldY -= speed*2;break;
+                case "down": worldY += speed*2;break;
+                case "left": worldX -= speed*2;break;
+                case "right": worldX += speed*2;break;
+            }
         }
 
         life--;
