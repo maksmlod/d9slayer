@@ -3,10 +3,7 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
-import object.OBJ_Fireball;
-import object.OBJ_Key;
-import object.OBJ_Shield_Wood;
-import object.OBJ_Sword_Normal;
+import object.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -38,6 +35,7 @@ public class Player extends Entity{
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 28;
+
         //attackArea.width = 36;
         //attackArea.height = 36;
 
@@ -237,32 +235,8 @@ public class Player extends Entity{
             else if(gp.keyH.leftArrowPressed == true) shotDirection = "left";
             else if(gp.keyH.upArrowPressed == true) shotDirection = "up";
             else shotDirection = "down";
-
-
-            projectile4 = new OBJ_Fireball(gp);
-            projectile4.set(worldX, worldY, shotDirection, true, this);
-            gp.projectileList.add(projectile4);
-            if(this.currentWeapon.weapon_id == 100) {
-                if(shotDirection == "left" || shotDirection == "right") {
-                    projectile2 = new OBJ_Fireball(gp);
-                    projectile2.set(worldX, worldY + 30, shotDirection, true, this);
-                    gp.projectileList.add(projectile2);
-                    projectile3 = new OBJ_Fireball(gp);
-                    projectile3.set(worldX, worldY - 30, shotDirection, true, this);
-                    gp.projectileList.add(projectile3);
-                }
-                else if(shotDirection == "up" || shotDirection == "down") {
-                    projectile2 = new OBJ_Fireball(gp);
-                    projectile2.set(worldX + 30, worldY, shotDirection, true, this);
-                    gp.projectileList.add(projectile2);
-                    projectile3 = new OBJ_Fireball(gp);
-                    projectile3.set(worldX - 30, worldY, shotDirection, true, this);
-                    gp.projectileList.add(projectile3);
-                }
-            }
-            projectile.substractResource(this);
+            this.currentWeapon.attack(worldX,worldY,shotDirection,true,this);
             shotAvailableCounter = 0;
-            gp.playSE(10);
         }
 
         if(invincible == true) {

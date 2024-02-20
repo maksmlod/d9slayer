@@ -6,15 +6,15 @@ import main.GamePanel;
 
 import java.awt.*;
 
-public class OBJ_Fireball extends Projectile {
+public class OBJ_Iceball extends Projectile {
     GamePanel gp;
-    public OBJ_Fireball(GamePanel gp) {
+    public OBJ_Iceball(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         name= "Fireball";
-        speed = 5;
-        maxLife = 80;
+        speed = 10;
+        maxLife = 120;
         life = maxLife;
         attack = 2;
         useCost = 1;
@@ -32,14 +32,14 @@ public class OBJ_Fireball extends Projectile {
         projectileTileArea.height = 4;
     }
     public void getImage() {
-        up1 = setup("/projectile/fireball_up_1",gp.tileSize,gp.tileSize);
-        up2 = setup("/projectile/fireball_up_2",gp.tileSize,gp.tileSize);
-        down1 = setup("/projectile/fireball_down_1",gp.tileSize,gp.tileSize);
-        down2 = setup("/projectile/fireball_down_2",gp.tileSize,gp.tileSize);
-        left1 = setup("/projectile/fireball_left_1",gp.tileSize,gp.tileSize);
-        left2 = setup("/projectile/fireball_left_2",gp.tileSize,gp.tileSize);
-        right1 = setup("/projectile/fireball_right_1",gp.tileSize,gp.tileSize);
-        right2 = setup("/projectile/fireball_right_2",gp.tileSize,gp.tileSize);
+        up1 = setup("/projectile/iceball_up_1",gp.tileSize,gp.tileSize);
+        up2 = setup("/projectile/iceball_up_1",gp.tileSize,gp.tileSize);
+        down1 = setup("/projectile/iceball_down_1",gp.tileSize,gp.tileSize);
+        down2 = setup("/projectile/iceball_down_1",gp.tileSize,gp.tileSize);
+        left1 = setup("/projectile/iceball_left_1",gp.tileSize,gp.tileSize);
+        left2 = setup("/projectile/iceball_left_1",gp.tileSize,gp.tileSize);
+        right1 = setup("/projectile/iceball_right_1",gp.tileSize,gp.tileSize);
+        right2 = setup("/projectile/iceball_right_1",gp.tileSize,gp.tileSize);
     }
 
     public void substractResource(Entity user) {

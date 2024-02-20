@@ -14,6 +14,7 @@ public class Entity {
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2,
             attackLeft1, attackLeft2, attackRight1, attackRight2;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    public Rectangle projectileTileArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
@@ -112,8 +113,7 @@ public class Entity {
 
     }
     public void use(Entity entity) {}
-    public void checkDrop() {
-    }
+    public void checkDrop() {}
     public void dropItem(Entity droppedItem) {
         for(int i = 0; i < gp.obj[1].length; i++) {
             if(gp.obj[gp.currentMap][i] == null) {
@@ -212,8 +212,6 @@ public class Entity {
         if(shotAvailableCounter < 30) {
             shotAvailableCounter++;
         }
-
-
     }
     public void damagePlayer(int attack) {
         if(gp.player.invincible == false) {
@@ -318,10 +316,6 @@ public class Entity {
         }
         return image;
 
-    }
-    public boolean haveResource(Entity user) {
-        boolean haveResource = false;
-        return haveResource;
     }
     public void substractResource(Entity user) {}
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {}

@@ -77,6 +77,11 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 20 * gp.tileSize;
         i++;
+
+        gp.obj[mapNum][i] = new OBJ_Ice_Wand(gp);
+        gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 21 * gp.tileSize;
+        i++;
     }
 
     public void setNPC() {
@@ -87,10 +92,6 @@ public class AssetSetter {
         gp.npc[mapNum][i].worldY = gp.tileSize*21;
         i++;
 
-        gp.npc[mapNum][i] = new NPC_OldMan(gp);
-        gp.npc[mapNum][i].worldX = gp.tileSize*25;
-        gp.npc[mapNum][i].worldY = gp.tileSize*21;
-        i++;
     }
 
     public void setMonster() {

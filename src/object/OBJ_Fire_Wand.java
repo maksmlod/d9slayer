@@ -20,9 +20,28 @@ public class OBJ_Fire_Wand extends Entity {
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        projectile2 = new OBJ_Fireball(gp);
-        projectile2.set(worldX, worldY, direction, true, this);
-        gp.projectileList.add(projectile2);
-        projectile2.substractResource(gp.player);
+        projectile4 = new OBJ_Fireball(gp);
+        projectile4.set(worldX, worldY, direction, alive, user);
+        gp.projectileList.add(projectile4);
+
+        if(direction == "left" || direction == "right") {
+            projectile2 = new OBJ_Fireball(gp);
+            projectile2.set(worldX, worldY + 30, direction, alive, user);
+            gp.projectileList.add(projectile2);
+            projectile3 = new OBJ_Fireball(gp);
+            projectile3.set(worldX, worldY - 30, direction, alive, user);
+            gp.projectileList.add(projectile3);
+        }
+        else if(direction == "up" || direction == "down") {
+            projectile2 = new OBJ_Fireball(gp);
+            projectile2.set(worldX + 30, worldY, direction, alive, user);
+            gp.projectileList.add(projectile2);
+            projectile3 = new OBJ_Fireball(gp);
+            projectile3.set(worldX - 30, worldY, direction, alive, user);
+            gp.projectileList.add(projectile3);
+        }
+
+        projectile4.substractResource(user);
+        gp.playSE(10);
     }
 }

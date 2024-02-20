@@ -26,9 +26,9 @@ public class MON_GreenSlime extends Entity {
         projectile = new OBJ_Rock(gp);
 
         solidArea.x = 3;
-        solidArea.y = 18;
+        solidArea.y = 12;
         solidArea.width = 42;
-        solidArea.height = 30;
+        solidArea.height = 36;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 

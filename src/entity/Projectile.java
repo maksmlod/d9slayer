@@ -56,5 +56,20 @@ public class Projectile extends Entity{
             }
             spriteCounter = 0;
         }
+        int tempX = this.solidArea.x;
+        int tempY = this.solidArea.y;
+        int tempWidth = this.solidArea.width;
+        int tempHeight = this.solidArea.height;
+        this.solidArea.x = this.projectileTileArea.x;
+        this.solidArea.y = this.projectileTileArea.y;
+        this.solidArea.width = this.projectileTileArea.width;
+        this.solidArea.height = this.projectileTileArea.height;
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+        if(collisionOn == true) life = 0;
+        this.solidArea.x = tempX;
+        this.solidArea.y = tempY;
+        this.solidArea.width = tempWidth;
+        this.solidArea.height = tempHeight;
     }
 }
