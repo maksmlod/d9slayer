@@ -17,6 +17,7 @@ public class OBJ_Ice_Wand extends Entity {
         attackArea.width = 0;
         attackArea.height = 0;
         description = "Ice Wand\n\nFast Ice Projectile";
+        projectile = new OBJ_Iceball(gp);
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
@@ -25,6 +26,6 @@ public class OBJ_Ice_Wand extends Entity {
         gp.projectileList.add(projectile4);
 
         projectile4.substractResource(user);
-        gp.playSE(10);
+        gp.playSE(14);
     }
 }

@@ -46,11 +46,11 @@ public class OBJ_Iceball extends Projectile {
         user.mana -= useCost;
     }
     public Color getParticleColor() {
-        Color color = new Color(240,50,3);
+        Color color = new Color(173,216,230);
         return color;
     }
     public int getParticleSize() {
-        int size = 10; // 6 pixels
+        int size = 18;
         return size;
     }
     public int getParticleSpeed() {
