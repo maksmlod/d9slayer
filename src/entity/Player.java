@@ -227,7 +227,7 @@ public class Player extends Entity{
             }
         }
 
-        if(shotAvailableCounter == this.currentWeapon.castSpeed && projectile.useCost <= this.mana &&
+        if(shotAvailableCounter == this.currentWeapon.castSpeed && this.currentWeapon.useCost <= this.mana &&
                 (gp.keyH.rightArrowPressed == true || gp.keyH.leftArrowPressed == true ||
                         gp.keyH.upArrowPressed == true || gp.keyH.downArrowPressed == true)) {
             String shotDirection;
@@ -254,6 +254,7 @@ public class Player extends Entity{
         }
         if(life > maxLife) life = maxLife;
         if(mana > maxMana) mana = maxMana;
+        else if(mana < 0) mana = 0;
 
         if(life <= 0) {
             gp.gameState = gp.gameOverState;
