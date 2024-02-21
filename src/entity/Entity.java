@@ -82,6 +82,15 @@ public class Entity {
     public Projectile projectile4;
     public Projectile projectile5;
     public Projectile projectile6;
+    public Projectile projectile7;
+    public Projectile projectile8;
+    public Projectile projectile9;
+    public Projectile projectile10;
+    public Projectile projectile11;
+    public Projectile projectile12;
+    public Projectile projectile13;
+    public Projectile projectile14;
+    public Projectile projectile15;
     // item attributes
     public int value;
     public int attackValue;
@@ -327,5 +336,7 @@ public class Entity {
     public void substractResource(Entity user) {}
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {}
     public void set(int worldX, int worldY, String direction, boolean alive, Entity user) {}
+    public void effect(Entity user) {}
+    public void revertEffect(Entity user) {}
 
 }

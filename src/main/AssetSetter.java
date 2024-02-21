@@ -3,6 +3,7 @@ package main;
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
 import object.*;
+import object.weapon.*;
 import tile_interactive.IT_DryTree;
 
 public class AssetSetter {
@@ -67,6 +68,21 @@ public class AssetSetter {
         gp.obj[mapNum][i] = new OBJ_Freezer(gp);
         gp.obj[mapNum][i].worldX = 21 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 21 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Heaven_Reaper(gp);
+        gp.obj[mapNum][i].worldX = 21 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Burgeon(gp);
+        gp.obj[mapNum][i].worldX = 20 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Hellfire(gp);
+        gp.obj[mapNum][i].worldX = 19 * gp.tileSize;
+        gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
         i++;
     }
 

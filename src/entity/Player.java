@@ -4,11 +4,11 @@ import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
 import object.*;
+import object.projectile.OBJ_Fireball;
+import object.weapon.OBJ_Sword_Normal;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player extends Entity{
@@ -451,7 +451,9 @@ public class Player extends Entity{
                 getPlayerAttackImage();
             }
             if(selectedItem.type == type_shield) {
+                currentShield.revertEffect(this);
                 currentShield = selectedItem;
+                currentShield.effect(this);
                 defense = getDefense();
             }
             if(selectedItem.type == type_consumable) {

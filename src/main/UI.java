@@ -159,7 +159,7 @@ public class UI {
 
                 int counter = messageCounter.get(i) + 1;
                 messageCounter.set(i, counter);
-                messageY += 50;
+                messageY += 25;
 
                 if(messageCounter.get(i) > 180) {
                     message.remove(i);
@@ -198,16 +198,16 @@ public class UI {
     public void drawCharacterScreen() {
         //create a frame
         final int frameX = gp.tileSize*2;
-        final int frameY = gp.tileSize;
+        final int frameY = gp.tileSize - 24;
         final int frameWidth = gp.tileSize*5;
-        final int frameHeight = gp.tileSize*11;
+        final int frameHeight = gp.tileSize*10;
         drawSubWindow(frameX,frameY,frameWidth,frameHeight);
 
         //text
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(20F));
         int textX = frameX + 20;
-        int textY = frameY + gp.tileSize;
+        int textY = frameY + gp.tileSize - 12;
         final int lineHeight = 34;
 
         // names
@@ -238,7 +238,7 @@ public class UI {
 
         //values
         int tailX = (frameX + frameWidth) - 30;
-        textY = frameY + gp.tileSize;
+        textY = frameY + gp.tileSize - 12;
         String value;
         value = String.valueOf(gp.player.level);
         textX = getXforAlignToRightText(value, tailX);
@@ -337,7 +337,7 @@ public class UI {
     }
     public void drawInventory() {
         int frameX = gp.tileSize*12;
-        int frameY = gp.tileSize;
+        int frameY = gp.tileSize - 24;
         int frameWidth = gp.tileSize*6;
         int frameHeight = gp.tileSize*5;
         drawSubWindow(frameX,frameY,frameWidth,frameHeight);
@@ -375,7 +375,7 @@ public class UI {
         int dFrameX = frameX;
         int dFrameY = frameY + frameHeight;
         int dFrameWidth = frameWidth;
-        int dFrameHeight = gp.tileSize*4;
+        int dFrameHeight = gp.tileSize*5;
 
 
         int textX = dFrameX + 20;

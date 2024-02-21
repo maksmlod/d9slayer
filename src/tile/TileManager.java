@@ -20,7 +20,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[100];
         mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap("/maps/world01.txt",0);
@@ -34,6 +34,8 @@ public class TileManager {
             setup(3, "earth", false);
             setup(4, "tree", true);
             setup(5, "sand", false);
+            setup(51, "/drain_albums/spiderr", false);
+            setup(52, "/drain_albums/crest", false);
 
 
     }

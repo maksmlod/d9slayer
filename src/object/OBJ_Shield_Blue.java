@@ -11,6 +11,12 @@ public class OBJ_Shield_Blue extends Entity {
         name = "Blue Shield";
         down1 = setup("/objects/shield_blue", gp.tileSize, gp.tileSize);
         defenseValue = 2;
-        description = "niebieska tarcza";
+        description = "Blue Shield\n\nIncrease max mana\nby 2";
+    }
+    public void effect(Entity user) {
+        user.maxMana += 2;
+    }
+    public void revertEffect(Entity user) {
+        user.maxMana -= 2;
     }
 }
