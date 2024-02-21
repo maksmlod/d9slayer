@@ -669,6 +669,13 @@ public class UI {
         y -= gp.tileSize+10;
         skin = entity.setup("/player/ecco/ecco1_down_1",gp.tileSize*2,gp.tileSize*2);
         g2.drawImage(skin, x,y,null);
+
+        y += gp.tileSize+10;
+        x+= gp.tileSize*3;
+        g2.drawString("\"World Tour\" variant",x,y);
+        x-= gp.tileSize*3;
+        y -= gp.tileSize+10;
+
         y += gp.tileSize *4;
         //thaiboy
         x -= gp.tileSize*5;
@@ -677,6 +684,13 @@ public class UI {
         y -= gp.tileSize+10;
         skin = entity.setup("/player/thaiboy/thaiboy1_down_1",gp.tileSize*2,gp.tileSize*2);
         g2.drawImage(skin, x,y,null);
+
+        y += gp.tileSize+10;
+        x+= gp.tileSize*3;
+        g2.drawString("\"Odwolane\" variant",x,y);
+        x-= gp.tileSize*3;
+        y -= gp.tileSize+10;
+
         y += gp.tileSize *4;
         //bladee
         x -= gp.tileSize*5;
@@ -685,6 +699,13 @@ public class UI {
         y -= gp.tileSize+10;
         skin = entity.setup("/player/bladee/bladee1_down_1",gp.tileSize*2,gp.tileSize*2);
         g2.drawImage(skin, x,y,null);
+
+        y += gp.tileSize+10;
+        x+= gp.tileSize*3;
+        g2.drawString("\"Into Dust\" variant",x,y);
+        x-= gp.tileSize*3;
+        y -= gp.tileSize+10;
+
         //cursor
         x -= gp.tileSize*5;
         y -= gp.tileSize*4 + 18;

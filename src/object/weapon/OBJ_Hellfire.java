@@ -22,6 +22,7 @@ public class OBJ_Hellfire extends Entity {
         castSpeed = 30;
         useCost = 2;
         canMeleeAttack = false;
+        haveProjectile = true;
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
@@ -84,6 +85,30 @@ public class OBJ_Hellfire extends Entity {
         projectile13.maxLife = 160;
         projectile13.set(worldX, worldY, "right","down", alive, user);
         gp.projectileList.add(projectile13);
+
+        projectile14 = new OBJ_Fireball(gp);
+        projectile14.maxLife = 320;
+        projectile14.speed = 20;
+        projectile14.set(worldX, worldY, "right","round", alive, user);
+        gp.projectileList.add(projectile14);
+
+        projectile15 = new OBJ_Fireball(gp);
+        projectile15.maxLife = 320;
+        projectile15.speed = 20;
+        projectile15.set(worldX, worldY, "down","round", alive, user);
+        gp.projectileList.add(projectile15);
+
+        projectile16 = new OBJ_Fireball(gp);
+        projectile16.maxLife = 320;
+        projectile16.speed = 20;
+        projectile16.set(worldX, worldY, "left","round", alive, user);
+        gp.projectileList.add(projectile16);
+
+        projectile17 = new OBJ_Fireball(gp);
+        projectile17.maxLife = 320;
+        projectile17.speed = 20;
+        projectile17.set(worldX, worldY, "up","round", alive, user);
+        gp.projectileList.add(projectile17);
 
 
         user.mana = user.mana - useCost;

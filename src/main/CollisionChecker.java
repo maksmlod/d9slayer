@@ -104,24 +104,25 @@ public class CollisionChecker {
 
         for (int i = 0; i < target[1].length; i++) {
             if (target[gp.currentMap][i] != null) {
+
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
                 target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].worldX + target[gp.currentMap][i].solidArea.x;
                 target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].worldY + target[gp.currentMap][i].solidArea.y;
-
+//////////////////////idk why *2
                 switch (entity.direction) {
                     case "up":
                         entity.solidArea.y -= entity.speed;
                         break;
                     case "down":
-                        entity.solidArea.y += entity.speed;
+                        entity.solidArea.y += entity.speed*2;
                         break;
                     case "left":
                         entity.solidArea.x -= entity.speed;
                         break;
                     case "right":
-                        entity.solidArea.x += entity.speed;
+                        entity.solidArea.x += entity.speed*2;
                         break;
 
                 }

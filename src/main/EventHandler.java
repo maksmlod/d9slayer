@@ -62,6 +62,10 @@ public class EventHandler {
             else if(hit(1,35,39,"any") == true) {
                 teleport(0,24,24);
             }
+            else if(hit(0,31,19,"any") == true) {
+                gp.aSetter.setMonster();
+                canTouchEvent = false;
+            }
         }
 
     }

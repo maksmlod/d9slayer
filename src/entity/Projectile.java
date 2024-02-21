@@ -5,6 +5,11 @@ import main.GamePanel;
 public class Projectile extends Entity{
     Entity user;
     int diagonalCounter;
+    int roundCounter = 0;
+    int roundCounterMax = 1;
+    int roundLengthCounter = 0;
+    String[] directionArray = {"up","right","down","left"};
+    int directionArrayIndex = 0;
     public Projectile(GamePanel gp) {
         super(gp);
     }
@@ -19,6 +24,30 @@ public class Projectile extends Entity{
         this.life = this.maxLife;
     }
     public void update() {
+        //collision
+        int tempX = this.solidArea.x;
+        int tempY = this.solidArea.y;
+        int tempWidth = this.solidArea.width;
+        int tempHeight = this.solidArea.height;
+        this.solidArea.x = this.projectileTileArea.x;
+        this.solidArea.y = this.projectileTileArea.y;
+        this.solidArea.width = this.projectileTileArea.width;
+        this.solidArea.height = this.projectileTileArea.height;
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+
+        this.solidArea.x = tempX;
+        this.solidArea.y = tempY;
+        this.solidArea.width = tempWidth;
+        this.solidArea.height = tempHeight;
+        gp.cChecker.checkEntity(this, gp.iTile);
+        gp.cChecker.checkEntity(this,gp.npc);
+
+        if(collisionOn == true) {
+            life = 0;
+        }
+
+
         diagonalCounter ++;
         if(diagonalCounter > 1) diagonalCounter = 0;
         if(user == gp.player) {
@@ -37,7 +66,28 @@ public class Projectile extends Entity{
                 alive = false;
             }
         }
-        if(direction2.equals("")) {
+
+        if(direction2.equals("round")) {
+            switch (direction) {
+                case "up": worldY -= speed; directionArrayIndex = 0; break;
+                case "down": worldY += speed; directionArrayIndex = 2; break;
+                case "left": worldX -= speed; directionArrayIndex = 3; break;
+                case "right": worldX += speed; directionArrayIndex = 1; break;
+            }
+            roundCounter ++;
+            roundLengthCounter++;
+            if(roundCounter == roundCounterMax) {
+                directionArrayIndex ++;
+                if(directionArrayIndex == 4) directionArrayIndex = 0;
+                direction = directionArray[directionArrayIndex];
+                roundCounter = 0;
+            }
+            if(roundLengthCounter == 2 * roundCounterMax) {
+                roundCounterMax ++;
+                roundLengthCounter = 0;
+            }
+        }
+        else if(direction2.equals("")) {
             switch (direction) {
                 case "up": worldY -= speed;break;
                 case "down": worldY += speed;break;
@@ -77,20 +127,6 @@ public class Projectile extends Entity{
             }
             spriteCounter = 0;
         }
-        int tempX = this.solidArea.x;
-        int tempY = this.solidArea.y;
-        int tempWidth = this.solidArea.width;
-        int tempHeight = this.solidArea.height;
-        this.solidArea.x = this.projectileTileArea.x;
-        this.solidArea.y = this.projectileTileArea.y;
-        this.solidArea.width = this.projectileTileArea.width;
-        this.solidArea.height = this.projectileTileArea.height;
-        collisionOn = false;
-        gp.cChecker.checkTile(this);
-        if(collisionOn == true) life = 0;
-        this.solidArea.x = tempX;
-        this.solidArea.y = tempY;
-        this.solidArea.width = tempWidth;
-        this.solidArea.height = tempHeight;
+
     }
 }

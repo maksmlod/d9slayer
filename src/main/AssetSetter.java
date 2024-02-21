@@ -5,6 +5,7 @@ import monster.MON_GreenSlime;
 import object.*;
 import object.weapon.*;
 import tile_interactive.IT_DryTree;
+import tile_interactive.IT_Reset;
 
 public class AssetSetter {
     GamePanel gp;
@@ -14,7 +15,7 @@ public class AssetSetter {
     public void setObject() {
         int mapNum = 0;
         int i = 0;
-
+/*
         gp.obj[mapNum][i] = new OBJ_Key(gp);
         gp.obj[mapNum][i].worldX = 23 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 40 * gp.tileSize;
@@ -34,6 +35,8 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = 37 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 42 * gp.tileSize;
         i++;
+
+ */
 
         gp.obj[mapNum][i] = new OBJ_Axe(gp);
         gp.obj[mapNum][i].worldX = 23 * gp.tileSize;
@@ -87,12 +90,19 @@ public class AssetSetter {
     }
 
     public void setNPC() {
+
         int mapNum = 0;
         int i = 0;
         gp.npc[mapNum][i] = new NPC_OldMan(gp);
-        gp.npc[mapNum][i].worldX = gp.tileSize*21;
-        gp.npc[mapNum][i].worldY = gp.tileSize*21;
+        gp.npc[mapNum][i].worldX = gp.tileSize*27;
+        gp.npc[mapNum][i].worldY = gp.tileSize*17;
         i++;
+
+        gp.npc[mapNum][i] = new NPC_OldMan(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*25;
+        gp.npc[mapNum][i].worldY = gp.tileSize*22;
+        i++;
+
 
     }
 
@@ -100,26 +110,33 @@ public class AssetSetter {
         int mapNum = 0;
         int i = 0;
         gp.monster[mapNum][i] = new MON_GreenSlime(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize*23;
-        gp.monster[mapNum][i].worldY = gp.tileSize*36;
+        gp.monster[mapNum][i].worldX = gp.tileSize*38;
+        gp.monster[mapNum][i].worldY = gp.tileSize*20;
         i++;
 
         gp.monster[mapNum][i] = new MON_GreenSlime(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize*25;
-        gp.monster[mapNum][i].worldY = gp.tileSize*36;
+        gp.monster[mapNum][i].worldX = gp.tileSize*38;
+        gp.monster[mapNum][i].worldY = gp.tileSize*22;
         i++;
 
         gp.monster[mapNum][i] = new MON_GreenSlime(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize*25;
-        gp.monster[mapNum][i].worldY = gp.tileSize*37;
+        gp.monster[mapNum][i].worldX = gp.tileSize*38;
+        gp.monster[mapNum][i].worldY = gp.tileSize*24;
         i++;
     }
 
+
     public void setInteractiveTile() {
+
         int mapNum = 0;
         int i = 0;
-        gp.iTile[mapNum][i] = new IT_DryTree(gp,23,32);
+        gp.iTile[mapNum][i] = new IT_DryTree(gp,32,22);
         i++;
+        gp.iTile[mapNum][i] = new IT_DryTree(gp,32,21);
+        i++;
+        gp.iTile[mapNum][i] = new IT_Reset(gp,31,19);
+        i++;
+
     }
 
 }

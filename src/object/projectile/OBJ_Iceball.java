@@ -20,10 +20,10 @@ public class OBJ_Iceball extends Projectile {
         alive = false;
         getImage();
 
-        solidArea.x = 6;
-        solidArea.y = 6;
-        solidArea.width = 18;
-        solidArea.height = 18;
+        solidArea.x = 10;
+        solidArea.y = 10;
+        solidArea.width = 28;
+        solidArea.height = 28;
 
         projectileTileArea.x = 22;
         projectileTileArea.y = 22;

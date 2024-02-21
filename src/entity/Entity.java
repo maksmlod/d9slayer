@@ -60,11 +60,13 @@ public class Entity {
     public final int type_wand = 8;
     public int weapon_id;
     public boolean canMeleeAttack = false;
+    public boolean haveProjectile = false;
 
     public int maxLife;
     public int life;
     public int maxMana;
     public int mana;
+    public int manaRecoverySpeed = 180;
     public int ammo;
     public int level;
     public int strength;
@@ -91,6 +93,10 @@ public class Entity {
     public Projectile projectile13;
     public Projectile projectile14;
     public Projectile projectile15;
+    public Projectile projectile16;
+    public Projectile projectile17;
+    public Projectile projectile18;
+    public Projectile projectile19;
     // item attributes
     public int value;
     public int attackValue;
@@ -183,6 +189,7 @@ public class Entity {
         gp.cChecker.checkObject(this, false);
         gp.cChecker.checkEntity(this, gp.npc);
         gp.cChecker.checkEntity(this, gp.monster);
+        gp.cChecker.checkEntity(this, gp.iTile);
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
         if(this.type == type_monster && contactPlayer == true) {

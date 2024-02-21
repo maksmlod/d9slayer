@@ -115,8 +115,13 @@ public class KeyHandler implements KeyListener {
 
         //debug
         if(code == KeyEvent.VK_T) {
-            if(showDebugText == false) showDebugText = true;
-            else if(showDebugText = true) showDebugText = false;
+            if(showDebugText == false) {
+                showDebugText = true;
+                gp.player.getPlayerImage("debug");
+            }
+            else if(showDebugText = true) {
+                showDebugText = false;
+            }
         }
         if(code == KeyEvent.VK_R) {
             switch(gp.currentMap) {

@@ -134,6 +134,16 @@ public class Player extends Entity{
             right1 = setup("/player/bladee/bladee1_right_1", gp.tileSize, gp.tileSize);
             right2 = setup("/player/bladee/bladee1_right_2", gp.tileSize, gp.tileSize);
         }
+        else if(skinName == "debug") {
+            up1 = setup("/player/debug/debug_skin", gp.tileSize, gp.tileSize);
+            up2 = setup("/player/debug/debug_skin", gp.tileSize, gp.tileSize);
+            down1 = setup("/player/debug/debug_skin", gp.tileSize, gp.tileSize);
+            down2 = setup("/player/debug/debug_skin", gp.tileSize, gp.tileSize);
+            left1 = setup("/player/debug/debug_skin", gp.tileSize, gp.tileSize);
+            left2 = setup("/player/debug/debug_skin", gp.tileSize, gp.tileSize);
+            right1 = setup("/player/debug/debug_skin", gp.tileSize, gp.tileSize);
+            right2 = setup("/player/debug/debug_skin", gp.tileSize, gp.tileSize);
+        }
 
     }
     public void getPlayerAttackImage() {
@@ -159,7 +169,7 @@ public class Player extends Entity{
         }
     }
     public void update() {
-        if(manaCounter > 180) {
+        if(manaCounter > manaRecoverySpeed) {
             this.mana = this.mana + 2;
             manaCounter = 0;
         }
@@ -258,6 +268,20 @@ public class Player extends Entity{
                 this.currentWeapon.attack(worldX,worldY,shotDirection,true,this);
                 shotAvailableCounter = 0;
             }
+            //melee weapon with projectile
+            else if((gp.keyH.rightArrowPressed == true || gp.keyH.leftArrowPressed == true ||
+                    gp.keyH.upArrowPressed == true || gp.keyH.downArrowPressed == true) &&
+                    currentWeapon.canMeleeAttack == true && currentWeapon.haveProjectile == true)  {
+                attackImageCounter = 0;
+                String shotDirection;
+                if(gp.keyH.rightArrowPressed == true) shotDirection = "right";
+                else if(gp.keyH.leftArrowPressed == true) shotDirection = "left";
+                else if(gp.keyH.upArrowPressed == true) shotDirection = "up";
+                else shotDirection = "down";
+                this.currentWeapon.attack(worldX,worldY,shotDirection,true,this);
+                shotAvailableCounter = 0;
+            }
+
             attackCanceled = false;
             spriteCounter++;
             if(spriteCounter > 12) {
