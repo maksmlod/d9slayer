@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import object.OBJ_Coin;
 import object.OBJ_Heart;
 import object.OBJ_Key;
 import object.OBJ_ManaCrystal;
@@ -18,7 +19,7 @@ public class UI {
     Graphics2D g2;
     Font maruMonica, purisaB;
 
-    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_half, crystal_blank;
+    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_half, crystal_blank, coin;
     public boolean messageOn = false;
     public boolean gameFinished = false;
     ArrayList<String> message = new ArrayList<>();
@@ -55,6 +56,8 @@ public class UI {
         crystal_full = crystal.image;
         crystal_half = crystal.image2;
         crystal_blank = crystal.image3;
+        Entity coinEntity = new OBJ_Coin(gp);
+        coin = coinEntity.image;
     }
     public void addMessage(String text) {
         message.add(text);
@@ -144,6 +147,47 @@ public class UI {
             i++;
             x += 35;
         }
+
+        //coin
+        x = gp.screenWidth - 2*gp.tileSize;
+        y = gp.tileSize/2;
+        g2.drawImage(coin, x, y, null);
+
+        y += gp.tileSize/2 + 12;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+        g2.setColor(Color.black);
+        String value = String.valueOf(gp.player.coin);
+        x -= value.length() * 15;
+        g2.drawString(value,x+2,y+2);
+        g2.setColor(Color.white);
+        g2.drawString(value,x,y);
+
+        //exp
+        x = gp.screenWidth/2 - 2*gp.tileSize;
+        y = gp.screenHeight - 2*gp.tileSize + gp.tileSize/3;
+        int width = gp.tileSize*4;
+        int height = 15;
+        int width2 = (int)(gp.tileSize*4*((double)gp.player.exp / (double)gp.player.nextLevelExp));
+        if(width2 > width) width2 = width;
+        g2.setColor(Color.green);
+        g2.fillRoundRect(x,y,width2,height,10,10);
+
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRect(x,y,width,height);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 12F));
+        value = "Exp: " + gp.player.exp + "/" + gp.player.nextLevelExp;
+        x = getXforCenteredText(value);
+        y += 12;
+        g2.drawString(value,x,y);
+
+        //level
+        y += 25;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 16F));
+        value = "Level: " + gp.player.level;
+        x = getXforCenteredText(value);
+        g2.drawString(value,x,y);
     }
     public void drawMessage() {
         int messageX = gp.tileSize;

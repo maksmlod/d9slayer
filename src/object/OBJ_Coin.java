@@ -13,6 +13,7 @@ public class OBJ_Coin extends Entity {
         name = "Bronze Coin";
         value = 1;
         down1 = setup("/objects/coin_bronze",gp.tileSize,gp.tileSize);
+        image = setup("/objects/coin_bronze",gp.tileSize,gp.tileSize);
     }
     public void use(Entity entity) {
         gp.playSE(1);

@@ -1,4 +1,4 @@
-package object;
+package object.projectile;
 
 import entity.Entity;
 import entity.Projectile;
@@ -14,7 +14,7 @@ public class OBJ_Rock extends Projectile {
 
         name= "Rock";
         speed = 8;
-        maxLife = 80;
+        maxLife = 120;
         life = maxLife;
         attack = 2;
         useCost = 1;

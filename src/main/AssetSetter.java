@@ -2,6 +2,8 @@ package main;
 
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
+import monster.MON_GreySlime;
+import monster.MON_WhiteSlime;
 import object.*;
 import object.weapon.*;
 import tile_interactive.IT_DryTree;
@@ -93,6 +95,7 @@ public class AssetSetter {
 
         int mapNum = 0;
         int i = 0;
+        /*
         gp.npc[mapNum][i] = new NPC_OldMan(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize*27;
         gp.npc[mapNum][i].worldY = gp.tileSize*17;
@@ -103,6 +106,8 @@ public class AssetSetter {
         gp.npc[mapNum][i].worldY = gp.tileSize*22;
         i++;
 
+
+ */
 
     }
 
@@ -122,6 +127,16 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new MON_GreenSlime(gp);
         gp.monster[mapNum][i].worldX = gp.tileSize*38;
         gp.monster[mapNum][i].worldY = gp.tileSize*24;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_GreySlime(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize*40;
+        gp.monster[mapNum][i].worldY = gp.tileSize*24;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_WhiteSlime(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize*39;
+        gp.monster[mapNum][i].worldY = gp.tileSize*33;
         i++;
     }
 

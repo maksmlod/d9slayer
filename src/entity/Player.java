@@ -59,9 +59,9 @@ public class Player extends Entity{
         ammo = 10;
         strength = 1; // more strength = more dmg deals
         dexterity = 1; // more dex = less dmg receives
-        exp = 0;
+        exp = 2;
         nextLevelExp = 5;
-        coin = 0;
+        coin = 9;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack();
@@ -462,7 +462,7 @@ public class Player extends Entity{
 
             gp.playSE(8);
             gp.gameState = gp.dialogueState;
-            gp.ui.currentDialogue = "You are level " + level + " now!\n" + "You feel stronger!";
+            gp.ui.currentDialogue = "You are level " + level + " now!\n";
         }
     }
     public void selectItem() {
