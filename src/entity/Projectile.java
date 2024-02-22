@@ -65,7 +65,9 @@ public class Projectile extends Entity{
             if(gp.player.invincible == false && contactPlayer == true) {
                 damagePlayer(attack);
                 generateParticle(user.projectile, gp.player);
-                generateDamageParticle(user.projectile, gp.player, user.projectile.attack);
+                int value = user.projectile.attack - gp.player.defense;
+                if(value < 0) value = 0;
+                generateDamageParticle(user.projectile, gp.player, value);
                 alive = false;
             }
         }

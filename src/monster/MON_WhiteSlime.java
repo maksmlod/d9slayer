@@ -67,7 +67,7 @@ public class MON_WhiteSlime extends Entity {
             actionLockCounter = 0;
         }
         int i = new Random().nextInt(100) + 1;
-        if(i > 85 && projectile.alive == false && shotAvailableCounter == 30) {
+        if(i > 80 && projectile.alive == false && shotAvailableCounter == 30) {
             if(direction == "left" || direction == "right") {
                 projectile.set(worldX, worldY, direction, "", true, this);
                 gp.projectileList.add(projectile);

@@ -43,6 +43,9 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.skinsState) {
             skinsState(code);
         }
+        else if(gp.gameState == gp.inventoryState) {
+            inventoryState(code);
+        }
     }
     public void titleState(int code) {
         if(code == KeyEvent.VK_W) {
@@ -112,6 +115,9 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_DOWN) {
             downArrowPressed = true;
         }
+        if(code == KeyEvent.VK_E) {
+            gp.gameState = gp.inventoryState;
+        }
 
         //debug
         if(code == KeyEvent.VK_T) {
@@ -143,33 +149,6 @@ public class KeyHandler implements KeyListener {
     public void characterState(int code) {
         if(code == KeyEvent.VK_C) {
             gp.gameState = gp.playState;
-        }
-        if(code == KeyEvent.VK_W) {
-            if(gp.ui.slotRow != 0) {
-                gp.ui.slotRow--;
-                gp.playSE(9);
-            }
-        }
-        if(code == KeyEvent.VK_A) {
-            if(gp.ui.slotCol != 0) {
-                gp.ui.slotCol--;
-                gp.playSE(9);
-            }
-        }
-        if(code == KeyEvent.VK_S) {
-            if(gp.ui.slotRow != 3) {
-                gp.ui.slotRow++;
-                gp.playSE(9);
-            }
-        }
-        if(code == KeyEvent.VK_D) {
-            if(gp.ui.slotCol != 4) {
-                gp.ui.slotCol++;
-                gp.playSE(9);
-            }
-        }
-        if(code == KeyEvent.VK_ENTER) {
-            gp.player.selectItem();
         }
     }
     public void optionsState(int code) {
@@ -278,6 +257,38 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_ENTER) {
             enterPressed = true;
+        }
+    }
+    public void inventoryState(int code) {
+        if(code == KeyEvent.VK_E) {
+            gp.gameState = gp.playState;
+        }
+        if(code == KeyEvent.VK_W) {
+            if(gp.ui.slotRow != 0) {
+                gp.ui.slotRow--;
+                gp.playSE(9);
+            }
+        }
+        if(code == KeyEvent.VK_A) {
+            if(gp.ui.slotCol != 0) {
+                gp.ui.slotCol--;
+                gp.playSE(9);
+            }
+        }
+        if(code == KeyEvent.VK_S) {
+            if(gp.ui.slotRow != 3) {
+                gp.ui.slotRow++;
+                gp.playSE(9);
+            }
+        }
+        if(code == KeyEvent.VK_D) {
+            if(gp.ui.slotCol != 4) {
+                gp.ui.slotCol++;
+                gp.playSE(9);
+            }
+        }
+        if(code == KeyEvent.VK_ENTER) {
+            gp.player.selectItem();
         }
     }
     @Override

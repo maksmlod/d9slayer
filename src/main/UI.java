@@ -90,7 +90,6 @@ public class UI {
         }
         if(gp.gameState == gp.characterState) {
             drawCharacterScreen();
-            drawInventory();
         }
         if(gp.gameState == gp.optionsState) {
             drawOptionsScreen();
@@ -100,6 +99,9 @@ public class UI {
         }
         if(gp.gameState == gp.transitionState) {
             drawTransition();
+        }
+        if(gp.gameState == gp.inventoryState) {
+            drawInventory();
         }
     }
     public void drawPlayerLife() {
@@ -187,7 +189,23 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 16F));
         value = "Level: " + gp.player.level;
         x = getXforCenteredText(value);
-        g2.drawString(value,x,y);
+        g2.setColor(Color.black);
+        g2.drawString(value,x + 2,y + 2);
+        g2.setColor(Color.white);
+        g2.drawString(value, x, y);
+
+        //map info
+        x = gp.tileSize;
+        y = gp.screenHeight - gp.tileSize;
+        String mapValue = null;
+        if(gp.currentMap == 0) mapValue = "Lobby";
+        if(gp.currentMap == 1) mapValue = "Spiderr";
+        if(gp.currentMap == 2) mapValue = "Crest";
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 16F));
+        g2.setColor(Color.black);
+        g2.drawString(mapValue,x + 2,y + 2);
+        g2.setColor(Color.white);
+        g2.drawString(mapValue,x,y);
     }
     public void drawMessage() {
         int messageX = gp.tileSize;
@@ -380,7 +398,7 @@ public class UI {
         }
     }
     public void drawInventory() {
-        int frameX = gp.tileSize*12;
+        int frameX = gp.tileSize*2;
         int frameY = gp.tileSize - 24;
         int frameWidth = gp.tileSize*6;
         int frameHeight = gp.tileSize*5;
@@ -434,6 +452,29 @@ public class UI {
             }
         }
 
+        //inventory right (player's current items)
+        frameX = gp.tileSize*12;
+        frameY = gp.tileSize - 24;
+        frameWidth = gp.tileSize*6;
+        frameHeight = gp.tileSize*5;
+        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+
+        int lineHeight = 30;
+        textX = frameX + 20;
+        textY = frameY + gp.tileSize;
+        g2.drawString("Weapon",textX,textY);
+        textX += 2*gp.tileSize;
+        textY -= 30;
+        g2.drawImage(gp.player.currentWeapon.down1, textX, textY, null);
+        textY += 30;
+        textX -= 2*gp.tileSize;
+        textY += lineHeight + lineHeight;
+
+        g2.drawString("Shield",textX,textY);
+        textX += 2*gp.tileSize;
+        textY -= 30;
+        g2.drawImage(gp.player.currentShield.down1, textX, textY, null);
+        textY += 30;
 
     }
     public void drawOptionsScreen() throws IOException {
