@@ -421,6 +421,7 @@ public class Player extends Entity{
 
                 int damage = attack - gp.monster[gp.currentMap][i].defense;
                 if(damage < 0) damage = 0;
+                generateDamageParticle(this,gp.monster[gp.currentMap][i],damage);
 
                 gp.monster[gp.currentMap][i].life -= damage;
                 gp.ui.addMessage(damage + " damage!");
@@ -453,6 +454,7 @@ public class Player extends Entity{
     public void checkLevelUp() {
         if(exp >= nextLevelExp) {
             level++;
+            exp = 0;
             nextLevelExp = nextLevelExp *2;
             maxLife += 2;
             strength ++;

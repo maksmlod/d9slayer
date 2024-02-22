@@ -10,8 +10,9 @@ public class Particle extends Entity{
     int size;
     int xd;
     int yd;
+    boolean isDamageParticle = false;
     public Particle(GamePanel gp, Entity generator, Color color,
-                    int size, int speed, int maxLife, int xd, int yd) {
+                    int size, int speed, int maxLife, int xd, int yd, String damageText) {
         super(gp);
         this.generator = generator;
         this.color = color;
@@ -20,6 +21,7 @@ public class Particle extends Entity{
         this.maxLife = maxLife;
         this.xd = xd;
         this.yd = yd;
+        this.damageText = damageText;
 
         life = maxLife;
         int offset = (gp.tileSize/2) - (size/2);
@@ -40,8 +42,16 @@ public class Particle extends Entity{
     public void draw(Graphics2D g2) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
-
-        g2.setColor(color);
-        g2.fillRect(screenX,screenY,size,size);
+        if(isDamageParticle == true) {
+            g2.setColor(Color.red);
+            int damage = Integer.parseInt(damageText);
+            int scale = 25 + damage;
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, scale));
+            g2.drawString(damageText,screenX,screenY);
+        }
+        else {
+            g2.setColor(color);
+            g2.fillRect(screenX, screenY, size, size);
+        }
     }
 }

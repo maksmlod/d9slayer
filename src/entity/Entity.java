@@ -76,6 +76,7 @@ public class Entity {
     public int exp;
     public int nextLevelExp;
     public int coin;
+    public String damageText;
     public Entity currentWeapon;
     public Entity currentShield;
     public Projectile projectile;
@@ -169,21 +170,30 @@ public class Entity {
         int maxLife = generator.getParticleMaxLife();
 
         Particle p1 = new Particle(gp, target, color, size, speed, maxLife,
-                -2, -1);
+                -2, -1, "");
         Particle p2 = new Particle(gp, target, color, size, speed, maxLife,
-                2, -1);
+                2, -1, "");
         Particle p3 = new Particle(gp, target, color, size, speed, maxLife,
-                -2, 1);
+                -2, 1, "");
         Particle p4 = new Particle(gp, target, color, size, speed, maxLife,
-                2, 1);
+                2, 1, "");
         gp.particleList.add(p1);
         gp.particleList.add(p2);
         gp.particleList.add(p3);
         gp.particleList.add(p4);
     }
+    public void generateDamageParticle(Entity generator, Entity target, int damage) {
+        Color color = Color.red;
+        int speed = 2;
+        int maxLife = 20;
+        String value = String.valueOf(damage);
+        Particle p1 = new Particle(gp, target, color, 0, speed, maxLife,
+                1, 0, value);
+        p1.isDamageParticle = true;
+        gp.particleList.add(p1);
+    }
     public void update() {
         setAction();
-
         collisionOn = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
@@ -277,7 +287,7 @@ public class Entity {
                     break;
             }
             // monster hp bar
-            if(type == 2 && hpBarOn == true) //is a monster
+            if(type == type_monster && hpBarOn == true) //is a monster
             {
                 double oneScale = (double)gp.tileSize/maxLife;
                 double hpBarValue = oneScale*life;
@@ -292,6 +302,7 @@ public class Entity {
                     hpBarOn = false;
                 }
             }
+
 
 
             if(invincible == true) {
@@ -340,7 +351,6 @@ public class Entity {
         return image;
 
     }
-    public void substractResource(Entity user) {}
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {}
     public void set(int worldX, int worldY, String direction, boolean alive, Entity user) {}
     public void effect(Entity user) {}
