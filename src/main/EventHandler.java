@@ -56,11 +56,11 @@ public class EventHandler {
             else if (hit(0,23, 7, "up") == true) {
                 healingPool(gp.dialogueState);
             }
-            else if(hit(0,24,24,"any") == true) {
-                teleport(1,35,39);
+            else if(hit(0,20,26,"any") == true) {
+                teleport(1,13,24);
             }
-            else if(hit(1,35,39,"any") == true) {
-                teleport(0,24,24);
+            else if(hit(1,13,24,"any") == true) {
+                teleport(0,20,26);
             }
             else if(hit(0,31,19,"any") == true) {
                 gp.aSetter.setMonster();

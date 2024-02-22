@@ -3,6 +3,7 @@ package main;
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
 import monster.MON_GreySlime;
+import monster.MON_OrangeSpider;
 import monster.MON_WhiteSlime;
 import object.*;
 import object.weapon.*;
@@ -137,6 +138,17 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new MON_WhiteSlime(gp);
         gp.monster[mapNum][i].worldX = gp.tileSize*39;
         gp.monster[mapNum][i].worldY = gp.tileSize*33;
+        i++;
+
+        mapNum = 1;
+        gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize*36;
+        gp.monster[mapNum][i].worldY = gp.tileSize*20;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize*36;
+        gp.monster[mapNum][i].worldY = gp.tileSize*17;
         i++;
     }
 

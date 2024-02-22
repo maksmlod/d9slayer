@@ -24,7 +24,7 @@ public class TileManager {
         mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap("/maps/map2.txt",0);
-        loadMap("/maps/map1.txt",1);
+        loadMap("/maps/map3.txt",1);
     }
 
     public void getTileImage() {
@@ -32,10 +32,12 @@ public class TileManager {
             setup(1, "001wall", true);
             setup(2, "002water", true);
             setup(3, "003earth", false);
-            setup(4, "004tree", true);
+            setup(4, "004error", false);
             setup(5, "005floor2", false);
-            setup(51, "/drain_albums/spiderr", false);
-            setup(52, "/drain_albums/crest", false);
+            setup(6, "006floor2spiderr", false);
+            setup(7, "007wallspiderr", true);
+            setup(8, "008spiderr", false);
+
 
 
     }
