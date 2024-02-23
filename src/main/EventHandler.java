@@ -51,10 +51,6 @@ public class EventHandler {
         if(canTouchEvent == true) {
             if (hit(0,26, 16, "right") == true) {
                 //event happens
-                damagePit(gp.dialogueState);
-            }
-            else if (hit(0,23, 7, "up") == true) {
-                healingPool(gp.dialogueState);
             }
             // lobby to spiderr
             else if(hit(0,20,26,"any") == true) {
@@ -68,8 +64,29 @@ public class EventHandler {
                 gp.stopMusic();
                 gp.playMusic(0);
             }
+            // lobby to crest
+            else if(hit(0,22,26,"any") == true) {
+                teleport(2,13,24);
+                gp.stopMusic();
+                gp.playMusic(16);
+            }
+            // crest to lobby
+            else if(hit(2,13,24,"any") == true) {
+                teleport(0,22,26);
+                gp.stopMusic();
+                gp.playMusic(0);
+            }
+            // reset button
             else if(hit(0,31,19,"any") == true) {
-                gp.aSetter.setMonster();
+                gp.aSetter.setMonster(0,false);
+                canTouchEvent = false;
+            }
+            else if(hit(1,27,20,"any") == true) {
+                gp.aSetter.setMonster(1,false);
+                canTouchEvent = false;
+            }
+            else if(hit(2,27,20,"any") == true) {
+                gp.aSetter.setMonster(2,false);
                 canTouchEvent = false;
             }
         }
@@ -114,7 +131,6 @@ public class EventHandler {
                 gp.ui.currentDialogue = "You drink the water.";
                 gp.player.life = gp.player.maxLife;
                 gp.player.mana = gp.player.maxMana;
-                gp.aSetter.setMonster();
         }
     }
     public void teleport(int map, int col, int row) {
@@ -122,9 +138,24 @@ public class EventHandler {
         tempMap = map;
         tempCol = col;
         tempRow = row;
-
+        gp.deleteProjectilesAndParticles();
         canTouchEvent = false;
         gp.playSE(13);
+    }
+    public void teleportWithoutTransition(int map, int col, int row) {
+        tempMap = map;
+        tempCol = col;
+        tempRow = row;
+        gp.deleteProjectilesAndParticles();
+
+        gp.gameState = gp.playState;
+        gp.currentMap = tempMap;
+        gp.player.worldX = gp.tileSize * tempCol;
+        gp.player.worldY = gp.tileSize * tempRow;
+        previousEventX = gp.player.worldX;
+        previousEventY = gp.player.worldY;
+
+        canTouchEvent = false;
     }
 
 }

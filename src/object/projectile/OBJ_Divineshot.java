@@ -15,7 +15,7 @@ public class OBJ_Divineshot extends Projectile {
         speed = 5;
         maxLife = 120;
         life = maxLife;
-        attack = 100;
+        attack = 5;
         alive = false;
         getImage();
 

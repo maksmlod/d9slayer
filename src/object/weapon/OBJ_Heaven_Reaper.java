@@ -25,6 +25,7 @@ public class OBJ_Heaven_Reaper extends Entity {
     }
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
         projectile4 = new OBJ_Divineshot(gp);
+        projectile4.attack = 100;
         projectile4.set(worldX, worldY, direction, "",alive, user);
         gp.projectileList.add(projectile4);
 

@@ -94,6 +94,7 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_P) {
             gp.gameState = gp.pauseState;
+            gp.pauseMusic();
         }
         if(code == KeyEvent.VK_C) {
             gp.gameState = gp.characterState;
@@ -106,6 +107,7 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.optionsState;
+            gp.pauseMusic();
         }
         if(code == KeyEvent.VK_RIGHT) {
             rightArrowPressed = true;
@@ -143,6 +145,7 @@ public class KeyHandler implements KeyListener {
     public void pauseState(int code) {
         if(code == KeyEvent.VK_P) {
             gp.gameState = gp.playState;
+            gp.resumeMusic();
         }
     }
     public void dialogueState(int code) {
@@ -160,6 +163,7 @@ public class KeyHandler implements KeyListener {
             gp.ui.commandNum = 0;
             gp.ui.subState = 0;
             gp.gameState = gp.playState;
+            gp.resumeMusic();
         }
         if(code == KeyEvent.VK_ENTER) {
             enterPressed = true;
@@ -280,13 +284,13 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_W) {
                 gp.ui.commandNum --;
                 if(gp.ui.commandNum < 0) gp.ui.commandNum = 2;
+                gp.playSE(9);
             }
-            gp.playSE(9);
             if(code == KeyEvent.VK_S) {
                 gp.ui.commandNum ++;
                 if(gp.ui.commandNum > 2) gp.ui.commandNum = 0;
+                gp.playSE(9);
             }
-            gp.playSE(9);
         }
         if(gp.ui.subState == 1) {
             npcInventory(code);

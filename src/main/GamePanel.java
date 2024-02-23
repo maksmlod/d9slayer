@@ -64,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
     public ArrayList<Entity> projectileList = new ArrayList<>();
     public ArrayList<Entity> particleList = new ArrayList<>();
 
+
     // GAME STATE
     public int gameState;
     public final int titleState = 0;
@@ -88,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         aSetter.setNPC();
-        aSetter.setMonster();
+        aSetter.setMonster(999, true);
         aSetter.setInteractiveTile();
         playMusic(0);
         stopMusic();
@@ -137,16 +138,18 @@ public class GamePanel extends JPanel implements Runnable {
     public void retry() {
         player.setDefaultPositions();
         player.restoreLifeAndMana();
-        aSetter.setNPC();
-        aSetter.setMonster();
+        //aSetter.setNPC();
+        eHandler.teleportWithoutTransition(0,player.worldX/tileSize,player.worldY/tileSize);
     }
     public void restart() {
         player.setDefaultValues();
         player.setItems();
         aSetter.setNPC();
-        aSetter.setMonster();
+        aSetter.setMonster(999, true);
         aSetter.setObject();
         aSetter.setInteractiveTile();
+        eHandler.teleportWithoutTransition(0,player.worldX/tileSize,player.worldY/tileSize);
+        gameState = titleState;
     }
     @Override
     public void run() {
@@ -410,9 +413,23 @@ public class GamePanel extends JPanel implements Runnable {
     public void stopMusic() {
         music.stop();
     }
+    public void pauseMusic() {
+        music.clipTime = music.clip.getMicrosecondPosition();
+        music.stop();
+    }
+    public void resumeMusic() {
+        music.clip.setMicrosecondPosition(music.clipTime);
+        music.clip.start();
+        music.loop();
+    }
     public void playSE(int i) {
         sound.setFile(i);
         sound.play();
+    }
+
+    public void deleteProjectilesAndParticles() {
+        projectileList.clear();
+        particleList.clear();
     }
 
 

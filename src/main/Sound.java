@@ -12,6 +12,7 @@ public class Sound {
     FloatControl fc;
     int volumeScale = 1;
     float volume;
+    long clipTime;
 
     public Sound() {
         soundURL[0] = getClass().getResource("/sound/apple_music.wav");
@@ -29,7 +30,8 @@ public class Sound {
         soundURL[12] = getClass().getResource("/sound/gameover.wav");
         soundURL[13] = getClass().getResource("/sound/stairs.wav");
         soundURL[14] = getClass().getResource("/sound/ice.wav");
-        soundURL[15] = getClass().getResource("/old___/hahah_music.wav");
+        soundURL[15] = getClass().getResource("/sound/hahah_music.wav");
+        soundURL[16] = getClass().getResource("/sound/theflagisraised_music.wav");
     }
 
     public void setFile(int i) {
@@ -45,11 +47,9 @@ public class Sound {
         }
     }
     public void play() {
-
         clip.start();
     }
     public void loop() {
-
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
     public void stop() {
@@ -66,5 +66,6 @@ public class Sound {
         }
         fc.setValue(volume);
     }
+
 
 }

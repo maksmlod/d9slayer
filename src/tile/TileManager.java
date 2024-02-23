@@ -25,6 +25,7 @@ public class TileManager {
         getTileImage();
         loadMap("/maps/map2.txt",0);
         loadMap("/maps/map3.txt",1);
+        loadMap("/maps/map4.txt",2);
     }
 
     public void getTileImage() {
@@ -37,7 +38,9 @@ public class TileManager {
             setup(6, "006floor2spiderr", false);
             setup(7, "007wallspiderr", true);
             setup(8, "008spiderr", false);
-
+            setup(9, "009wallcrest", true);
+            setup(10, "010floor2crest", false);
+            setup(11, "011crest", false);
 
 
     }

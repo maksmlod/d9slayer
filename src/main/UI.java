@@ -215,7 +215,7 @@ public class UI {
     public void drawMessage() {
         int messageX = gp.tileSize;
         int messageY = gp.tileSize*4;
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 14F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 10F));
 
         for(int i = 0; i < message.size(); i++) {
             if(message.get(i) != null) {
@@ -633,7 +633,7 @@ public class UI {
         textY+=gp.tileSize;
         g2.drawString("Confirm/Attack", textX, textY);
         textY+=gp.tileSize;
-        g2.drawString("Shoot/Cast", textX, textY);
+        g2.drawString("Inventory", textX, textY);
         textY+=gp.tileSize;
         g2.drawString("Character Screen", textX, textY);
         textY+=gp.tileSize;
@@ -645,9 +645,9 @@ public class UI {
         textY = frameY + gp.tileSize*2;
         g2.drawString("WASD", textX, textY);
         textY+=gp.tileSize;
-        g2.drawString("ENTER", textX, textY);
+        g2.drawString("ARROWS", textX, textY);
         textY+=gp.tileSize;
-        g2.drawString("F", textX, textY);
+        g2.drawString("E", textX, textY);
         textY+=gp.tileSize;
         g2.drawString("C", textX, textY);
         textY+=gp.tileSize;
