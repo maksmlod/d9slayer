@@ -56,11 +56,17 @@ public class EventHandler {
             else if (hit(0,23, 7, "up") == true) {
                 healingPool(gp.dialogueState);
             }
+            // lobby to spiderr
             else if(hit(0,20,26,"any") == true) {
                 teleport(1,13,24);
+                gp.stopMusic();
+                gp.playMusic(15);
             }
+            // spider to lobby
             else if(hit(1,13,24,"any") == true) {
                 teleport(0,20,26);
+                gp.stopMusic();
+                gp.playMusic(0);
             }
             else if(hit(0,31,19,"any") == true) {
                 gp.aSetter.setMonster();

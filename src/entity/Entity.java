@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Entity {
     GamePanel gp;
@@ -76,9 +78,13 @@ public class Entity {
     public int exp;
     public int nextLevelExp;
     public int coin;
+    public int price;
+    public int dropAmount = 1;
     public String damageText;
     public Entity currentWeapon;
     public Entity currentShield;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
     public Projectile projectile;
     public Projectile projectile2;
     public Projectile projectile3;
@@ -140,9 +146,23 @@ public class Entity {
     public void dropItem(Entity droppedItem) {
         for(int i = 0; i < gp.obj[1].length; i++) {
             if(gp.obj[gp.currentMap][i] == null) {
+                while(gp.occupiedDropPlaces[worldX][worldY] != 0) {
+                    int j = new Random().nextInt(100) + 1;
+                    int k = new Random().nextInt(100) + 1;
+                    int distance = 0;
+                    if(k < 33) distance = 15;
+                    else if(k >= 33 && k < 66) distance = 20;
+                    else if(k >= 66) distance = 25;
+
+                    if(j < 25) worldX += distance;
+                    else if(25 <= j && j < 50) worldX -= distance;
+                    else if(50 <= j && j < 75) worldY += distance;
+                    else worldY -= distance;
+                }
                 gp.obj[gp.currentMap][i] = droppedItem;
                 gp.obj[gp.currentMap][i].worldX = worldX;
                 gp.obj[gp.currentMap][i].worldY = worldY;
+                gp.occupiedDropPlaces[worldX][worldY] = 1;
                 break;
             }
         }
@@ -225,7 +245,7 @@ public class Entity {
         }
 
         spriteCounter++;
-        if(spriteCounter > 12) {
+        if(spriteCounter > 24) {
             if(spriteNum == 1) {
                 spriteNum = 2;
             }

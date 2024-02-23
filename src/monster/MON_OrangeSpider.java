@@ -18,12 +18,12 @@ public class MON_OrangeSpider extends Entity {
 
         type = type_monster;
         name = "Green Slime";
-        speed = 1;
-        maxLife = 4;
+        speed = 4;
+        maxLife = 20;
         life = maxLife;
         attack = 5;
         defense = 0;
-        exp = 2;
+        exp = 20;
         projectile = new OBJ_Rock(gp);
 
         solidArea.x = 3;
@@ -48,7 +48,7 @@ public class MON_OrangeSpider extends Entity {
     public void setAction() {
         actionLockCounter ++;
 
-        if(actionLockCounter == 45) {
+        if(actionLockCounter == 30) {
             Random random = new Random();
             int i = random.nextInt(100)+1; // pick up a number from 1 to 100
 
@@ -67,8 +67,9 @@ public class MON_OrangeSpider extends Entity {
             actionLockCounter = 0;
         }
         int i = new Random().nextInt(100) + 1;
-        if(i > 95 && projectile.alive == false && shotAvailableCounter == 30) {
+        if(i > 70 && projectile.alive == false && shotAvailableCounter == 30) {
             projectile.set(worldX,worldY,direction,"",true,this);
+            projectile.speed = 15;
             gp.projectileList.add(projectile);
 
             String directionTemp = null;
@@ -78,6 +79,7 @@ public class MON_OrangeSpider extends Entity {
             else directionTemp = "up";
             projectile4 = new OBJ_Rock(gp);
             projectile4.set(worldX,worldY,directionTemp,"",true,this);
+            projectile4.speed = 15;
             gp.projectileList.add(projectile4);
 
             shotAvailableCounter = 0;
@@ -88,15 +90,17 @@ public class MON_OrangeSpider extends Entity {
         direction = gp.player.direction;
     }
     public void checkDrop() {
-        int i = new Random().nextInt(100) + 1;
-        if(i < 50) {
-            dropItem(new OBJ_Coin(gp));
-        }
-        if(i >= 50 && i < 75) {
-            dropItem(new OBJ_Heart(gp));
-        }
-        if(i >= 75 && i < 100) {
-            dropItem(new OBJ_ManaCrystal(gp));
+        for(int j = 0; j < dropAmount; j++) {
+            int i = new Random().nextInt(100) + 1;
+            if (i < 50) {
+                dropItem(new OBJ_Coin(gp));
+            }
+            if (i >= 50 && i < 75) {
+                dropItem(new OBJ_Heart(gp));
+            }
+            if (i >= 75 && i < 100) {
+                dropItem(new OBJ_ManaCrystal(gp));
+            }
         }
     }
 

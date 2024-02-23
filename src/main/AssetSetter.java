@@ -1,10 +1,8 @@
 package main;
 
+import entity.NPC_Merchant;
 import entity.NPC_OldMan;
-import monster.MON_GreenSlime;
-import monster.MON_GreySlime;
-import monster.MON_OrangeSpider;
-import monster.MON_WhiteSlime;
+import monster.*;
 import object.*;
 import object.weapon.*;
 import tile_interactive.IT_DryTree;
@@ -106,9 +104,16 @@ public class AssetSetter {
         gp.npc[mapNum][i].worldX = gp.tileSize*25;
         gp.npc[mapNum][i].worldY = gp.tileSize*22;
         i++;
+         */
+
+        gp.npc[mapNum][i] = new NPC_Merchant(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*17;
+        gp.npc[mapNum][i].worldY = gp.tileSize*22;
+        i++;
 
 
- */
+
+
 
     }
 
@@ -149,6 +154,11 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
         gp.monster[mapNum][i].worldX = gp.tileSize*36;
         gp.monster[mapNum][i].worldY = gp.tileSize*17;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_BigOrangeSpider(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize*31;
+        gp.monster[mapNum][i].worldY = gp.tileSize*34;
         i++;
     }
 

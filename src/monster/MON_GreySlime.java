@@ -33,6 +33,8 @@ public class MON_GreySlime extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
+        dropAmount = 4;
+
         getImage();
     }
     public void getImage() {
@@ -78,15 +80,17 @@ public class MON_GreySlime extends Entity {
         direction = gp.player.direction;
     }
     public void checkDrop() {
-        int i = new Random().nextInt(100) + 1;
-        if(i < 50) {
-            dropItem(new OBJ_Coin(gp));
-        }
-        if(i >= 50 && i < 75) {
-            dropItem(new OBJ_Heart(gp));
-        }
-        if(i >= 75 && i < 100) {
-            dropItem(new OBJ_ManaCrystal(gp));
+        for(int j = 0; j < dropAmount; j++) {
+            int i = new Random().nextInt(100) + 1;
+            if (i < 50) {
+                dropItem(new OBJ_Coin(gp));
+            }
+            if (i >= 50 && i < 75) {
+                dropItem(new OBJ_Heart(gp));
+            }
+            if (i >= 75 && i < 100) {
+                dropItem(new OBJ_ManaCrystal(gp));
+            }
         }
     }
 

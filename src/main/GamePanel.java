@@ -59,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity npc[][] = new Entity[maxMap][10];
     public Entity monster[][] = new Entity[maxMap][10];
     public InteractiveTile iTile[][] = new InteractiveTile[maxMap][50];
+    public int occupiedDropPlaces[][] = new int[maxWorldCol*tileSize][maxWorldRow*tileSize];
     ArrayList<Entity> entityList = new ArrayList<>();
     public ArrayList<Entity> projectileList = new ArrayList<>();
     public ArrayList<Entity> particleList = new ArrayList<>();
@@ -75,6 +76,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int transitionState = 7;
     public final int skinsState = 8;
     public final int inventoryState = 9;
+    public final int tradeState = 10;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));

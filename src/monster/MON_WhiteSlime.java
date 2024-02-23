@@ -22,7 +22,7 @@ public class MON_WhiteSlime extends Entity {
         life = maxLife;
         attack = 5;
         defense = 0;
-        exp = 5;
+        exp = 10;
         projectile = new OBJ_Rock(gp);
         projectile.speed = 12;
 
@@ -105,15 +105,17 @@ public class MON_WhiteSlime extends Entity {
         direction = gp.player.direction;
     }
     public void checkDrop() {
-        int i = new Random().nextInt(100) + 1;
-        if(i < 50) {
-            dropItem(new OBJ_Coin(gp));
-        }
-        if(i >= 50 && i < 75) {
-            dropItem(new OBJ_Heart(gp));
-        }
-        if(i >= 75 && i < 100) {
-            dropItem(new OBJ_ManaCrystal(gp));
+        for(int j = 0; j < dropAmount; j++) {
+            int i = new Random().nextInt(100) + 1;
+            if (i < 50) {
+                dropItem(new OBJ_Coin(gp));
+            }
+            if (i >= 50 && i < 75) {
+                dropItem(new OBJ_Heart(gp));
+            }
+            if (i >= 75 && i < 100) {
+                dropItem(new OBJ_ManaCrystal(gp));
+            }
         }
     }
 

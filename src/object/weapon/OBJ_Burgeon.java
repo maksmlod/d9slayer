@@ -23,6 +23,7 @@ public class OBJ_Burgeon extends Entity {
         useCost = 2;
         canMeleeAttack = false;
         haveProjectile = true;
+        price = 5;
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {

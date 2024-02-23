@@ -33,6 +33,7 @@ public class MON_GreenSlime extends Entity {
         solidAreaDefaultY = solidArea.y;
 
         getImage();
+        dropAmount = 2;
     }
     public void getImage() {
         up1 = setup("/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
@@ -77,15 +78,17 @@ public class MON_GreenSlime extends Entity {
         direction = gp.player.direction;
     }
     public void checkDrop() {
-        int i = new Random().nextInt(100) + 1;
-        if(i < 50) {
-            dropItem(new OBJ_Coin(gp));
-        }
-        if(i >= 50 && i < 75) {
-            dropItem(new OBJ_Heart(gp));
-        }
-        if(i >= 75 && i < 100) {
-            dropItem(new OBJ_ManaCrystal(gp));
+        for(int j = 0; j < dropAmount; j++) {
+            int i = new Random().nextInt(100) + 1;
+            if (i < 70) {
+                dropItem(new OBJ_Coin(gp));
+            }
+            if (i >= 70 && i < 85) {
+                dropItem(new OBJ_Heart(gp));
+            }
+            if (i >= 85 && i < 100) {
+                dropItem(new OBJ_ManaCrystal(gp));
+            }
         }
     }
 

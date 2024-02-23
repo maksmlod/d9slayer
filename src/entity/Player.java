@@ -18,8 +18,7 @@ public class Player extends Entity{
     public final int screenY;
     int standCounter = 0;
     public boolean attackCanceled = false;
-    public ArrayList<Entity> inventory = new ArrayList<>();
-    public final int maxInventorySize = 20;
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -29,12 +28,12 @@ public class Player extends Entity{
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
         solidArea = new Rectangle();
-        solidArea.x = 8;
-        solidArea.y = 16;
+        solidArea.x = 15;
+        solidArea.y = 25;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 32;
-        solidArea.height = 28;
+        solidArea.width = 18;
+        solidArea.height = 12;
 
         //attackArea.width = 36;
         //attackArea.height = 36;
@@ -82,8 +81,6 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
     }
     public int getAttack() {
         attackArea = currentWeapon.attackArea;
@@ -374,10 +371,12 @@ public class Player extends Entity{
     public void pickUpObject(int i) {
         if(i != 999) {
             if(gp.obj[gp.currentMap][i].type == type_pickupOnly) {
+                gp.occupiedDropPlaces[gp.obj[gp.currentMap][i].worldX][gp.obj[gp.currentMap][i].worldY] = 0;
                 gp.obj[gp.currentMap][i].use(this);
                 gp.obj[gp.currentMap][i] = null;
             }
             else {
+                gp.occupiedDropPlaces[gp.obj[gp.currentMap][i].worldX][gp.obj[gp.currentMap][i].worldY] = 0;
                 String text;
                 if (inventory.size() != maxInventorySize) {
                     inventory.add(gp.obj[gp.currentMap][i]);
@@ -453,12 +452,17 @@ public class Player extends Entity{
     }
     public void checkLevelUp() {
         if(exp >= nextLevelExp) {
-            level++;
-            exp = 0;
-            nextLevelExp = nextLevelExp *2;
-            maxLife += 2;
-            strength ++;
-            dexterity ++;
+            int ii = 0;
+            while(exp >= nextLevelExp) {
+                ii++;
+                exp = exp - nextLevelExp;
+                nextLevelExp = nextLevelExp * 2;
+            }
+            level += ii;
+            maxLife += 2 * ii;
+            strength += ii;
+            dexterity += ii;
+
             attack = getAttack();
             defense = getDefense();
 
@@ -468,7 +472,7 @@ public class Player extends Entity{
         }
     }
     public void selectItem() {
-        int itemIndex = gp.ui.getItemIndexOnSlot();
+        int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
         if(itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);
             if(selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_wand) {
