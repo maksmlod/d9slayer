@@ -79,6 +79,7 @@ public class Entity {
     public int nextLevelExp;
     public int coin;
     public int price;
+    public String rarity = "common"; //common uncommon rare epic legendary
     public int dropAmount = 1;
     public String damageText;
     public Entity currentWeapon;
@@ -257,7 +258,10 @@ public class Entity {
 
         if(invincible == true) {
             invincibleCounter ++;
-            if(invincibleCounter > 40) {
+            int invCounter;
+            if(this == gp.player)  invCounter = 40;
+            else invCounter = 8;
+            if(invincibleCounter > invCounter) {
                 invincible = false;
                 invincibleCounter = 0;
             }

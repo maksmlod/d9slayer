@@ -17,12 +17,14 @@ public class OBJ_Freezer extends Entity {
         attackValue = 0;
         attackArea.width = 0;
         attackArea.height = 0;
-        description = "Freezer\n\nFrost Nova";
+        description = "Frost Nova";
         projectile = new OBJ_Iceball(gp);
         castSpeed = 15;
         useCost = 1;
         canMeleeAttack = false;
         haveProjectile = true;
+        price = 20;
+        rarity = "rare";
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {

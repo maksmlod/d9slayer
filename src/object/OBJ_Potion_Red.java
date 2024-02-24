@@ -12,7 +12,7 @@ public class OBJ_Potion_Red extends Entity {
         type = type_consumable;
         name = "Red Potion";
         down1 = setup("/objects/potion_red",gp.tileSize,gp.tileSize);
-        description = "potka życia na \nzdrowia: " + value;
+        description = "Heals HP: " + value;
         price = 2;
     }
     public void use(Entity entity) {

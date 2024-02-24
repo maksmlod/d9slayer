@@ -17,12 +17,14 @@ public class OBJ_Fire_Wand extends Entity {
         attackValue = 0;
         attackArea.width = 0;
         attackArea.height = 0;
-        description = "Fire Wand\n\nFireball projectile\nis tripled";
+        description = "Triple fireball";
         projectile = new OBJ_Fireball(gp);
         castSpeed = 30;
         useCost = 2;
         canMeleeAttack = false;
         haveProjectile = true;
+        price = 10;
+        rarity = "uncommon";
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {

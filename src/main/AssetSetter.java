@@ -48,46 +48,6 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
         gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
         i++;
-
-        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp);
-        gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
-        i++;
-
-        gp.obj[mapNum][i] = new OBJ_Coin(gp);
-        gp.obj[mapNum][i].worldX = 24 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 20 * gp.tileSize;
-        i++;
-
-        gp.obj[mapNum][i] = new OBJ_Fire_Wand(gp);
-        gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 20 * gp.tileSize;
-        i++;
-
-        gp.obj[mapNum][i] = new OBJ_Ice_Wand(gp);
-        gp.obj[mapNum][i].worldX = 22 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 21 * gp.tileSize;
-        i++;
-
-        gp.obj[mapNum][i] = new OBJ_Freezer(gp);
-        gp.obj[mapNum][i].worldX = 21 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 21 * gp.tileSize;
-        i++;
-
-        gp.obj[mapNum][i] = new OBJ_Heaven_Reaper(gp);
-        gp.obj[mapNum][i].worldX = 21 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
-        i++;
-
-        gp.obj[mapNum][i] = new OBJ_Burgeon(gp);
-        gp.obj[mapNum][i].worldX = 20 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
-        i++;
-
-        gp.obj[mapNum][i] = new OBJ_Hellfire(gp);
-        gp.obj[mapNum][i].worldX = 19 * gp.tileSize;
-        gp.obj[mapNum][i].worldY = 19 * gp.tileSize;
-        i++;
     }
 
     public void setNPC() {
@@ -106,7 +66,7 @@ public class AssetSetter {
         i++;
          */
 
-        gp.npc[mapNum][i] = new NPC_Merchant(gp);
+        gp.npc[mapNum][i] = new NPC_Merchant(gp, 0);
         gp.npc[mapNum][i].worldX = gp.tileSize*17;
         gp.npc[mapNum][i].worldY = gp.tileSize*22;
         i++;

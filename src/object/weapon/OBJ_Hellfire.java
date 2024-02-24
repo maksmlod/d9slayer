@@ -17,15 +17,19 @@ public class OBJ_Hellfire extends Entity {
         attackValue = 0;
         attackArea.width = 0;
         attackArea.height = 0;
-        description = "Hellfire\n\n\"The true apocalypse\"";
+        description = "\"The true apocalypse\"";
         projectile = new OBJ_Fireball(gp);
         castSpeed = 30;
         useCost = 2;
         canMeleeAttack = false;
         haveProjectile = true;
+        price = 50;
+        rarity = "epic";
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
+        long startTime = System.nanoTime();
+
         projectile2 = new OBJ_Fireball(gp);
         projectile2.maxLife = 160;
         projectile2.set(worldX, worldY, "right","", alive, user);
@@ -110,8 +114,10 @@ public class OBJ_Hellfire extends Entity {
         projectile17.set(worldX, worldY, "up","round", alive, user);
         gp.projectileList.add(projectile17);
 
-
+        long endTime   = System.nanoTime();
         user.mana = user.mana - useCost;
         gp.playSE(10);
+
+        System.out.println(endTime - startTime);
     }
 }

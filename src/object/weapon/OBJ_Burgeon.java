@@ -17,13 +17,14 @@ public class OBJ_Burgeon extends Entity {
         attackValue = 0;
         attackArea.width = 0;
         attackArea.height = 0;
-        description = "Burgeon\n\nLet the world burn";
+        description = "Let the world burn";
         projectile = new OBJ_Fireball(gp);
         castSpeed = 30;
         useCost = 2;
         canMeleeAttack = false;
         haveProjectile = true;
-        price = 5;
+        price = 20;
+        rarity = "rare";
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {

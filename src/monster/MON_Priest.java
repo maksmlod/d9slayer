@@ -86,12 +86,12 @@ public class MON_Priest extends Entity {
 
                 projectile6 = new OBJ_Divineshot(gp);
                 projectile6.speed = 12;
-                projectile6.set(worldX, worldY, direction, "round", true, this);
+                projectile6.set(worldX, worldY, "up", "round", true, this);
                 gp.projectileList.add(projectile6);
 
                 projectile7 = new OBJ_Divineshot(gp);
                 projectile7.speed = 12;
-                projectile7.set(worldX + 30, worldY + 30, direction, "round", true, this);
+                projectile7.set(worldX, worldY, "down", "round", true, this);
                 gp.projectileList.add(projectile7);
             }
             else if(direction == "up" || direction == "down") {
@@ -111,12 +111,12 @@ public class MON_Priest extends Entity {
 
                 projectile6 = new OBJ_Divineshot(gp);
                 projectile6.speed = 12;
-                projectile6.set(worldX, worldY, direction, "round", true, this);
+                projectile6.set(worldX, worldY, "left", "round", true, this);
                 gp.projectileList.add(projectile6);
 
                 projectile7 = new OBJ_Divineshot(gp);
                 projectile7.speed = 12;
-                projectile7.set(worldX + 30, worldY + 30, direction, "round", true, this);
+                projectile7.set(worldX, worldY, "right", "round", true, this);
                 gp.projectileList.add(projectile7);
             }
             shotAvailableCounter = 0;

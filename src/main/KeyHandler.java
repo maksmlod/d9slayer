@@ -291,6 +291,10 @@ public class KeyHandler implements KeyListener {
                 if(gp.ui.commandNum > 2) gp.ui.commandNum = 0;
                 gp.playSE(9);
             }
+            if(code == KeyEvent.VK_ESCAPE) {
+                gp.ui.commandNum = 0;
+                gp.gameState = gp.playState;
+            }
         }
         if(gp.ui.subState == 1) {
             npcInventory(code);

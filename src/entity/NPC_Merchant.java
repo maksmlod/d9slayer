@@ -2,10 +2,10 @@ package entity;
 
 import main.GamePanel;
 import object.OBJ_Potion_Red;
-import object.weapon.OBJ_Burgeon;
+import object.weapon.*;
 
 public class NPC_Merchant extends Entity {
-    public NPC_Merchant(GamePanel gp) {
+    public NPC_Merchant(GamePanel gp, int mapNumber) {
         super(gp);
 
         direction = "down";
@@ -32,7 +32,12 @@ public class NPC_Merchant extends Entity {
     }
     public void setItems() {
         inventory.add(new OBJ_Potion_Red(gp));
+        inventory.add(new OBJ_Ice_Wand(gp));
+        inventory.add(new OBJ_Freezer(gp));
+        inventory.add(new OBJ_Fire_Wand(gp));
         inventory.add(new OBJ_Burgeon(gp));
+        inventory.add(new OBJ_Hellfire(gp));
+        inventory.add(new OBJ_Heaven_Reaper(gp));
     }
     public void speak() {
         super.speak();

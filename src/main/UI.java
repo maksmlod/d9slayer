@@ -19,7 +19,7 @@ public class UI {
     Graphics2D g2;
     Font maruMonica, purisaB;
 
-    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_half, crystal_blank, coin;
+    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_half, crystal_blank, coin, starImage;
     public boolean messageOn = false;
     public boolean gameFinished = false;
     ArrayList<String> message = new ArrayList<>();
@@ -33,6 +33,11 @@ public class UI {
     int subState = 0;
     int counter = 0;
     public Entity npc;
+    Color common = new Color(255,255,255);
+    Color uncommon = new Color(30,255,0);
+    Color rare = new Color(0,112,221);
+    Color epic = new Color(163,53,238);
+    Color legendary = new Color(255,128,0);
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -477,6 +482,28 @@ public class UI {
             int itemIndex = getItemIndexOnSlot(slotCol, slotRow);
             if (itemIndex < entity.inventory.size()) {
                 drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+
+                starImage = gp.player.setup("/objects/star", gp.tileSize/2, gp.tileSize/2);
+                Color rarityColor = new Color(0,0,0);
+                int rarityCount = 0;
+                if(entity.inventory.get(itemIndex).rarity == "common") {rarityColor = common; rarityCount = 1;}
+                else if(entity.inventory.get(itemIndex).rarity == "uncommon") {rarityColor = uncommon; rarityCount = 2;}
+                else if(entity.inventory.get(itemIndex).rarity == "rare") {rarityColor = rare; rarityCount = 3;}
+                else if(entity.inventory.get(itemIndex).rarity == "epic") {rarityColor = epic; rarityCount = 4;}
+                else if(entity.inventory.get(itemIndex).rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+
+                g2.setColor(rarityColor);
+                g2.drawString(entity.inventory.get(itemIndex).name,textX,textY);
+                textY += 10;
+                textX = dFrameX + 20;
+                for(int i = 0; i < rarityCount; i++) {
+                    g2.drawImage(starImage,textX,textY,null);
+                    textX += 20;
+                }
+
+                textY += 75;
+                textX = dFrameX + 20;
+                g2.setColor(Color.white);
                 for (String line : entity.inventory.get(itemIndex).description.split("\n")) {
                     g2.drawString(line, textX, textY);
                     textY += 32;
@@ -896,8 +923,7 @@ public class UI {
             g2.drawString(">", x-24, y);
             if(gp.keyH.enterPressed == true) {
                 commandNum = 0;
-                gp.gameState = gp.dialogueState;
-                currentDialogue = "Bye!";
+                gp.gameState = gp.playState;
             }
         }
     }
@@ -905,13 +931,11 @@ public class UI {
         drawInventory(gp.player, false);
         drawInventory(npc, true);
 
-        //hint window
+
         int x = gp.tileSize*2;
         int y = gp.tileSize*9;
         int width = gp.tileSize*6;
         int height = gp.tileSize*2;
-        drawSubWindow(x,y,width,height);
-        g2.drawString("[ESC] Back", x+24, y+60);
 
         //coin window
         x = gp.tileSize*12;
@@ -919,7 +943,8 @@ public class UI {
         width = gp.tileSize*6;
         height = gp.tileSize*2;
         drawSubWindow(x,y,width,height);
-        g2.drawString("Money: " + gp.player.coin, x+24, y+60);
+        g2.drawString("Money: " + gp.player.coin, x+24, y+36);
+        g2.drawString("[ESC] Back", x+24, y+75);
 
         //price window
         int itemIndex = getItemIndexOnSlot(npcSlotCol, npcSlotRow);
@@ -934,7 +959,7 @@ public class UI {
             int price = npc.inventory.get(itemIndex).price;
             String text = "" + price;
             x = getXforAlignToRightText(text, gp.tileSize*8-20);
-            g2.drawString(text, x, y+34);
+            g2.drawString(text, x, y+31);
 
             if(gp.keyH.enterPressed == true) {
                 if(npc.inventory.get(itemIndex).price > gp.player.coin) {

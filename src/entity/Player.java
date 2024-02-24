@@ -29,7 +29,7 @@ public class Player extends Entity{
 
         solidArea = new Rectangle();
         solidArea.x = 15;
-        solidArea.y = 25;
+        solidArea.y = 35;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 18;
@@ -61,7 +61,7 @@ public class Player extends Entity{
         dexterity = 1; // more dex = less dmg receives
         exp = 2;
         nextLevelExp = 5;
-        coin = 9;
+        coin = 300;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack();
@@ -468,8 +468,6 @@ public class Player extends Entity{
             defense = getDefense();
 
             gp.playSE(8);
-            gp.gameState = gp.dialogueState;
-            gp.ui.currentDialogue = "You are level " + level + " now!\n";
         }
     }
     public void selectItem() {

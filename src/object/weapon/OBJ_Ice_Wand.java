@@ -17,12 +17,14 @@ public class OBJ_Ice_Wand extends Entity {
         attackValue = 0;
         attackArea.width = 0;
         attackArea.height = 0;
-        description = "Ice Wand\n\nFast Ice Projectile";
+        description = "Fast Ice Projectile";
         projectile = new OBJ_Iceball(gp);
         castSpeed = 15;
         useCost = 1;
         canMeleeAttack = false;
         haveProjectile = true;
+        price = 10;
+        rarity = "uncommon";
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
