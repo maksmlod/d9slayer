@@ -4,7 +4,7 @@ import main.GamePanel;
 
 public class Projectile extends Entity{
     Entity user;
-    int diagonalCounter;
+    int diagonalCounter = 0;
     int roundCounter = 0;
     int roundCounterMax = 1;
     int roundLengthCounter = 0;
@@ -120,6 +120,11 @@ public class Projectile extends Entity{
         life--;
         if(life <= 0) {
             alive = false;
+            diagonalCounter = 0;
+            roundCounter = 0;
+            roundCounterMax = 1;
+            roundLengthCounter = 0;
+            directionArrayIndex = 0;
         }
 
         spriteCounter++;

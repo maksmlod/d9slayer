@@ -105,6 +105,12 @@ public class Entity {
     public Projectile projectile17;
     public Projectile projectile18;
     public Projectile projectile19;
+
+
+
+
+
+
     // item attributes
     public int value;
     public int attackValue;

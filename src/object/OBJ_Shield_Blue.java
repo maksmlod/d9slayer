@@ -15,10 +15,10 @@ public class OBJ_Shield_Blue extends Entity {
     }
     public void effect(Entity user) {
         user.maxMana += 2;
-        user.manaRecoverySpeed = user.manaRecoverySpeed /4;
+        user.manaRecoverySpeed = user.manaRecoverySpeed /6;
     }
     public void revertEffect(Entity user) {
         user.maxMana -= 2;
-        user.manaRecoverySpeed = user.manaRecoverySpeed *4;
+        user.manaRecoverySpeed = user.manaRecoverySpeed *6;
     }
 }

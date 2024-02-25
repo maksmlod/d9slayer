@@ -1,11 +1,14 @@
 package object.weapon;
 
 import entity.Entity;
+import entity.Projectile;
 import main.GamePanel;
 import object.projectile.OBJ_Fireball;
 
 public class OBJ_Burgeon extends Entity {
     GamePanel gp;
+    public Projectile[] projectiles = new Projectile[80];
+    public int i = 0;
     public OBJ_Burgeon(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -19,6 +22,9 @@ public class OBJ_Burgeon extends Entity {
         attackArea.height = 0;
         description = "Let the world burn";
         projectile = new OBJ_Fireball(gp);
+        for(int i = 0; i < 80; i++) {
+            projectiles[i] = new OBJ_Fireball(gp);
+        }
         castSpeed = 30;
         useCost = 2;
         canMeleeAttack = false;
@@ -28,50 +34,57 @@ public class OBJ_Burgeon extends Entity {
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        projectile4 = new OBJ_Fireball(gp);
-        projectile4.maxLife = 160;
-        projectile4.set(worldX, worldY, direction,"", alive, user);
-        gp.projectileList.add(projectile4);
+        if(i > 70) i = 0;
+
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, direction,"", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
         if(direction == "left" || direction == "right") {
-            projectile2 = new OBJ_Fireball(gp);
-            projectile2.maxLife = 160;
-            projectile2.set(worldX, worldY + 70, direction,"up", alive, user);
-            gp.projectileList.add(projectile2);
-            projectile3 = new OBJ_Fireball(gp);
-            projectile3.maxLife = 160;
-            projectile3.set(worldX, worldY - 70, direction,"down", alive, user);
-            gp.projectileList.add(projectile3);
 
-            projectile5 = new OBJ_Fireball(gp);
-            projectile5.maxLife = 160;
-            projectile5.set(worldX, worldY + 20, direction,"up", alive, user);
-            gp.projectileList.add(projectile5);
-            projectile6 = new OBJ_Fireball(gp);
-            projectile6.maxLife = 160;
-            projectile6.set(worldX, worldY - 20, direction,"down", alive, user);
-            gp.projectileList.add(projectile6);
+            projectiles[i].maxLife = 160;
+            projectiles[i].set(worldX, worldY + 70, direction,"up", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
+
+            projectiles[i].maxLife = 160;
+            projectiles[i].set(worldX, worldY - 70, direction,"down", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
+
+            projectiles[i].maxLife = 160;
+            projectiles[i].set(worldX, worldY + 20, direction,"up", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
+
+            projectiles[i].maxLife = 160;
+            projectiles[i].set(worldX, worldY - 20, direction,"down", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
         }
         else if(direction == "up" || direction == "down") {
-            projectile2 = new OBJ_Fireball(gp);
-            projectile2.maxLife = 160;
-            projectile2.set(worldX - 70, worldY, direction,"right", alive, user);
-            gp.projectileList.add(projectile2);
-            projectile3 = new OBJ_Fireball(gp);
-            projectile3.maxLife = 160;
-            projectile3.set(worldX + 70, worldY, direction,"left", alive, user);
-            gp.projectileList.add(projectile3);
 
-            projectile5 = new OBJ_Fireball(gp);
-            projectile5.maxLife = 160;
-            projectile5.set(worldX - 20, worldY, direction,"right", alive, user);
-            gp.projectileList.add(projectile5);
-            projectile6 = new OBJ_Fireball(gp);
-            projectile6.maxLife = 160;
-            projectile6.set(worldX + 20, worldY, direction,"left", alive, user);
-            gp.projectileList.add(projectile6);
+            projectiles[i].maxLife = 160;
+            projectiles[i].set(worldX - 70, worldY, direction,"right", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
+
+            projectiles[i].maxLife = 160;
+            projectiles[i].set(worldX + 70, worldY, direction,"left", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
+
+            projectiles[i].maxLife = 160;
+            projectiles[i].set(worldX - 20, worldY, direction,"right", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
+
+            projectiles[i].maxLife = 160;
+            projectiles[i].set(worldX + 20, worldY, direction,"left", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
         }
-
         user.mana = user.mana - useCost;
         gp.playSE(10);
     }

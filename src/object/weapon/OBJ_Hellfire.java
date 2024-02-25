@@ -1,11 +1,16 @@
 package object.weapon;
 
 import entity.Entity;
+import entity.Projectile;
 import main.GamePanel;
 import object.projectile.OBJ_Fireball;
 
+import java.util.ArrayList;
+
 public class OBJ_Hellfire extends Entity {
     GamePanel gp;
+    public Projectile[] projectiles = new Projectile[200];
+    public int i = 0;
     public OBJ_Hellfire(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -19,6 +24,9 @@ public class OBJ_Hellfire extends Entity {
         attackArea.height = 0;
         description = "\"The true apocalypse\"";
         projectile = new OBJ_Fireball(gp);
+        for(int i = 0; i < 200; i++) {
+            projectiles[i] = new OBJ_Fireball(gp);
+        }
         castSpeed = 30;
         useCost = 2;
         canMeleeAttack = false;
@@ -28,96 +36,93 @@ public class OBJ_Hellfire extends Entity {
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        long startTime = System.nanoTime();
+        if(i > 170) i = 0;
 
-        projectile2 = new OBJ_Fireball(gp);
-        projectile2.maxLife = 160;
-        projectile2.set(worldX, worldY, "right","", alive, user);
-        gp.projectileList.add(projectile2);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "right","", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile3 = new OBJ_Fireball(gp);
-        projectile3.maxLife = 160;
-        projectile3.set(worldX, worldY, "right","up", alive, user);
-        gp.projectileList.add(projectile3);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "right","up", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile4 = new OBJ_Fireball(gp);
-        projectile4.maxLife = 160;
-        projectile4.set(worldX, worldY, "up","right", alive, user);
-        gp.projectileList.add(projectile4);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "up","right", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile5 = new OBJ_Fireball(gp);
-        projectile5.maxLife = 160;
-        projectile5.set(worldX, worldY, "up","", alive, user);
-        gp.projectileList.add(projectile5);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "up","", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile6 = new OBJ_Fireball(gp);
-        projectile6.maxLife = 160;
-        projectile6.set(worldX, worldY, "left","up", alive, user);
-        gp.projectileList.add(projectile6);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "left","up", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile7 = new OBJ_Fireball(gp);
-        projectile7.maxLife = 160;
-        projectile7.set(worldX, worldY, "up","left", alive, user);
-        gp.projectileList.add(projectile7);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "up","left", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile8 = new OBJ_Fireball(gp);
-        projectile8.maxLife = 160;
-        projectile8.set(worldX, worldY, "left","", alive, user);
-        gp.projectileList.add(projectile8);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "left","", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile9 = new OBJ_Fireball(gp);
-        projectile9.maxLife = 160;
-        projectile9.set(worldX, worldY, "down","left", alive, user);
-        gp.projectileList.add(projectile9);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "down","left", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile10 = new OBJ_Fireball(gp);
-        projectile10.maxLife = 160;
-        projectile10.set(worldX, worldY, "left","down", alive, user);
-        gp.projectileList.add(projectile10);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "left","down", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile11 = new OBJ_Fireball(gp);
-        projectile11.maxLife = 160;
-        projectile11.set(worldX, worldY, "down","", alive, user);
-        gp.projectileList.add(projectile11);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "down","", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile12 = new OBJ_Fireball(gp);
-        projectile12.maxLife = 160;
-        projectile12.set(worldX, worldY, "down","right", alive, user);
-        gp.projectileList.add(projectile12);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "down","right", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile13 = new OBJ_Fireball(gp);
-        projectile13.maxLife = 160;
-        projectile13.set(worldX, worldY, "right","down", alive, user);
-        gp.projectileList.add(projectile13);
+        projectiles[i].maxLife = 160;
+        projectiles[i].set(worldX, worldY, "right","down", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile14 = new OBJ_Fireball(gp);
-        projectile14.maxLife = 320;
-        projectile14.speed = 20;
-        projectile14.set(worldX, worldY, "right","round", alive, user);
-        gp.projectileList.add(projectile14);
+        projectiles[i].maxLife = 320;
+        projectiles[i].speed = 20;
+        projectiles[i].set(worldX, worldY, "right","round", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile15 = new OBJ_Fireball(gp);
-        projectile15.maxLife = 320;
-        projectile15.speed = 20;
-        projectile15.set(worldX, worldY, "down","round", alive, user);
-        gp.projectileList.add(projectile15);
+        projectiles[i].maxLife = 320;
+        projectiles[i].speed = 20;
+        projectiles[i].set(worldX, worldY, "down","round", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile16 = new OBJ_Fireball(gp);
-        projectile16.maxLife = 320;
-        projectile16.speed = 20;
-        projectile16.set(worldX, worldY, "left","round", alive, user);
-        gp.projectileList.add(projectile16);
+        projectiles[i].maxLife = 320;
+        projectiles[i].speed = 20;
+        projectiles[i].set(worldX, worldY, "left","round", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        projectile17 = new OBJ_Fireball(gp);
-        projectile17.maxLife = 320;
-        projectile17.speed = 20;
-        projectile17.set(worldX, worldY, "up","round", alive, user);
-        gp.projectileList.add(projectile17);
+        projectiles[i].maxLife = 320;
+        projectiles[i].speed = 20;
+        projectiles[i].set(worldX, worldY, "up","round", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
-        long endTime   = System.nanoTime();
         user.mana = user.mana - useCost;
         gp.playSE(10);
-
-        System.out.println(endTime - startTime);
     }
 }

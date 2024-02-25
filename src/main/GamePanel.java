@@ -2,6 +2,7 @@ package main;
 
 import entity.Entity;
 import entity.Player;
+import object.projectile.OBJ_Fireball;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
 
@@ -91,6 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setMonster(999, true);
         aSetter.setInteractiveTile();
+
         playMusic(0);
         stopMusic();
         gameState = titleState;
