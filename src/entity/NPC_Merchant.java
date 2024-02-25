@@ -2,6 +2,8 @@ package entity;
 
 import main.GamePanel;
 import object.OBJ_Potion_Red;
+import object.OBJ_Shield_Blue;
+import object.OBJ_Shield_Wood;
 import object.weapon.*;
 
 public class NPC_Merchant extends Entity {
@@ -38,6 +40,8 @@ public class NPC_Merchant extends Entity {
         inventory.add(new OBJ_Burgeon(gp));
         inventory.add(new OBJ_Hellfire(gp));
         inventory.add(new OBJ_Heaven_Reaper(gp));
+        inventory.add(new OBJ_Shield_Blue(gp));
+        inventory.add(new OBJ_Shield_Wood(gp));
     }
     public void speak() {
         super.speak();

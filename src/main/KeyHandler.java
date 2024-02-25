@@ -157,6 +157,10 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_C) {
             gp.gameState = gp.playState;
         }
+        if(code == KeyEvent.VK_ESCAPE) {
+            gp.ui.commandNum = 0;
+            gp.gameState = gp.playState;
+        }
     }
     public void optionsState(int code) {
         if(code == KeyEvent.VK_ESCAPE) {
@@ -272,9 +276,56 @@ public class KeyHandler implements KeyListener {
             gp.gameState = gp.playState;
         }
         if(code == KeyEvent.VK_ENTER) {
-            gp.player.selectItem();
+            enterPressed = true;
         }
-        playerInventory(code);
+        if(gp.ui.subState == 0) {
+            if (code == KeyEvent.VK_ESCAPE) {
+                gp.ui.commandNum = 0;
+                gp.ui.subState = 0;
+                gp.gameState = gp.playState;
+            }
+            if(code == KeyEvent.VK_W) {
+                if(gp.ui.playerSlotRow != 0) {
+                    gp.ui.playerSlotRow--;
+                    gp.playSE(9);
+                }
+            }
+            if(code == KeyEvent.VK_A) {
+                if(gp.ui.playerSlotCol != 0) {
+                    gp.ui.playerSlotCol--;
+                    gp.playSE(9);
+                }
+            }
+            if(code == KeyEvent.VK_S) {
+                if(gp.ui.playerSlotRow != 3) {
+                    gp.ui.playerSlotRow++;
+                    gp.playSE(9);
+                }
+            }
+            if(code == KeyEvent.VK_D) {
+                if(gp.ui.playerSlotCol != 4) {
+                    gp.ui.playerSlotCol++;
+                    gp.playSE(9);
+                }
+            }
+        }
+        if(gp.ui.subState == 1) {
+            if(code == KeyEvent.VK_W) {
+                gp.ui.commandNum --;
+                if(gp.ui.commandNum < 1) gp.ui.commandNum = 4;
+                gp.playSE(9);
+            }
+            if(code == KeyEvent.VK_S) {
+                gp.ui.commandNum ++;
+                if(gp.ui.commandNum > 4) gp.ui.commandNum = 1;
+                gp.playSE(9);
+            }
+            if (code == KeyEvent.VK_ESCAPE || code == KeyEvent.VK_E) {
+                gp.ui.commandNum = 0;
+                gp.ui.subState = 0;
+                gp.gameState = gp.playState;
+            }
+        }
     }
     public void tradeState(int code) {
         if(code == KeyEvent.VK_ENTER) {
@@ -300,38 +351,39 @@ public class KeyHandler implements KeyListener {
             npcInventory(code);
             if(code == KeyEvent.VK_ESCAPE) {
                 gp.ui.subState = 0;
+                gp.ui.commandNum = 0;
+                gp.gameState = gp.playState;
             }
         }
         if(gp.ui.subState == 2) {
-            playerInventory(code);
+            if(code == KeyEvent.VK_W) {
+                if(gp.ui.playerSlotRow != 0) {
+                    gp.ui.playerSlotRow--;
+                    gp.playSE(9);
+                }
+            }
+            if(code == KeyEvent.VK_A) {
+                if(gp.ui.playerSlotCol != 0) {
+                    gp.ui.playerSlotCol--;
+                    gp.playSE(9);
+                }
+            }
+            if(code == KeyEvent.VK_S) {
+                if(gp.ui.playerSlotRow != 3) {
+                    gp.ui.playerSlotRow++;
+                    gp.playSE(9);
+                }
+            }
+            if(code == KeyEvent.VK_D) {
+                if(gp.ui.playerSlotCol != 4) {
+                    gp.ui.playerSlotCol++;
+                    gp.playSE(9);
+                }
+            }
             if(code == KeyEvent.VK_ESCAPE) {
                 gp.ui.subState = 0;
-            }
-        }
-    }
-    public void playerInventory(int code) {
-        if(code == KeyEvent.VK_W) {
-            if(gp.ui.playerSlotRow != 0) {
-                gp.ui.playerSlotRow--;
-                gp.playSE(9);
-            }
-        }
-        if(code == KeyEvent.VK_A) {
-            if(gp.ui.playerSlotCol != 0) {
-                gp.ui.playerSlotCol--;
-                gp.playSE(9);
-            }
-        }
-        if(code == KeyEvent.VK_S) {
-            if(gp.ui.playerSlotRow != 3) {
-                gp.ui.playerSlotRow++;
-                gp.playSE(9);
-            }
-        }
-        if(code == KeyEvent.VK_D) {
-            if(gp.ui.playerSlotCol != 4) {
-                gp.ui.playerSlotCol++;
-                gp.playSE(9);
+                gp.ui.commandNum = 0;
+                gp.gameState = gp.playState;
             }
         }
     }

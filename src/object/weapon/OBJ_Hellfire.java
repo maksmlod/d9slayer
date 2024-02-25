@@ -39,86 +39,86 @@ public class OBJ_Hellfire extends Entity {
         if(i > 280) i = 0;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "right","", alive, user);
+        projectiles[i].set(worldX, worldY, "right","", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "right","up", alive, user);
+        projectiles[i].set(worldX, worldY, "right","up", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "up","right", alive, user);
+        projectiles[i].set(worldX, worldY, "up","right", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "up","", alive, user);
+        projectiles[i].set(worldX, worldY, "up","", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "left","up", alive, user);
+        projectiles[i].set(worldX, worldY, "left","up", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "up","left", alive, user);
+        projectiles[i].set(worldX, worldY, "up","left", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "left","", alive, user);
+        projectiles[i].set(worldX, worldY, "left","", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "down","left", alive, user);
+        projectiles[i].set(worldX, worldY, "down","left", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "left","down", alive, user);
+        projectiles[i].set(worldX, worldY, "left","down", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "down","", alive, user);
+        projectiles[i].set(worldX, worldY, "down","", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "down","right", alive, user);
+        projectiles[i].set(worldX, worldY, "down","right", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, "right","down", alive, user);
+        projectiles[i].set(worldX, worldY, "right","down", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 320;
         projectiles[i].speed = 20;
-        projectiles[i].set(worldX, worldY, "right","round", alive, user);
+        projectiles[i].set(worldX, worldY, "right","round", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 320;
         projectiles[i].speed = 20;
-        projectiles[i].set(worldX, worldY, "down","round", alive, user);
+        projectiles[i].set(worldX, worldY, "down","round", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 320;
         projectiles[i].speed = 20;
-        projectiles[i].set(worldX, worldY, "left","round", alive, user);
+        projectiles[i].set(worldX, worldY, "left","round", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         projectiles[i].maxLife = 320;
         projectiles[i].speed = 20;
-        projectiles[i].set(worldX, worldY, "up","round", alive, user);
+        projectiles[i].set(worldX, worldY, "up","round", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 

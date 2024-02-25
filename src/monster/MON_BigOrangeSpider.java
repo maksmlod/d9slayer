@@ -72,25 +72,25 @@ public class MON_BigOrangeSpider extends Entity {
         int i = new Random().nextInt(100) + 1;
         if(i > 90 && shotAvailableCounter == 30) {
             projectile6 = new OBJ_Rock(gp);
-            projectile6.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"up","",true,this);
+            projectile6.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"up","",true,this, null);
             projectile6.speed = 3;
             projectile6.attack = 10;
             gp.projectileList.add(projectile6);
 
             projectile4 = new OBJ_Rock(gp);
-            projectile4.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"down","",true,this);
+            projectile4.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"down","",true,this, null);
             projectile4.speed = 3;
             projectile4.attack = 10;
             gp.projectileList.add(projectile4);
 
             projectile3 = new OBJ_Rock(gp);
-            projectile3.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"left","",true,this);
+            projectile3.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"left","",true,this, null);
             projectile3.speed = 3;
             projectile3.attack = 10;
             gp.projectileList.add(projectile3);
 
             projectile5 = new OBJ_Rock(gp);
-            projectile5.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"right","",true,this);
+            projectile5.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"right","",true,this, null);
             projectile5.speed = 3;
             projectile5.attack = 10;
             gp.projectileList.add(projectile5);

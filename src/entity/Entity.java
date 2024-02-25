@@ -51,6 +51,7 @@ public class Entity {
     public int speed;
     public String name;
     public int type;
+    public Entity[] accessories;
     public final int type_player = 0;
     public final int type_npc = 1;
     public final int type_monster = 2;
@@ -60,6 +61,7 @@ public class Entity {
     public final int type_consumable = 6;
     public final int type_pickupOnly = 7;
     public final int type_wand = 8;
+    public final int type_accessory = 9;
     public int weapon_id;
     public boolean canMeleeAttack = false;
     public boolean haveProjectile = false;
@@ -93,18 +95,6 @@ public class Entity {
     public Projectile projectile5;
     public Projectile projectile6;
     public Projectile projectile7;
-    public Projectile projectile8;
-    public Projectile projectile9;
-    public Projectile projectile10;
-    public Projectile projectile11;
-    public Projectile projectile12;
-    public Projectile projectile13;
-    public Projectile projectile14;
-    public Projectile projectile15;
-    public Projectile projectile16;
-    public Projectile projectile17;
-    public Projectile projectile18;
-    public Projectile projectile19;
     public static BufferedImage fireball_up1, fireball_up2, fireball_down1, fireball_down2,
             fireball_left1, fireball_left2, fireball_right1, fireball_right2;
     public static BufferedImage divineshot_up1, divineshot_up2, divineshot_down1, divineshot_down2,

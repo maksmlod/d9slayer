@@ -37,51 +37,51 @@ public class OBJ_Burgeon extends Entity {
         if(i > 70) i = 0;
 
         projectiles[i].maxLife = 160;
-        projectiles[i].set(worldX, worldY, direction,"", alive, user);
+        projectiles[i].set(worldX, worldY, direction,"", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         if(direction == "left" || direction == "right") {
 
             projectiles[i].maxLife = 160;
-            projectiles[i].set(worldX, worldY + 70, direction,"up", alive, user);
+            projectiles[i].set(worldX, worldY + 70, direction,"up", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].maxLife = 160;
-            projectiles[i].set(worldX, worldY - 70, direction,"down", alive, user);
+            projectiles[i].set(worldX, worldY - 70, direction,"down", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].maxLife = 160;
-            projectiles[i].set(worldX, worldY + 20, direction,"up", alive, user);
+            projectiles[i].set(worldX, worldY + 20, direction,"up", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].maxLife = 160;
-            projectiles[i].set(worldX, worldY - 20, direction,"down", alive, user);
+            projectiles[i].set(worldX, worldY - 20, direction,"down", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
         }
         else if(direction == "up" || direction == "down") {
 
             projectiles[i].maxLife = 160;
-            projectiles[i].set(worldX - 70, worldY, direction,"right", alive, user);
+            projectiles[i].set(worldX - 70, worldY, direction,"right", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].maxLife = 160;
-            projectiles[i].set(worldX + 70, worldY, direction,"left", alive, user);
+            projectiles[i].set(worldX + 70, worldY, direction,"left", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].maxLife = 160;
-            projectiles[i].set(worldX - 20, worldY, direction,"right", alive, user);
+            projectiles[i].set(worldX - 20, worldY, direction,"right", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].maxLife = 160;
-            projectiles[i].set(worldX + 20, worldY, direction,"left", alive, user);
+            projectiles[i].set(worldX + 20, worldY, direction,"left", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
         }

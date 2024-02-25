@@ -70,7 +70,7 @@ public class MON_GreySlime extends Entity {
         }
         int i = new Random().nextInt(100) + 1;
         if(i > 90 && projectile.alive == false && shotAvailableCounter == 30) {
-            projectile.set(worldX,worldY,direction,"",true,this);
+            projectile.set(worldX,worldY,direction,"",true,this, null);
             gp.projectileList.add(projectile);
             shotAvailableCounter = 0;
         }

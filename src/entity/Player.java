@@ -5,11 +5,10 @@ import main.KeyHandler;
 import main.UtilityTool;
 import object.*;
 import object.projectile.OBJ_Fireball;
-import object.weapon.OBJ_Sword_Normal;
+import object.weapon.OBJ_Normal_Sword;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Player extends Entity{
 
@@ -18,6 +17,7 @@ public class Player extends Entity{
     public final int screenY;
     int standCounter = 0;
     public boolean attackCanceled = false;
+    public int accessorySize = 4;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -37,6 +37,8 @@ public class Player extends Entity{
 
         //attackArea.width = 36;
         //attackArea.height = 36;
+        accessories = new Entity[accessorySize];
+
 
         setDefaultValues();
         String skinName = "bladee";
@@ -62,7 +64,7 @@ public class Player extends Entity{
         exp = 2;
         nextLevelExp = 5;
         coin = 300;
-        currentWeapon = new OBJ_Sword_Normal(gp);
+        currentWeapon = new OBJ_Normal_Sword(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack();
         defense = getDefense();
@@ -470,20 +472,37 @@ public class Player extends Entity{
             gp.playSE(8);
         }
     }
-    public void selectItem() {
+    public void selectItem(int index) {
         int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
         if(itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);
             if(selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_wand) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
-                getPlayerAttackImage();
             }
-            if(selectedItem.type == type_shield) {
-                currentShield.revertEffect(this);
-                currentShield = selectedItem;
-                currentShield.effect(this);
-                defense = getDefense();
+            if(selectedItem.type == type_accessory) {
+                boolean doesContain = false;
+                int containingIndex = 999;
+                for(int i = 0; i < accessories.length; i++) {
+                    if(accessories[i] == selectedItem) {
+                        doesContain = true;
+                        containingIndex = i;
+                        break;
+                    }
+                }
+                if(doesContain == true)  {
+                    accessories[containingIndex].revertEffect(this);
+                    accessories[containingIndex] = null;
+                }
+                if (accessories[index] != null) {
+                    accessories[index].revertEffect(this);
+                    accessories[index] = selectedItem;
+                    accessories[index].effect(this);
+                }
+                else {
+                    accessories[index] = selectedItem;
+                    accessories[index].effect(this);
+                }
             }
             if(selectedItem.type == type_consumable) {
                 selectedItem.use(this);

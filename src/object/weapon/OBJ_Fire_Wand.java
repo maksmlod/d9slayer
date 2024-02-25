@@ -35,22 +35,22 @@ public class OBJ_Fire_Wand extends Entity {
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
         if(i > 43) i = 0;
-        projectiles[i].set(worldX, worldY, direction,"", alive, user);
+        projectiles[i].set(worldX, worldY, direction,"", alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
         if(direction == "left" || direction == "right") {
-            projectiles[i].set(worldX, worldY + 30, direction,"", alive, user);
+            projectiles[i].set(worldX, worldY + 30, direction,"", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
-            projectiles[i].set(worldX, worldY - 30, direction,"", alive, user);
+            projectiles[i].set(worldX, worldY - 30, direction,"", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
         }
         else if(direction == "up" || direction == "down") {
-            projectiles[i].set(worldX + 30, worldY, direction,"", alive, user);
+            projectiles[i].set(worldX + 30, worldY, direction,"", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
-            projectiles[i].set(worldX - 30, worldY, direction,"", alive, user);
+            projectiles[i].set(worldX - 30, worldY, direction,"", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
         }

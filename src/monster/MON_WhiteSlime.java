@@ -69,31 +69,31 @@ public class MON_WhiteSlime extends Entity {
         int i = new Random().nextInt(100) + 1;
         if(i > 80 && projectile.alive == false && shotAvailableCounter == 30) {
             if(direction == "left" || direction == "right") {
-                projectile.set(worldX, worldY, direction, "", true, this);
+                projectile.set(worldX, worldY, direction, "", true, this, null);
                 gp.projectileList.add(projectile);
 
                 projectile4 = new OBJ_Rock(gp);
                 projectile4.speed = 12;
-                projectile4.set(worldX, worldY - 20, direction, "up", true, this);
+                projectile4.set(worldX, worldY - 20, direction, "up", true, this, null);
                 gp.projectileList.add(projectile4);
 
                 projectile5 = new OBJ_Rock(gp);
                 projectile5.speed = 12;
-                projectile5.set(worldX, worldY + 20, direction, "down", true, this);
+                projectile5.set(worldX, worldY + 20, direction, "down", true, this, null);
                 gp.projectileList.add(projectile5);
             }
             else if(direction == "up" || direction == "down") {
-                projectile.set(worldX, worldY, direction, "", true, this);
+                projectile.set(worldX, worldY, direction, "", true, this, null);
                 gp.projectileList.add(projectile);
 
                 projectile4 = new OBJ_Rock(gp);
                 projectile4.speed = 12;
-                projectile4.set(worldX - 20, worldY, direction, "left", true, this);
+                projectile4.set(worldX - 20, worldY, direction, "left", true, this, null);
                 gp.projectileList.add(projectile4);
 
                 projectile5 = new OBJ_Rock(gp);
                 projectile5.speed = 12;
-                projectile5.set(worldX + 20, worldY, direction, "right", true, this);
+                projectile5.set(worldX + 20, worldY, direction, "right", true, this, null);
                 gp.projectileList.add(projectile5);
 
             }

@@ -3,8 +3,8 @@ package object.weapon;
 import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Sword_Normal extends Entity {
-    public OBJ_Sword_Normal (GamePanel gp) {
+public class OBJ_Normal_Sword extends Entity {
+    public OBJ_Normal_Sword(GamePanel gp) {
             super(gp);
 
             canMeleeAttack = true;

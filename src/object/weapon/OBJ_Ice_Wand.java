@@ -1,11 +1,15 @@
 package object.weapon;
 
 import entity.Entity;
+import entity.Projectile;
 import main.GamePanel;
+import object.projectile.OBJ_Divineshot;
 import object.projectile.OBJ_Iceball;
 
 public class OBJ_Ice_Wand extends Entity {
     GamePanel gp;
+    public Projectile[] projectiles = new Projectile[50];
+    public int i = 0;
     public OBJ_Ice_Wand(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -25,13 +29,16 @@ public class OBJ_Ice_Wand extends Entity {
         haveProjectile = true;
         price = 10;
         rarity = "uncommon";
-
+        for(int i = 0; i < 50; i++) {
+            projectiles[i] = new OBJ_Iceball(gp);
+        }
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        projectile2 = new OBJ_Iceball(gp);
-        projectile2.set(worldX, worldY, direction, "",alive, user);
-        gp.projectileList.add(projectile2);
+        if(i > 45) i = 0;
+        projectiles[i].set(worldX, worldY, direction, "",alive, user,this);
+        gp.projectileList.add(projectiles[i]);
+        i++;
 
         user.mana = user.mana - useCost;
         gp.playSE(14);

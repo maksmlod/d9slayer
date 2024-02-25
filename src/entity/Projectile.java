@@ -10,11 +10,12 @@ public class Projectile extends Entity{
     int roundLengthCounter = 0;
     String[] directionArray = {"up","right","down","left"};
     int directionArrayIndex = 0;
+    Entity weapon;
     public Projectile(GamePanel gp) {
         super(gp);
     }
 
-    public void set(int worldX, int worldY, String direction, String direction2, boolean alive, Entity user) {
+    public void set(int worldX, int worldY, String direction, String direction2, boolean alive, Entity user, Entity weapon) {
         this.worldX = worldX;
         this.worldY = worldY;
         this.direction = direction;
@@ -22,6 +23,7 @@ public class Projectile extends Entity{
         this.alive = alive;
         this.user = user;
         this.life = this.maxLife;
+        this.weapon = weapon;
     }
     public void update() {
         //collision
@@ -54,10 +56,12 @@ public class Projectile extends Entity{
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             if(monsterIndex != 999) {
                 gp.player.damageMonster(monsterIndex, attack);
-                generateParticle(user.currentWeapon.projectile, gp.monster[gp.currentMap][monsterIndex]);
-                generateDamageParticle(user.currentWeapon.projectile, gp.monster[gp.currentMap][monsterIndex],
-                        user.currentWeapon.projectile.attack);
+                generateParticle(weapon.projectile, gp.monster[gp.currentMap][monsterIndex]);
+                int value = weapon.projectile.attack - gp.monster[gp.currentMap][monsterIndex].defense;
+                if(value < 0) value = 0;
+                //generateDamageParticle(weapon.projectile, gp.monster[gp.currentMap][monsterIndex],value);
                 alive = false;
+
             }
         }
         else {

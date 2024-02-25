@@ -3,14 +3,13 @@ package main;
 import entity.Entity;
 import object.OBJ_Coin;
 import object.OBJ_Heart;
-import object.OBJ_Key;
 import object.OBJ_ManaCrystal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class UI {
@@ -26,6 +25,7 @@ public class UI {
     ArrayList<Integer> messageCounter = new ArrayList<>();
     public String currentDialogue = "";
     public int commandNum = 0;
+    public int commandNum2 = 0;
     public int playerSlotCol = 0;
     public int playerSlotRow = 0;
     public int npcSlotCol = 0;
@@ -108,7 +108,7 @@ public class UI {
             drawTransition();
         }
         if(gp.gameState == gp.inventoryState) {
-            drawInventory(gp.player, true);
+            drawInventory(gp.player, true, false);
         }
         if(gp.gameState == gp.tradeState) {
             drawTradeScreen();
@@ -399,7 +399,14 @@ public class UI {
             gp.eHandler.previousEventY = gp.player.worldY;
         }
     }
-    public void drawInventory(Entity entity, boolean cursor) {
+    public void drawInventory(Entity entity, boolean cursor, boolean isTrading) {
+        switch(subState) {
+            case 0: show_items(entity, cursor, isTrading); break;
+            case 1: wear_items(); break;
+        }
+        gp.keyH.enterPressed = false;
+    }
+    public void show_items(Entity entity, boolean cursor, boolean isTrading) {
         int frameX = 0;
         int frameY = 0;
         int frameWidth = 0;
@@ -438,13 +445,33 @@ public class UI {
 
         for(int i = 0; i < entity.inventory.size(); i++) {
             //equip cursor
-            if(entity.inventory.get(i) == entity.currentWeapon ||
-                    entity.inventory.get(i) == entity.currentShield) {
+            boolean isAccessory = false;
+
+            for(int j = 0; j < gp.player.accessories.length; j++) {
+                if(gp.player.accessories[j] == entity.inventory.get(i)) isAccessory = true;
+            }
+            if(entity.inventory.get(i) == entity.currentWeapon || isAccessory == true) {
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
             }
-
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
+
+
+            if(entity == gp.player) {
+                int eqNumber = 0;
+                if (entity.inventory.get(i) == entity.currentWeapon) eqNumber = 1;
+                else if (entity.inventory.get(i) == entity.accessories[0]) eqNumber = 2;
+                else if (entity.inventory.get(i) == entity.accessories[1]) eqNumber = 3;
+                else if (entity.inventory.get(i) == entity.accessories[2]) eqNumber = 4;
+                else if (entity.inventory.get(i) == entity.accessories[3]) eqNumber = 5;
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+                g2.setColor(Color.black);
+                if(eqNumber != 0) g2.drawString(Integer.toString(eqNumber),slotX+gp.tileSize-12 + 1,slotY+14 + 1);
+                g2.setColor(Color.white);
+                if(eqNumber != 0) g2.drawString(Integer.toString(eqNumber),slotX+gp.tileSize-12,slotY+14);
+            }
+
+
             slotX += slotSize;
             if(i == 4 || i == 9 || i == 14) {
                 slotX = slotXstart;
@@ -486,7 +513,7 @@ public class UI {
 
                 g2.setColor(rarityColor);
                 g2.drawString(entity.inventory.get(itemIndex).name,textX,textY);
-                textY += 10;
+                textY += 5;
                 textX = dFrameX + 20;
                 for(int i = 0; i < rarityCount; i++) {
                     g2.drawImage(starImage,textX,textY,null);
@@ -500,6 +527,16 @@ public class UI {
                     g2.drawString(line, textX, textY);
                     textY += 32;
                 }
+
+                if(gp.keyH.enterPressed == true && entity.inventory.get(itemIndex).type == entity.type_accessory &&
+                        isTrading == false) {
+                    subState = 1;
+                    commandNum = 1;
+                }
+                else if(gp.keyH.enterPressed == true && isTrading == false) {
+                    gp.player.selectItem(0);
+                }
+
             }
 /*
             //inventory right (player's current items)
@@ -525,10 +562,280 @@ public class UI {
             textY -= 30;
             g2.drawImage(entity.currentShield.down1, textX, textY, null);
             textY += 30;
-
  */
+
+            // current items:
+            if(isTrading == false && entity == gp.player) {
+                frameX = gp.tileSize * 2;
+                frameY = gp.tileSize;
+                frameWidth = (int)(gp.tileSize * 6);
+                frameHeight = gp.tileSize * 10;
+                drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+                frameX += gp.tileSize/2;
+                frameY += gp.tileSize/2 + 20;
+                int addY = (int)(gp.tileSize*1.85);
+
+                g2.drawString("Weapon:",frameX,frameY);
+                frameY += addY;
+                g2.drawString("Accessory 1:",frameX,frameY);
+                frameY += addY;
+                g2.drawString("Accessory 2:",frameX,frameY);
+                frameY += addY;
+                g2.drawString("Accessory 3:",frameX,frameY);
+                frameY += addY;
+                g2.drawString("Accessory 4:",frameX,frameY);
+                frameY = 2*gp.tileSize + 5;
+
+                int defaultX = frameX;
+                g2.drawImage(gp.player.currentWeapon.down1,frameX,frameY,null);
+                frameX += gp.tileSize + 15;
+                frameY += gp.tileSize/2;
+                Color rarityColor = new Color(0,0,0);
+                int rarityCount = 0;
+                if(gp.player.currentWeapon.rarity == "common") {rarityColor = common; rarityCount = 1;}
+                else if(gp.player.currentWeapon.rarity == "uncommon") {rarityColor = uncommon; rarityCount = 2;}
+                else if(gp.player.currentWeapon.rarity == "rare") {rarityColor = rare; rarityCount = 3;}
+                else if(gp.player.currentWeapon.rarity == "epic") {rarityColor = epic; rarityCount = 4;}
+                else if(gp.player.currentWeapon.rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+                g2.setColor(rarityColor);
+                g2.drawString(gp.player.currentWeapon.name, frameX, frameY);
+                frameY += 5;
+                for(int i = 0; i < rarityCount; i++) {
+                    g2.drawImage(starImage,frameX,frameY,null);
+                    frameX += 20;
+                }
+
+                for(int i = 0; i < gp.player.accessorySize; i++) {
+                    if(gp.player.accessories[i] != null) {
+                        frameX = defaultX;
+                        frameY += (int)(gp.tileSize*1.85) - gp.tileSize/2 - 5;
+                        g2.drawImage(gp.player.accessories[i].down1,frameX,frameY,null);
+                        frameX += gp.tileSize + 15;
+                        frameY += gp.tileSize/2;
+                        rarityColor = new Color(0,0,0);
+                        rarityCount = 0;
+                        if(gp.player.accessories[i].rarity == "common") {rarityColor = common; rarityCount = 1;}
+                        else if(gp.player.accessories[i].rarity == "uncommon") {rarityColor = uncommon; rarityCount = 2;}
+                        else if(gp.player.accessories[i].rarity == "rare") {rarityColor = rare; rarityCount = 3;}
+                        else if(gp.player.accessories[i].rarity == "epic") {rarityColor = epic; rarityCount = 4;}
+                        else if(gp.player.accessories[i].rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+                        g2.setColor(rarityColor);
+                        g2.drawString(gp.player.accessories[i].name, frameX, frameY);
+                        frameY += 5;
+                        for(int j = 0; j < rarityCount; j++) {
+                            g2.drawImage(starImage,frameX,frameY,null);
+                            frameX += 20;
+                        }
+                    }
+                    else {
+                        frameY += (int)(gp.tileSize*1.85);
+                    }
+                }
+
+            }
+
         }
 
+    }
+    public void wear_items() {
+        int frameX = 0;
+        int frameY = 0;
+        int frameWidth = 0;
+        int frameHeight = 0;
+        int slotCol = 0;
+        int slotRow = 0;
+
+        frameX = gp.tileSize*12;
+        frameY = gp.tileSize;
+        frameWidth = gp.tileSize*6;
+        frameHeight = gp.tileSize*5;
+        slotCol = playerSlotCol;
+        slotRow = playerSlotRow;
+        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+
+        final int slotXstart = frameX + 20;
+        final int slotYstart = frameY + 20;
+        int slotX = slotXstart;
+        int slotY = slotYstart;
+        int slotSize = gp.tileSize+3;
+
+        for(int i = 0; i < gp.player.inventory.size(); i++) {
+            //equip cursor
+            boolean isAccessory = false;
+            for(int j = 0; j < gp.player.accessories.length; j++) {
+                if(gp.player.accessories[j] == gp.player.inventory.get(i)) isAccessory = true;
+            }
+            if(gp.player.inventory.get(i) == gp.player.currentWeapon || isAccessory == true) {
+                g2.setColor(new Color(240,190,90));
+                g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
+            }
+
+            g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
+
+
+
+                int eqNumber = 0;
+                if (gp.player.inventory.get(i) == gp.player.currentWeapon) eqNumber = 1;
+                else if (gp.player.inventory.get(i) == gp.player.accessories[0]) eqNumber = 2;
+                else if (gp.player.inventory.get(i) == gp.player.accessories[1]) eqNumber = 3;
+                else if (gp.player.inventory.get(i) == gp.player.accessories[2]) eqNumber = 4;
+                else if (gp.player.inventory.get(i) == gp.player.accessories[3]) eqNumber = 5;
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+                g2.setColor(Color.black);
+                if(eqNumber != 0) g2.drawString(Integer.toString(eqNumber),slotX+gp.tileSize-12 + 1,slotY+14 + 1);
+                g2.setColor(Color.white);
+                if(eqNumber != 0) g2.drawString(Integer.toString(eqNumber),slotX+gp.tileSize-12,slotY+14);
+
+
+
+            slotX += slotSize;
+            if(i == 4 || i == 9 || i == 14) {
+                slotX = slotXstart;
+                slotY += slotSize;
+            }
+        }
+
+        int cursorX = slotXstart + (slotSize * slotCol);
+        int cursorY = slotYstart + (slotSize * slotRow);
+        int cursorWidth = gp.tileSize;
+        int cursorHeight = gp.tileSize;
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+        //description
+        int dFrameX = frameX;
+        int dFrameY = frameY + frameHeight;
+        int dFrameWidth = frameWidth;
+        int dFrameHeight = gp.tileSize * 5;
+
+        int textX = dFrameX + 20;
+        int textY = dFrameY + gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(20F));
+        int itemIndex = getItemIndexOnSlot(slotCol, slotRow);
+        if (itemIndex < gp.player.inventory.size()) {
+                drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+
+                starImage = gp.player.setup("/objects/star", gp.tileSize/2, gp.tileSize/2);
+                Color rarityColor = new Color(0,0,0);
+                int rarityCount = 0;
+                if(gp.player.inventory.get(itemIndex).rarity == "common") {rarityColor = common; rarityCount = 1;}
+                else if(gp.player.inventory.get(itemIndex).rarity == "uncommon") {rarityColor = uncommon; rarityCount = 2;}
+                else if(gp.player.inventory.get(itemIndex).rarity == "rare") {rarityColor = rare; rarityCount = 3;}
+                else if(gp.player.inventory.get(itemIndex).rarity == "epic") {rarityColor = epic; rarityCount = 4;}
+                else if(gp.player.inventory.get(itemIndex).rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+
+                g2.setColor(rarityColor);
+                g2.drawString(gp.player.inventory.get(itemIndex).name,textX,textY);
+                textY += 5;
+                textX = dFrameX + 20;
+                for(int i = 0; i < rarityCount; i++) {
+                    g2.drawImage(starImage,textX,textY,null);
+                    textX += 20;
+                }
+
+                textY += 75;
+                textX = dFrameX + 20;
+                g2.setColor(Color.white);
+                for (String line : gp.player.inventory.get(itemIndex).description.split("\n")) {
+                    g2.drawString(line, textX, textY);
+                    textY += 32;
+                }
+            }
+
+        frameX = gp.tileSize * 2;
+        frameY = gp.tileSize;
+        frameWidth = (int)(gp.tileSize * 6);
+        frameHeight = gp.tileSize * 10;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        frameX += gp.tileSize/2;
+        frameY += gp.tileSize/2 + 20;
+        int addY = (int)(gp.tileSize*1.85);
+
+        g2.drawString("Weapon:",frameX,frameY);
+        frameY += addY;
+        g2.drawString("Accessory 1:",frameX,frameY);
+        frameY += addY;
+        g2.drawString("Accessory 2:",frameX,frameY);
+        frameY += addY;
+        g2.drawString("Accessory 3:",frameX,frameY);
+        frameY += addY;
+        g2.drawString("Accessory 4:",frameX,frameY);
+        frameY = 2*gp.tileSize + 5;
+
+        int defaultX = frameX;
+        g2.drawImage(gp.player.currentWeapon.down1,frameX,frameY,null);
+        frameX += gp.tileSize + 15;
+        frameY += gp.tileSize/2;
+        Color rarityColor = new Color(0,0,0);
+        int rarityCount = 0;
+        if(gp.player.currentWeapon.rarity == "common") {rarityColor = common; rarityCount = 1;}
+        else if(gp.player.currentWeapon.rarity == "uncommon") {rarityColor = uncommon; rarityCount = 2;}
+        else if(gp.player.currentWeapon.rarity == "rare") {rarityColor = rare; rarityCount = 3;}
+        else if(gp.player.currentWeapon.rarity == "epic") {rarityColor = epic; rarityCount = 4;}
+        else if(gp.player.currentWeapon.rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+        g2.setColor(rarityColor);
+        g2.drawString(gp.player.currentWeapon.name, frameX, frameY);
+        frameY += 5;
+        for(int i = 0; i < rarityCount; i++) {
+                    g2.drawImage(starImage,frameX,frameY,null);
+                    frameX += 20;
+                }
+        for(int i = 0; i < gp.player.accessorySize; i++) {
+                    if(gp.player.accessories[i] != null) {
+                        frameX = defaultX;
+                        frameY += (int)(gp.tileSize*1.85) - gp.tileSize/2 - 5;
+                        g2.drawImage(gp.player.accessories[i].down1,frameX,frameY,null);
+                        frameX += gp.tileSize + 15;
+                        frameY += gp.tileSize/2;
+                        rarityColor = new Color(0,0,0);
+                        rarityCount = 0;
+                        if(gp.player.accessories[i].rarity == "common") {rarityColor = common; rarityCount = 1;}
+                        else if(gp.player.accessories[i].rarity == "uncommon") {rarityColor = uncommon; rarityCount = 2;}
+                        else if(gp.player.accessories[i].rarity == "rare") {rarityColor = rare; rarityCount = 3;}
+                        else if(gp.player.accessories[i].rarity == "epic") {rarityColor = epic; rarityCount = 4;}
+                        else if(gp.player.accessories[i].rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+                        g2.setColor(rarityColor);
+                        g2.drawString(gp.player.accessories[i].name, frameX, frameY);
+                        frameY += 5;
+                        for(int j = 0; j < rarityCount; j++) {
+                            g2.drawImage(starImage,frameX,frameY,null);
+                            frameX += 20;
+                        }
+                    }
+                    else {
+                        frameY += (int)(gp.tileSize*1.85);
+                    }
+                }
+
+
+        cursorX = gp.tileSize * 2 + 20;
+        cursorY = gp.tileSize + 18;
+        cursorWidth = (int)(gp.tileSize * 5) + 5;
+        cursorHeight = gp.tileSize * 2;
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(3));
+        if(commandNum == 1) {
+            cursorY += addY;
+            g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+        }
+        else if(commandNum == 2) {
+            cursorY += 2*addY;
+            g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+        }
+        else if(commandNum == 3) {
+            cursorY += 3*addY;
+            g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+        }
+        else if(commandNum == 4) {
+            cursorY += 4*addY;
+            g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+        }
+        if(gp.keyH.enterPressed == true) {
+            gp.player.selectItem(gp.ui.commandNum-1);
+            subState = 0;
+            commandNum = 0;
+        }
     }
     public void drawOptionsScreen() throws IOException {
         g2.setColor(Color.white);
@@ -920,8 +1227,8 @@ public class UI {
         }
     }
     public void trade_buy() {
-        drawInventory(gp.player, false);
-        drawInventory(npc, true);
+        show_items(gp.player, false, true);
+        show_items(npc, true, true);
 
 
         int x = gp.tileSize*2;
@@ -968,13 +1275,28 @@ public class UI {
                 }
                 else {
                     gp.player.coin -= npc.inventory.get(itemIndex).price;
-                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                    gp.player.inventory.add((Entity)getItemFromNpc(itemIndex));
                 }
             }
         }
     }
+    public Object getItemFromNpc(int itemIndex) {
+        Class<?> newItemClass = npc.inventory.get(itemIndex).getClass();
+        try {
+            Object newItem = newItemClass.getDeclaredConstructor(GamePanel.class).newInstance(gp);
+            return newItem;
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void trade_sell() {
-        drawInventory(gp.player, true);
+        show_items(gp.player, true, true);
         int x;
         int y;
         int width;
@@ -1012,8 +1334,12 @@ public class UI {
             g2.drawString(text, x, y+34);
 
             if(gp.keyH.enterPressed == true) {
+                boolean isAccessory = false;
+                for(int j = 0; j < gp.player.accessories.length; j++) {
+                    if(gp.player.accessories[j] == gp.player.inventory.get(itemIndex)) isAccessory = true;
+                }
                 if(gp.player.inventory.get(itemIndex) == gp.player.currentWeapon ||
-                    gp.player.inventory.get(itemIndex) == gp.player.currentShield) {
+                    isAccessory == true) {
                     commandNum = 0;
                     subState = 0;
                     gp.gameState = gp.dialogueState;

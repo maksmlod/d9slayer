@@ -68,7 +68,7 @@ public class MON_OrangeSpider extends Entity {
         }
         int i = new Random().nextInt(100) + 1;
         if(i > 70 && projectile.alive == false && shotAvailableCounter == 30) {
-            projectile.set(worldX,worldY,direction,"",true,this);
+            projectile.set(worldX,worldY,direction,"",true,this, null);
             projectile.speed = 15;
             gp.projectileList.add(projectile);
 
@@ -78,7 +78,7 @@ public class MON_OrangeSpider extends Entity {
             else if(direction == "up") directionTemp = "down";
             else directionTemp = "up";
             projectile4 = new OBJ_Rock(gp);
-            projectile4.set(worldX,worldY,directionTemp,"",true,this);
+            projectile4.set(worldX,worldY,directionTemp,"",true,this, null);
             projectile4.speed = 15;
             gp.projectileList.add(projectile4);
 

@@ -38,53 +38,53 @@ public class OBJ_Freezer extends Entity {
         if(i > 90) i = 0;
         if(direction == "left" || direction == "right") {
             projectiles[i].speed = 3;
-            projectiles[i].set(worldX, worldY, direction, "up", alive, user);
+            projectiles[i].set(worldX, worldY, direction, "up", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].speed = 3;
-            projectiles[i].set(worldX, worldY, direction, "down", alive, user);
+            projectiles[i].set(worldX, worldY, direction, "down", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].speed = 3;
-            projectiles[i].set(worldX, worldY, direction, "", alive, user);
+            projectiles[i].set(worldX, worldY, direction, "", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].speed = 3;
-            projectiles[i].set(worldX, worldY, "down", "", alive, user);
+            projectiles[i].set(worldX, worldY, "down", "", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].speed = 3;
-            projectiles[i].set(worldX, worldY, "up", "", alive, user);
+            projectiles[i].set(worldX, worldY, "up", "", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
         }
         else {
             projectiles[i].speed = 3;
-            projectiles[i].set(worldX, worldY, direction, "right", alive, user);
+            projectiles[i].set(worldX, worldY, direction, "right", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].speed = 3;
-            projectiles[i].set(worldX, worldY, direction, "left", alive, user);
+            projectiles[i].set(worldX, worldY, direction, "left", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].speed = 3;
-            projectiles[i].set(worldX, worldY, direction, "", alive, user);
+            projectiles[i].set(worldX, worldY, direction, "", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].speed = 3;
-            projectiles[i].set(worldX, worldY, "right", "", alive, user);
+            projectiles[i].set(worldX, worldY, "right", "", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
 
             projectiles[i].speed = 3;
-            projectiles[i].set(worldX, worldY, "left", "", alive, user);
+            projectiles[i].set(worldX, worldY, "left", "", alive, user,this);
             gp.projectileList.add(projectiles[i]);
             i++;
         }
