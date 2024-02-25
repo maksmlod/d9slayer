@@ -26,10 +26,10 @@ public class OBJ_Heaven_Reaper extends Entity {
         rarity = "legendary";
     }
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        projectile4 = new OBJ_Divineshot(gp);
-        projectile4.attack = 100;
-        projectile4.set(worldX, worldY, direction, "",alive, user);
-        gp.projectileList.add(projectile4);
+        projectile2 = new OBJ_Divineshot(gp);
+        projectile2.attack = 100;
+        projectile2.set(worldX, worldY, direction, "",alive, user);
+        gp.projectileList.add(projectile2);
 
         //gp.playSE(14);
     }

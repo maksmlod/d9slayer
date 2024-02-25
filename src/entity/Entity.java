@@ -105,7 +105,14 @@ public class Entity {
     public Projectile projectile17;
     public Projectile projectile18;
     public Projectile projectile19;
-
+    public static BufferedImage fireball_up1, fireball_up2, fireball_down1, fireball_down2,
+            fireball_left1, fireball_left2, fireball_right1, fireball_right2;
+    public static BufferedImage divineshot_up1, divineshot_up2, divineshot_down1, divineshot_down2,
+            divineshot_left1, divineshot_left2, divineshot_right1, divineshot_right2;
+    public static BufferedImage iceball_up1, iceball_up2, iceball_down1, iceball_down2,
+            iceball_left1, iceball_left2, iceball_right1, iceball_right2;
+    public static BufferedImage rock_up1, rock_up2, rock_down1, rock_down2,
+            rock_left1, rock_left2, rock_right1, rock_right2;
 
 
 
@@ -385,5 +392,42 @@ public class Entity {
     public void set(int worldX, int worldY, String direction, boolean alive, Entity user) {}
     public void effect(Entity user) {}
     public void revertEffect(Entity user) {}
+    public void loadImages() {
+        fireball_up1 = setup("/projectile/fireball_up_1",gp.tileSize,gp.tileSize);
+        fireball_up2 = setup("/projectile/fireball_up_2",gp.tileSize,gp.tileSize);
+        fireball_down1 = setup("/projectile/fireball_down_1",gp.tileSize,gp.tileSize);
+        fireball_down2 = setup("/projectile/fireball_down_2",gp.tileSize,gp.tileSize);
+        fireball_left1 = setup("/projectile/fireball_left_1",gp.tileSize,gp.tileSize);
+        fireball_left2 = setup("/projectile/fireball_left_2",gp.tileSize,gp.tileSize);
+        fireball_right1 = setup("/projectile/fireball_right_1",gp.tileSize,gp.tileSize);
+        fireball_right2 = setup("/projectile/fireball_right_2",gp.tileSize,gp.tileSize);
+
+        divineshot_up1 = setup("/projectile/divineshot_up_1",gp.tileSize,gp.tileSize);
+        divineshot_up2 = setup("/projectile/divineshot_up_2",gp.tileSize,gp.tileSize);
+        divineshot_down1 = setup("/projectile/divineshot_down_1",gp.tileSize,gp.tileSize);
+        divineshot_down2 = setup("/projectile/divineshot_down_2",gp.tileSize,gp.tileSize);
+        divineshot_left1 = setup("/projectile/divineshot_left_1",gp.tileSize,gp.tileSize);
+        divineshot_left2 = setup("/projectile/divineshot_left_2",gp.tileSize,gp.tileSize);
+        divineshot_right1 = setup("/projectile/divineshot_right_1",gp.tileSize,gp.tileSize);
+        divineshot_right2 = setup("/projectile/divineshot_right_2",gp.tileSize,gp.tileSize);
+
+        iceball_up1 = setup("/projectile/iceball_up_1",gp.tileSize,gp.tileSize);
+        iceball_up2 = setup("/projectile/iceball_up_1",gp.tileSize,gp.tileSize);
+        iceball_down1 = setup("/projectile/iceball_down_1",gp.tileSize,gp.tileSize);
+        iceball_down2 = setup("/projectile/iceball_down_1",gp.tileSize,gp.tileSize);
+        iceball_left1 = setup("/projectile/iceball_left_1",gp.tileSize,gp.tileSize);
+        iceball_left2 = setup("/projectile/iceball_left_1",gp.tileSize,gp.tileSize);
+        iceball_right1 = setup("/projectile/iceball_right_1",gp.tileSize,gp.tileSize);
+        iceball_right2 = setup("/projectile/iceball_right_1",gp.tileSize,gp.tileSize);
+
+        rock_up1 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
+        rock_up2 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
+        rock_down1 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
+        rock_down2 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
+        rock_left1 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
+        rock_left2 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
+        rock_right1 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
+        rock_right2 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
+    }
 
 }

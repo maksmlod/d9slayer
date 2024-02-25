@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class OBJ_Hellfire extends Entity {
     GamePanel gp;
-    public Projectile[] projectiles = new Projectile[200];
+    public Projectile[] projectiles = new Projectile[300];
     public int i = 0;
     public OBJ_Hellfire(GamePanel gp) {
         super(gp);
@@ -24,7 +24,7 @@ public class OBJ_Hellfire extends Entity {
         attackArea.height = 0;
         description = "\"The true apocalypse\"";
         projectile = new OBJ_Fireball(gp);
-        for(int i = 0; i < 200; i++) {
+        for(int i = 0; i < 300; i++) {
             projectiles[i] = new OBJ_Fireball(gp);
         }
         castSpeed = 30;
@@ -36,7 +36,7 @@ public class OBJ_Hellfire extends Entity {
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        if(i > 170) i = 0;
+        if(i > 280) i = 0;
 
         projectiles[i].maxLife = 160;
         projectiles[i].set(worldX, worldY, "right","", alive, user);

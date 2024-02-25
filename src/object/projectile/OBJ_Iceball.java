@@ -31,14 +31,14 @@ public class OBJ_Iceball extends Projectile {
         projectileTileArea.height = 4;
     }
     public void getImage() {
-        up1 = setup("/projectile/iceball_up_1",gp.tileSize,gp.tileSize);
-        up2 = setup("/projectile/iceball_up_1",gp.tileSize,gp.tileSize);
-        down1 = setup("/projectile/iceball_down_1",gp.tileSize,gp.tileSize);
-        down2 = setup("/projectile/iceball_down_1",gp.tileSize,gp.tileSize);
-        left1 = setup("/projectile/iceball_left_1",gp.tileSize,gp.tileSize);
-        left2 = setup("/projectile/iceball_left_1",gp.tileSize,gp.tileSize);
-        right1 = setup("/projectile/iceball_right_1",gp.tileSize,gp.tileSize);
-        right2 = setup("/projectile/iceball_right_1",gp.tileSize,gp.tileSize);
+        up1 = iceball_up1;
+        up2 = iceball_up2;
+        down1 = iceball_down1;
+        down2 = iceball_down2;
+        left1 = iceball_left1;
+        left2 = iceball_left2;
+        right1 = iceball_right1;
+        right2 = iceball_right2;
     }
 
     public Color getParticleColor() {

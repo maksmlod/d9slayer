@@ -270,9 +270,9 @@ public class UI {
     public void drawCharacterScreen() {
         //create a frame
         final int frameX = gp.tileSize*2;
-        final int frameY = gp.tileSize - 24;
+        final int frameY = gp.tileSize;
         final int frameWidth = gp.tileSize*5;
-        final int frameHeight = gp.tileSize*10;
+        final int frameHeight = gp.tileSize*9;
         drawSubWindow(frameX,frameY,frameWidth,frameHeight);
 
         //text
@@ -284,7 +284,7 @@ public class UI {
 
         // names
         g2.drawString("Level",textX,textY);
-        textY += lineHeight;
+        textY += lineHeight*2;
         g2.drawString("Life",textX,textY);
         textY += lineHeight;
         g2.drawString("Mana",textX,textY);
@@ -303,10 +303,6 @@ public class UI {
         textY += lineHeight;
         g2.drawString("Coin",textX,textY);
         textY += lineHeight + 30;
-        g2.drawString("Weapon",textX,textY);
-        textY += lineHeight + 15;
-        g2.drawString("Shield",textX,textY);
-        textY += lineHeight;
 
         //values
         int tailX = (frameX + frameWidth) - 30;
@@ -315,7 +311,7 @@ public class UI {
         value = String.valueOf(gp.player.level);
         textX = getXforAlignToRightText(value, tailX);
         g2.drawString(value, textX, textY);
-        textY += lineHeight;
+        textY += lineHeight*2;
         value = String.valueOf(gp.player.life + "/" + gp.player.maxLife);
         textX = getXforAlignToRightText(value, tailX);
         g2.drawString(value, textX, textY);
@@ -352,10 +348,6 @@ public class UI {
         textX = getXforAlignToRightText(value, tailX);
         g2.drawString(value, textX, textY);
         textY += lineHeight;
-
-        g2.drawImage(gp.player.currentWeapon.down1, tailX - gp.tileSize, textY, null);
-        textY += gp.tileSize;
-        g2.drawImage(gp.player.currentShield.down1, tailX - gp.tileSize, textY, null);
 
 
     }

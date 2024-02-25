@@ -30,14 +30,14 @@ public class OBJ_Divineshot extends Projectile {
         projectileTileArea.height = 4;
     }
     public void getImage() {
-        up1 = setup("/projectile/divineshot_up_1",gp.tileSize,gp.tileSize);
-        up2 = setup("/projectile/divineshot_up_2",gp.tileSize,gp.tileSize);
-        down1 = setup("/projectile/divineshot_down_1",gp.tileSize,gp.tileSize);
-        down2 = setup("/projectile/divineshot_down_2",gp.tileSize,gp.tileSize);
-        left1 = setup("/projectile/divineshot_left_1",gp.tileSize,gp.tileSize);
-        left2 = setup("/projectile/divineshot_left_2",gp.tileSize,gp.tileSize);
-        right1 = setup("/projectile/divineshot_right_1",gp.tileSize,gp.tileSize);
-        right2 = setup("/projectile/divineshot_right_2",gp.tileSize,gp.tileSize);
+        up1 = divineshot_up1;
+        up2 = divineshot_up2;
+        down1 = divineshot_down1;
+        down2 = divineshot_down2;
+        left1 = divineshot_left1;
+        left2 = divineshot_left2;
+        right1 = divineshot_right1;
+        right2 = divineshot_right2;
     }
 
     public Color getParticleColor() {

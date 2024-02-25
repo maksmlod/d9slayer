@@ -25,12 +25,13 @@ public class OBJ_Ice_Wand extends Entity {
         haveProjectile = true;
         price = 10;
         rarity = "uncommon";
+
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        projectile4 = new OBJ_Iceball(gp);
-        projectile4.set(worldX, worldY, direction, "",alive, user);
-        gp.projectileList.add(projectile4);
+        projectile2 = new OBJ_Iceball(gp);
+        projectile2.set(worldX, worldY, direction, "",alive, user);
+        gp.projectileList.add(projectile2);
 
         user.mana = user.mana - useCost;
         gp.playSE(14);

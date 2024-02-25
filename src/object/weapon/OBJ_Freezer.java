@@ -1,11 +1,15 @@
 package object.weapon;
 
 import entity.Entity;
+import entity.Projectile;
 import main.GamePanel;
+import object.projectile.OBJ_Fireball;
 import object.projectile.OBJ_Iceball;
 
 public class OBJ_Freezer extends Entity {
     GamePanel gp;
+    public Projectile[] projectiles = new Projectile[100];
+    public int i = 0;
     public OBJ_Freezer(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -25,60 +29,64 @@ public class OBJ_Freezer extends Entity {
         haveProjectile = true;
         price = 20;
         rarity = "rare";
+        for(int i = 0; i < 100; i++) {
+            projectiles[i] = new OBJ_Iceball(gp);
+        }
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
+        if(i > 90) i = 0;
         if(direction == "left" || direction == "right") {
-            projectile4 = new OBJ_Iceball(gp);
-            projectile4.speed = 3;
-            projectile4.set(worldX, worldY, direction, "up", alive, user);
-            gp.projectileList.add(projectile4);
+            projectiles[i].speed = 3;
+            projectiles[i].set(worldX, worldY, direction, "up", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
 
-            projectile3 = new OBJ_Iceball(gp);
-            projectile3.speed = 3;
-            projectile3.set(worldX, worldY, direction, "down", alive, user);
-            gp.projectileList.add(projectile3);
+            projectiles[i].speed = 3;
+            projectiles[i].set(worldX, worldY, direction, "down", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
 
-            projectile2 = new OBJ_Iceball(gp);
-            projectile2.speed = 3;
-            projectile2.set(worldX, worldY, direction, "", alive, user);
-            gp.projectileList.add(projectile2);
+            projectiles[i].speed = 3;
+            projectiles[i].set(worldX, worldY, direction, "", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
 
-            projectile5 = new OBJ_Iceball(gp);
-            projectile5.speed = 3;
-            projectile5.set(worldX, worldY, "down", "", alive, user);
-            gp.projectileList.add(projectile5);
+            projectiles[i].speed = 3;
+            projectiles[i].set(worldX, worldY, "down", "", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
 
-            projectile6 = new OBJ_Iceball(gp);
-            projectile6.speed = 3;
-            projectile6.set(worldX, worldY, "up", "", alive, user);
-            gp.projectileList.add(projectile6);
+            projectiles[i].speed = 3;
+            projectiles[i].set(worldX, worldY, "up", "", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
         }
         else {
-            projectile4 = new OBJ_Iceball(gp);
-            projectile4.speed = 3;
-            projectile4.set(worldX, worldY, direction, "right", alive, user);
-            gp.projectileList.add(projectile4);
+            projectiles[i].speed = 3;
+            projectiles[i].set(worldX, worldY, direction, "right", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
 
-            projectile3 = new OBJ_Iceball(gp);
-            projectile3.speed = 3;
-            projectile3.set(worldX, worldY, direction, "left", alive, user);
-            gp.projectileList.add(projectile3);
+            projectiles[i].speed = 3;
+            projectiles[i].set(worldX, worldY, direction, "left", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
 
-            projectile2 = new OBJ_Iceball(gp);
-            projectile2.speed = 3;
-            projectile2.set(worldX, worldY, direction, "", alive, user);
-            gp.projectileList.add(projectile2);
+            projectiles[i].speed = 3;
+            projectiles[i].set(worldX, worldY, direction, "", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
 
-            projectile5 = new OBJ_Iceball(gp);
-            projectile5.speed = 3;
-            projectile5.set(worldX, worldY, "right", "", alive, user);
-            gp.projectileList.add(projectile5);
+            projectiles[i].speed = 3;
+            projectiles[i].set(worldX, worldY, "right", "", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
 
-            projectile6 = new OBJ_Iceball(gp);
-            projectile6.speed = 3;
-            projectile6.set(worldX, worldY, "left", "", alive, user);
-            gp.projectileList.add(projectile6);
+            projectiles[i].speed = 3;
+            projectiles[i].set(worldX, worldY, "left", "", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
         }
 
         user.mana = user.mana - useCost;

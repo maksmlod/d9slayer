@@ -1,11 +1,14 @@
 package object.weapon;
 
 import entity.Entity;
+import entity.Projectile;
 import main.GamePanel;
 import object.projectile.OBJ_Fireball;
 
 public class OBJ_Fire_Wand extends Entity {
     GamePanel gp;
+    public Projectile[] projectiles = new Projectile[50];
+    public int i = 0;
     public OBJ_Fire_Wand(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -25,30 +28,32 @@ public class OBJ_Fire_Wand extends Entity {
         haveProjectile = true;
         price = 10;
         rarity = "uncommon";
+        for(int i = 0; i < 50; i++) {
+            projectiles[i] = new OBJ_Fireball(gp);
+        }
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        projectile4 = new OBJ_Fireball(gp);
-        projectile4.set(worldX, worldY, direction,"", alive, user);
-        gp.projectileList.add(projectile4);
-
+        if(i > 43) i = 0;
+        projectiles[i].set(worldX, worldY, direction,"", alive, user);
+        gp.projectileList.add(projectiles[i]);
+        i++;
         if(direction == "left" || direction == "right") {
-            projectile2 = new OBJ_Fireball(gp);
-            projectile2.set(worldX, worldY + 30, direction,"", alive, user);
-            gp.projectileList.add(projectile2);
-            projectile3 = new OBJ_Fireball(gp);
-            projectile3.set(worldX, worldY - 30, direction,"", alive, user);
-            gp.projectileList.add(projectile3);
+            projectiles[i].set(worldX, worldY + 30, direction,"", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
+            projectiles[i].set(worldX, worldY - 30, direction,"", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
         }
         else if(direction == "up" || direction == "down") {
-            projectile2 = new OBJ_Fireball(gp);
-            projectile2.set(worldX + 30, worldY, direction,"", alive, user);
-            gp.projectileList.add(projectile2);
-            projectile3 = new OBJ_Fireball(gp);
-            projectile3.set(worldX - 30, worldY, direction,"", alive, user);
-            gp.projectileList.add(projectile3);
+            projectiles[i].set(worldX + 30, worldY, direction,"", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
+            projectiles[i].set(worldX - 30, worldY, direction,"", alive, user);
+            gp.projectileList.add(projectiles[i]);
+            i++;
         }
-
         user.mana = user.mana - useCost;
         gp.playSE(10);
     }

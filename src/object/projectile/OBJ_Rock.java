@@ -22,14 +22,14 @@ public class OBJ_Rock extends Projectile {
         getImage();
     }
     public void getImage() {
-        up1 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
-        up2 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
-        down1 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
-        down2 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
-        left1 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
-        left2 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
-        right1 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
-        right2 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
+        up1 = rock_up1;
+        up2 = rock_up2;
+        down1 = rock_down1;
+        down2 = rock_down2;
+        left1 = rock_left1;
+        left2 = rock_left2;
+        right1 = rock_right1;
+        right2 = rock_right2;
     }
     public boolean haveResource(Entity user) {
         boolean haveResource = false;

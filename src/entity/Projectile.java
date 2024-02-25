@@ -117,15 +117,6 @@ public class Projectile extends Entity{
             }
         }
 
-        life--;
-        if(life <= 0) {
-            alive = false;
-            diagonalCounter = 0;
-            roundCounter = 0;
-            roundCounterMax = 1;
-            roundLengthCounter = 0;
-            directionArrayIndex = 0;
-        }
 
         spriteCounter++;
         if(spriteCounter > 12) {
@@ -138,5 +129,14 @@ public class Projectile extends Entity{
             spriteCounter = 0;
         }
 
+        life--;
+        if(life <= 0) {
+            alive = false;
+            diagonalCounter = 0;
+            roundCounter = 0;
+            roundCounterMax = 1;
+            roundLengthCounter = 0;
+            directionArrayIndex = 0;
+        }
     }
 }
