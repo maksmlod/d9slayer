@@ -2,8 +2,8 @@ package entity;
 
 import main.GamePanel;
 import object.OBJ_Potion_Red;
-import object.OBJ_Shield_Blue;
-import object.OBJ_Shield_Wood;
+import object.accessory.OBJ_Shield_Blue;
+import object.accessory.OBJ_Shield_Wood;
 import object.weapon.*;
 
 public class NPC_Merchant extends Entity {

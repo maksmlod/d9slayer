@@ -48,7 +48,7 @@ public class MON_OrangeSpider extends Entity {
     public void setAction() {
         actionLockCounter ++;
 
-        if(actionLockCounter == 30) {
+        if(actionLockCounter == 15) {
             Random random = new Random();
             int i = random.nextInt(100)+1; // pick up a number from 1 to 100
 
@@ -67,7 +67,7 @@ public class MON_OrangeSpider extends Entity {
             actionLockCounter = 0;
         }
         int i = new Random().nextInt(100) + 1;
-        if(i > 70 && projectile.alive == false && shotAvailableCounter == 30) {
+        if(i > 50 && projectile.alive == false && shotAvailableCounter == 30) {
             projectile.set(worldX,worldY,direction,"",true,this, null);
             projectile.speed = 15;
             gp.projectileList.add(projectile);

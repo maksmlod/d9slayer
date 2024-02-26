@@ -4,11 +4,13 @@ import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
 import object.*;
+import object.accessory.OBJ_Shield_Wood;
 import object.projectile.OBJ_Fireball;
 import object.weapon.OBJ_Normal_Sword;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Player extends Entity{
 
@@ -18,6 +20,11 @@ public class Player extends Entity{
     int standCounter = 0;
     public boolean attackCanceled = false;
     public int accessorySize = 4;
+
+
+    public String lastPressedDirection = "down";
+    public int numberOfPressedDirections = 0;
+    public ArrayList<String> pressedDirections = new ArrayList<>();
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -50,7 +57,7 @@ public class Player extends Entity{
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
 
-        speed = 4;
+        speed = 5;
         direction = "down";
 
         level = 1;
@@ -190,52 +197,135 @@ public class Player extends Entity{
 
             if(keyH.upPressed == true) {
                 direction = "up";
+                numberOfPressedDirections++;
+                pressedDirections.add(direction);
             }
-            else if(keyH.downPressed == true) {
+            if(keyH.downPressed == true) {
                 direction = "down";
+                numberOfPressedDirections++;
+                pressedDirections.add(direction);
             }
-            else if(keyH.leftPressed == true) {
+            if(keyH.leftPressed == true) {
                 direction = "left";
+                numberOfPressedDirections++;
+                pressedDirections.add(direction);
             }
-            else if(keyH.rightPressed == true) {
+            if(keyH.rightPressed == true) {
                 direction = "right";
+                numberOfPressedDirections++;
+                pressedDirections.add(direction);
             }
-
-            // Check tile colission
-            collisionOn = false;
-            gp.cChecker.checkTile(this);
-            // Check object collision
-            int objIndex = gp.cChecker.checkObject(this, true);
-            pickUpObject(objIndex);
-            //check npc collision
-            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
-            interactNPC(npcIndex);
-            //check monster collision
-            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            contactMonster(monsterIndex);
-            //check interactive tile collision
-            int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
-            //check event
-            gp.eHandler.checkEvent();
-            // If collision is false, player can move
-            if(collisionOn == false && meleeAttackingNow == false &&
-                    (keyH.upPressed == true || keyH.downPressed == true ||
-                            keyH.leftPressed == true || keyH.rightPressed == true)) {
-                switch(direction) {
-                    case "up":
-                        worldY -= speed;
+            if(numberOfPressedDirections == 1) lastPressedDirection = direction;
+            int idOfChoseDirection=0;
+            if(numberOfPressedDirections > 1) {
+                for(int i = 0; i < pressedDirections.size(); i++) {
+                    if(pressedDirections.get(i) != lastPressedDirection) {
+                        direction = pressedDirections.get(i);
+                        idOfChoseDirection = i;
                         break;
-                    case "down":
-                        worldY += speed;
-                        break;
-                    case "left":
-                        worldX -= speed;
-                        break;
-                    case "right":
-                        worldX += speed;
-                        break;
+                    }
                 }
             }
+
+            //diagonal move
+            if(numberOfPressedDirections == 2) {
+                collisionOn = false;
+                checkCollision();
+                //if first collision is false
+                String previousDirection = null;
+                if(collisionOn == false) {
+                    if(idOfChoseDirection == 1) {
+                        previousDirection = direction;
+                        direction = pressedDirections.get(0);
+                    }
+                    if(idOfChoseDirection == 0) {
+                        previousDirection = direction;
+                        direction = pressedDirections.get(1);
+                    }
+
+                    collisionOn = false;
+                    checkCollision();
+
+                    //if first collision is false and second collision is false
+                    if(collisionOn == false) {
+                        //unfortunately its all i can do when speed is integer
+                        int tempSpeed = speed;
+                        speed = (int)(speed * 0.707);
+                        while(speed < 0.707 * tempSpeed) speed ++;
+
+                        String direction21 = pressedDirections.get(0);
+                        String direction22 = pressedDirections.get(1);
+                        switch (direction21) {
+                            case "up": worldY -= speed;break;
+                            case "down": worldY += speed;break;
+                            case "left": worldX -= speed;break;
+                            case "right": worldX += speed;break;
+                        }
+                        switch (direction22) {
+                            case "up": worldY -= speed;break;
+                            case "down": worldY += speed;break;
+                            case "left": worldX -= speed;break;
+                            case "right": worldX += speed;break;
+                        }
+                        speed = tempSpeed;
+                    }
+                    //if first collision is false and second collision is true
+                    else {
+                        switch (previousDirection) {
+                            case "up": worldY -= speed;break;
+                            case "down": worldY += speed;break;
+                            case "left": worldX -= speed;break;
+                            case "right": worldX += speed;break;
+                        }
+                    }
+                }
+                //if first collision is true
+                else {
+                    if(idOfChoseDirection == 1) {
+                        previousDirection = direction;
+                        direction = pressedDirections.get(0);
+                    }
+                    if(idOfChoseDirection == 0) {
+                        previousDirection = direction;
+                        direction = pressedDirections.get(1);
+                    }
+
+                    collisionOn = false;
+                    checkCollision();
+
+                    //if first collision is true and second collision is false
+                    if(collisionOn == false) {
+                        switch (direction) {
+                            case "up": worldY -= speed;break;
+                            case "down": worldY += speed;break;
+                            case "left": worldX -= speed;break;
+                            case "right": worldX += speed;break;
+                        }
+                    }
+                    //if first collision is true and second collision is true
+                    else {
+                        //no movement
+                    }
+                }
+            }
+            else {
+                collisionOn = false;
+                checkCollision();
+                if (collisionOn == false && meleeAttackingNow == false &&
+                        (keyH.upPressed == true || keyH.downPressed == true ||
+                                keyH.leftPressed == true || keyH.rightPressed == true)) {
+                    switch (direction) {
+                        case "up": worldY -= speed;break;
+                        case "down": worldY += speed;break;
+                        case "left": worldX -= speed;break;
+                        case "right": worldX += speed;break;
+
+                    }
+                }
+            }
+            numberOfPressedDirections = 0;
+            pressedDirections.clear();
+
 
 
             if(attackCanceled == false && meleeAttackingNow == true) {
@@ -328,6 +418,17 @@ public class Player extends Entity{
             gp.stopMusic();
             gp.ui.commandNum = -1;
         }
+    }
+    public void checkCollision() {
+        gp.cChecker.checkTile(this);
+        int objIndex = gp.cChecker.checkObject(this, true);
+        pickUpObject(objIndex);
+        int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+        interactNPC(npcIndex);
+        int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+        contactMonster(monsterIndex);
+        int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+        gp.eHandler.checkEvent();
     }
     public void attacking() {
         attackImageCounter = 0;

@@ -1,4 +1,4 @@
-package object;
+package object.accessory;
 
 import entity.Entity;
 import main.GamePanel;
@@ -11,7 +11,7 @@ public class OBJ_Shield_Blue extends Entity {
         name = "Blue Shield";
         down1 = setup("/objects/shield_blue", gp.tileSize, gp.tileSize);
         defenseValue = 2;
-        description = "Blue Shield\n\nIncrease max mana\nand mana recovery speed\nby 2";
+        description = "Increase max mana\nand mana recovery \nspeed by 2";
         rarity = "rare";
         price = 10;
     }
