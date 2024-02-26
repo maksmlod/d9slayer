@@ -20,6 +20,7 @@ public class Player extends Entity{
     int standCounter = 0;
     public boolean attackCanceled = false;
     public int accessorySize = 4;
+    public boolean haveMeleeAttacked = false;
 
 
     public String lastPressedDirection = "down";
@@ -455,11 +456,13 @@ public class Player extends Entity{
             solidArea.height = attackArea.width;
 
             //Check monster collision with the updated worldx worldy solidarea
-            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex, attack);
-
-            int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
-            damageInteractiveTile(iTileIndex);
+            if(haveMeleeAttacked == false) {
+                int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+                damageMonster(monsterIndex, attack);
+                int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+                damageInteractiveTile(iTileIndex);
+                haveMeleeAttacked = true;
+            }
 
             worldX = currentWorldX;
             worldY = currentWorldY;
@@ -470,6 +473,7 @@ public class Player extends Entity{
             spriteNum = 2;
             spriteCounter = 0;
             attacking = false;
+            haveMeleeAttacked = false;
         }
     }
     public void pickUpObject(int i) {

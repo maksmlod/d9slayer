@@ -95,10 +95,15 @@ public class EventHandler {
     public boolean hit(int map, int col, int row, String reqDirection) {
         boolean hit = false;
         if(map == gp.currentMap) {
-            gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-            gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
-            eventRect[map][col][row].x = col*gp.tileSize + eventRect[map][col][row].x;
-            eventRect[map][col][row].y = row*gp.tileSize + eventRect[map][col][row].y;
+            gp.player.solidArea.x = gp.player.worldX - 10 + gp.player.solidArea.x;
+            gp.player.solidArea.y = gp.player.worldY  + gp.player.solidArea.y ;
+            int tempWidth = gp.player.solidArea.width;
+            int tempHeight = gp.player.solidArea.height;
+            gp.player.solidArea.width += 20;
+            gp.player.solidArea.height += 20;
+
+            eventRect[map][col][row].x = col*gp.tileSize + eventRect[map][col][row].x - 5;
+            eventRect[map][col][row].y = row*gp.tileSize + eventRect[map][col][row].y + 5;
 
             if(gp.player.solidArea.intersects(eventRect[map][col][row]) && eventRect[map][col][row].eventDone == false) {
                 if(gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")) {
@@ -111,6 +116,8 @@ public class EventHandler {
 
             gp.player.solidArea.x = gp.player.solidAreaDefaultX;
             gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+            gp.player.solidArea.width = tempWidth;
+            gp.player.solidArea.height = tempHeight;
             eventRect[map][col][row].x = eventRect[map][col][row].eventRectDefaultX;
             eventRect[map][col][row].y = eventRect[map][col][row].eventRectDefaultY;
         }
