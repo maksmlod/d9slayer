@@ -63,7 +63,10 @@ public class AssetSetter {
         gp.npc[mapNum][i].worldY = gp.tileSize*22;
         i++;
 
-
+        gp.npc[mapNum][i] = new NPC_OldMan(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*19;
+        gp.npc[mapNum][i].worldY = gp.tileSize*19;
+        i++;
 
 
 
@@ -96,6 +99,22 @@ public class AssetSetter {
             gp.monster[mapNum][i] = new MON_WhiteSlime(gp);
             gp.monster[mapNum][i].worldX = gp.tileSize * 39;
             gp.monster[mapNum][i].worldY = gp.tileSize * 33;
+            i++;
+            //debug monsters
+            gp.monster[mapNum][i] = new MON_GreenSlime(gp);
+            gp.monster[mapNum][i].speed = 0;
+            gp.monster[mapNum][i].dropAmount = 10;
+            gp.monster[mapNum][i].canAttack = false;
+            gp.monster[mapNum][i].worldX = gp.tileSize * 24;
+            gp.monster[mapNum][i].worldY = gp.tileSize * 16;
+            i++;
+
+            gp.monster[mapNum][i] = new MON_GreenSlime(gp);
+            gp.monster[mapNum][i].speed = 0;
+            gp.monster[mapNum][i].dropAmount = 10;
+            gp.monster[mapNum][i].canAttack = false;
+            gp.monster[mapNum][i].worldX = gp.tileSize * 24;
+            gp.monster[mapNum][i].worldY = gp.tileSize * 19;
             i++;
         }
         mapNum = 1;

@@ -47,42 +47,41 @@ public class MON_OrangeSpider extends Entity {
     }
     public void setAction() {
         actionLockCounter ++;
+        if(canAttack == true) {
 
-        if(actionLockCounter == 15) {
-            Random random = new Random();
-            int i = random.nextInt(100)+1; // pick up a number from 1 to 100
+            if (actionLockCounter == 15) {
+                Random random = new Random();
+                int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
 
-            if(i <= 25) {
-                direction = "up";
+                if (i <= 25) {
+                    direction = "up";
+                } else if (i > 25 && i <= 50) {
+                    direction = "down";
+                } else if (i > 50 && i <= 75) {
+                    direction = "left";
+                } else if (i > 75 && i <= 100) {
+                    direction = "right";
+                }
+                actionLockCounter = 0;
             }
-            else if(i > 25 && i <= 50) {
-                direction = "down";
-            }
-            else if(i > 50 && i <= 75) {
-                direction = "left";
-            }
-            else if(i > 75 && i <= 100) {
-                direction = "right";
-            }
-            actionLockCounter = 0;
-        }
-        int i = new Random().nextInt(100) + 1;
-        if(i > 50 && projectile.alive == false && shotAvailableCounter == 30) {
-            projectile.set(worldX,worldY,direction,"",true,this, null);
-            projectile.speed = 15;
-            gp.projectileList.add(projectile);
+            int i = new Random().nextInt(100) + 1;
+            if (i > 50 && projectile.alive == false && shotAvailableCounter == 30) {
+                projectile.set(worldX, worldY, direction, "", true, this, null);
+                projectile.speed = 15;
+                gp.projectileList.add(projectile);
 
-            String directionTemp = null;
-            if(direction == "left") directionTemp = "right";
-            else if(direction == "right") directionTemp = "left";
-            else if(direction == "up") directionTemp = "down";
-            else directionTemp = "up";
-            projectile4 = new OBJ_Rock(gp);
-            projectile4.set(worldX,worldY,directionTemp,"",true,this, null);
-            projectile4.speed = 15;
-            gp.projectileList.add(projectile4);
+                String directionTemp = null;
+                if (direction == "left") directionTemp = "right";
+                else if (direction == "right") directionTemp = "left";
+                else if (direction == "up") directionTemp = "down";
+                else directionTemp = "up";
+                projectile4 = new OBJ_Rock(gp);
+                projectile4.set(worldX, worldY, directionTemp, "", true, this, null);
+                projectile4.speed = 15;
+                gp.projectileList.add(projectile4);
 
-            shotAvailableCounter = 0;
+                shotAvailableCounter = 0;
+            }
         }
     }
     public void damageReaction() {

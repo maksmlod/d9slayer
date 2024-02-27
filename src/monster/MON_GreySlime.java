@@ -49,30 +49,29 @@ public class MON_GreySlime extends Entity {
     }
     public void setAction() {
         actionLockCounter ++;
+        if(canAttack == true) {
 
-        if(actionLockCounter == 60) {
-            Random random = new Random();
-            int i = random.nextInt(100)+1; // pick up a number from 1 to 100
+            if (actionLockCounter == 60) {
+                Random random = new Random();
+                int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
 
-            if(i <= 25) {
-                direction = "up";
+                if (i <= 25) {
+                    direction = "up";
+                } else if (i > 25 && i <= 50) {
+                    direction = "down";
+                } else if (i > 50 && i <= 75) {
+                    direction = "left";
+                } else if (i > 75 && i <= 100) {
+                    direction = "right";
+                }
+                actionLockCounter = 0;
             }
-            else if(i > 25 && i <= 50) {
-                direction = "down";
+            int i = new Random().nextInt(100) + 1;
+            if (i > 90 && projectile.alive == false && shotAvailableCounter == 30) {
+                projectile.set(worldX, worldY, direction, "", true, this, null);
+                gp.projectileList.add(projectile);
+                shotAvailableCounter = 0;
             }
-            else if(i > 50 && i <= 75) {
-                direction = "left";
-            }
-            else if(i > 75 && i <= 100) {
-                direction = "right";
-            }
-            actionLockCounter = 0;
-        }
-        int i = new Random().nextInt(100) + 1;
-        if(i > 90 && projectile.alive == false && shotAvailableCounter == 30) {
-            projectile.set(worldX,worldY,direction,"",true,this, null);
-            gp.projectileList.add(projectile);
-            shotAvailableCounter = 0;
         }
     }
     public void damageReaction() {

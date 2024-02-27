@@ -32,6 +32,7 @@ public class Sound {
         soundURL[14] = getClass().getResource("/sound/ice.wav");
         soundURL[15] = getClass().getResource("/sound/hahah_music.wav");
         soundURL[16] = getClass().getResource("/sound/theflagisraised_music.wav");
+        soundURL[17] = getClass().getResource("/sound/m4a1s.wav");
     }
 
     public void setFile(int i) {

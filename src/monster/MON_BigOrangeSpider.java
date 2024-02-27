@@ -49,53 +49,52 @@ public class MON_BigOrangeSpider extends Entity {
         left2 = setup("/monster/orangespider/orangespider_left_2", gp.tileSize*2, gp.tileSize*2);
     }
     public void setAction() {
-        actionLockCounter ++;
+        if(canAttack == true) {
+            actionLockCounter++;
 
-        if(actionLockCounter == 30) {
-            Random random = new Random();
-            int i = random.nextInt(100)+1; // pick up a number from 1 to 100
+            if (actionLockCounter == 30) {
+                Random random = new Random();
+                int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
 
-            if(i <= 25) {
-                direction = "up";
+                if (i <= 25) {
+                    direction = "up";
+                } else if (i > 25 && i <= 50) {
+                    direction = "down";
+                } else if (i > 50 && i <= 75) {
+                    direction = "left";
+                } else if (i > 75 && i <= 100) {
+                    direction = "right";
+                }
+                actionLockCounter = 0;
             }
-            else if(i > 25 && i <= 50) {
-                direction = "down";
+            int i = new Random().nextInt(100) + 1;
+            if (i > 90 && shotAvailableCounter == 30) {
+                projectile6 = new OBJ_Rock(gp);
+                projectile6.set(worldX + gp.tileSize / 2, worldY + gp.tileSize / 2, "up", "", true, this, null);
+                projectile6.speed = 3;
+                projectile6.attack = 10;
+                gp.projectileList.add(projectile6);
+
+                projectile4 = new OBJ_Rock(gp);
+                projectile4.set(worldX + gp.tileSize / 2, worldY + gp.tileSize / 2, "down", "", true, this, null);
+                projectile4.speed = 3;
+                projectile4.attack = 10;
+                gp.projectileList.add(projectile4);
+
+                projectile3 = new OBJ_Rock(gp);
+                projectile3.set(worldX + gp.tileSize / 2, worldY + gp.tileSize / 2, "left", "", true, this, null);
+                projectile3.speed = 3;
+                projectile3.attack = 10;
+                gp.projectileList.add(projectile3);
+
+                projectile5 = new OBJ_Rock(gp);
+                projectile5.set(worldX + gp.tileSize / 2, worldY + gp.tileSize / 2, "right", "", true, this, null);
+                projectile5.speed = 3;
+                projectile5.attack = 10;
+                gp.projectileList.add(projectile5);
+
+                shotAvailableCounter = 0;
             }
-            else if(i > 50 && i <= 75) {
-                direction = "left";
-            }
-            else if(i > 75 && i <= 100) {
-                direction = "right";
-            }
-            actionLockCounter = 0;
-        }
-        int i = new Random().nextInt(100) + 1;
-        if(i > 90 && shotAvailableCounter == 30) {
-            projectile6 = new OBJ_Rock(gp);
-            projectile6.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"up","",true,this, null);
-            projectile6.speed = 3;
-            projectile6.attack = 10;
-            gp.projectileList.add(projectile6);
-
-            projectile4 = new OBJ_Rock(gp);
-            projectile4.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"down","",true,this, null);
-            projectile4.speed = 3;
-            projectile4.attack = 10;
-            gp.projectileList.add(projectile4);
-
-            projectile3 = new OBJ_Rock(gp);
-            projectile3.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"left","",true,this, null);
-            projectile3.speed = 3;
-            projectile3.attack = 10;
-            gp.projectileList.add(projectile3);
-
-            projectile5 = new OBJ_Rock(gp);
-            projectile5.set(worldX + gp.tileSize/2,worldY + gp.tileSize/2,"right","",true,this, null);
-            projectile5.speed = 3;
-            projectile5.attack = 10;
-            gp.projectileList.add(projectile5);
-
-            shotAvailableCounter = 0;
         }
     }
     public void damageReaction() {

@@ -130,9 +130,11 @@ public class KeyHandler implements KeyListener {
             if(showDebugText == false) {
                 showDebugText = true;
                 gp.player.getPlayerImage("debug");
+                gp.tileM.drawPath = true;
             }
             else if(showDebugText = true) {
                 showDebugText = false;
+                gp.tileM.drawPath = false;
             }
         }
         if(code == KeyEvent.VK_R) {

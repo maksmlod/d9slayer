@@ -47,57 +47,54 @@ public class MON_WhiteSlime extends Entity {
     }
     public void setAction() {
         actionLockCounter ++;
+        if(canAttack == true) {
+            if (actionLockCounter == 20) {
+                Random random = new Random();
+                int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
 
-        if(actionLockCounter == 20) {
-            Random random = new Random();
-            int i = random.nextInt(100)+1; // pick up a number from 1 to 100
-
-            if(i <= 25) {
-                direction = "up";
+                if (i <= 25) {
+                    direction = "up";
+                } else if (i > 25 && i <= 50) {
+                    direction = "down";
+                } else if (i > 50 && i <= 75) {
+                    direction = "left";
+                } else if (i > 75 && i <= 100) {
+                    direction = "right";
+                }
+                actionLockCounter = 0;
             }
-            else if(i > 25 && i <= 50) {
-                direction = "down";
-            }
-            else if(i > 50 && i <= 75) {
-                direction = "left";
-            }
-            else if(i > 75 && i <= 100) {
-                direction = "right";
-            }
-            actionLockCounter = 0;
-        }
-        int i = new Random().nextInt(100) + 1;
-        if(i > 80 && projectile.alive == false && shotAvailableCounter == 30) {
-            if(direction == "left" || direction == "right") {
-                projectile.set(worldX, worldY, direction, "", true, this, null);
-                gp.projectileList.add(projectile);
+            int i = new Random().nextInt(100) + 1;
+            if (i > 80 && projectile.alive == false && shotAvailableCounter == 30) {
+                if (direction == "left" || direction == "right") {
+                    projectile.set(worldX, worldY, direction, "", true, this, null);
+                    gp.projectileList.add(projectile);
 
-                projectile4 = new OBJ_Rock(gp);
-                projectile4.speed = 12;
-                projectile4.set(worldX, worldY - 20, direction, "up", true, this, null);
-                gp.projectileList.add(projectile4);
+                    projectile4 = new OBJ_Rock(gp);
+                    projectile4.speed = 12;
+                    projectile4.set(worldX, worldY - 20, direction, "up", true, this, null);
+                    gp.projectileList.add(projectile4);
 
-                projectile5 = new OBJ_Rock(gp);
-                projectile5.speed = 12;
-                projectile5.set(worldX, worldY + 20, direction, "down", true, this, null);
-                gp.projectileList.add(projectile5);
+                    projectile5 = new OBJ_Rock(gp);
+                    projectile5.speed = 12;
+                    projectile5.set(worldX, worldY + 20, direction, "down", true, this, null);
+                    gp.projectileList.add(projectile5);
+                } else if (direction == "up" || direction == "down") {
+                    projectile.set(worldX, worldY, direction, "", true, this, null);
+                    gp.projectileList.add(projectile);
+
+                    projectile4 = new OBJ_Rock(gp);
+                    projectile4.speed = 12;
+                    projectile4.set(worldX - 20, worldY, direction, "left", true, this, null);
+                    gp.projectileList.add(projectile4);
+
+                    projectile5 = new OBJ_Rock(gp);
+                    projectile5.speed = 12;
+                    projectile5.set(worldX + 20, worldY, direction, "right", true, this, null);
+                    gp.projectileList.add(projectile5);
+
+                }
+                shotAvailableCounter = 0;
             }
-            else if(direction == "up" || direction == "down") {
-                projectile.set(worldX, worldY, direction, "", true, this, null);
-                gp.projectileList.add(projectile);
-
-                projectile4 = new OBJ_Rock(gp);
-                projectile4.speed = 12;
-                projectile4.set(worldX - 20, worldY, direction, "left", true, this, null);
-                gp.projectileList.add(projectile4);
-
-                projectile5 = new OBJ_Rock(gp);
-                projectile5.speed = 12;
-                projectile5.set(worldX + 20, worldY, direction, "right", true, this, null);
-                gp.projectileList.add(projectile5);
-
-            }
-            shotAvailableCounter = 0;
         }
     }
     public void damageReaction() {
