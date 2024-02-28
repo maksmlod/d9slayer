@@ -37,6 +37,8 @@ public class Entity {
     public boolean dying = false;
     boolean hpBarOn = false;
     public boolean onPath = false;
+    public boolean knockBack = false;
+
 
     //counter
     public int invincibleCounter = 0;
@@ -47,10 +49,12 @@ public class Entity {
     public int attackImageCounter = 0;
     int hpBarCounter = 0;
     public int shotAvailableCounter = 0;
+    int knockBackCounter = 0;
 
     //character atributes
     public int speed;
     public String name;
+    public int defaultSpeed;
     public int type;
     public Entity[] accessories;
     public final int type_player = 0;
@@ -63,6 +67,7 @@ public class Entity {
     public final int type_pickupOnly = 7;
     public final int type_wand = 8;
     public final int type_accessory = 9;
+    public final int type_obstacle = 10;
     public int weapon_id;
     public boolean canMeleeAttack = false;
     public boolean haveProjectile = false;
@@ -119,10 +124,17 @@ public class Entity {
     public int useCost;
     public int manaCounter = 0;
     public int castSpeed;
+    public int knockBackPower = 0;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
+    public int getLeftX() {return worldX + solidArea.x;}
+    public int getRightX() {return worldX + solidArea.x + solidArea.width;}
+    public int getTopY() {return worldY + solidArea.y;}
+    public int getBottomY() {return worldY + solidArea.y + solidArea.height;}
+    public int getCol() {return (worldX+solidArea.x)/gp.tileSize;}
+    public int getRow() {return (worldY+solidArea.y)/gp.tileSize;}
     public void setAction() {}
     public void damageReaction() {}
     public void speak() {
@@ -148,7 +160,8 @@ public class Entity {
         }
 
     }
-    public void use(Entity entity) {}
+    public void interact() {}
+    public boolean use(Entity entity) {return false;}
     public void checkDrop() {}
     public void dropItem(Entity droppedItem) {
         for(int i = 0; i < gp.obj[1].length; i++) {
@@ -242,25 +255,41 @@ public class Entity {
         gp.particleList.add(p1);
     }
     public void update() {
-        setAction();
+        if(knockBack == true) {
+            checkCollision();
+            if(collisionOn == true) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+            else {
+                switch(gp.player.attackDirection) {
+                    case "up": worldY -= speed;break;
+                    case "down": worldY += speed;break;
+                    case "left": worldX -= speed;break;
+                    case "right": worldX += speed;break;
+                }
+            }
 
-        checkCollision();
+            knockBackCounter ++;
+            if(knockBackCounter == 10) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+        }
+        else {
+            setAction();
+            checkCollision();
 
-        // If collision is false, player can move
-        if(collisionOn == false) {
-            switch(direction) {
-                case "up":
-                    worldY -= speed;
-                    break;
-                case "down":
-                    worldY += speed;
-                    break;
-                case "left":
-                    worldX -= speed;
-                    break;
-                case "right":
-                    worldX += speed;
-                    break;
+            // If collision is false, player can move
+            if(collisionOn == false) {
+                switch(direction) {
+                    case "up": worldY -= speed;break;
+                    case "down": worldY += speed;break;
+                    case "left": worldX -= speed;break;
+                    case "right": worldX += speed;break;
+                }
             }
         }
 
@@ -514,5 +543,40 @@ public class Entity {
                 onPath = false;
             }
         }
+    }
+    public int getDetected(Entity user, Entity[][] target, String targetName) {
+        int index = 999;
+        //check the surrounding object
+        int nextWorldX = user.getLeftX();
+        int nextWorldY = user.getTopY();
+        switch(user.direction) {
+            case "up":
+                nextWorldY = user.getTopY() - user.speed;
+                break;    // change 1 to user.speed
+            case "down":
+                nextWorldY = user.getBottomY() + user.speed;
+                break;    // change 1 to user.speed
+            case "left":
+                nextWorldX = user.getLeftX() - user.speed;
+                break;    // change 1 to user.speed
+            case "right":
+                nextWorldX = user.getRightX() + user.speed;
+                break;    // change 1 to user.speed
+        }
+        int col = nextWorldX/gp.tileSize;
+        int row = nextWorldY/gp.tileSize;
+
+        for(int i = 0; i < target[1].length; i++) {
+            if(target[gp.currentMap][i] != null) {
+                if(target[gp.currentMap][i].getCol() == col &&
+                    target[gp.currentMap][i].getRow() == row &&
+                    target[gp.currentMap][i].name.equals(targetName)) {
+
+                    index = i;
+                    break;
+                }
+            }
+        }
+        return index;
     }
 }

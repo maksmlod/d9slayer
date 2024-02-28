@@ -55,7 +55,7 @@ public class Projectile extends Entity{
         if(user == gp.player) {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             if(monsterIndex != 999) {
-                gp.player.damageMonster(monsterIndex, attack);
+                gp.player.damageMonster(monsterIndex, attack, knockBackPower);
                 generateParticle(weapon.projectile, gp.monster[gp.currentMap][monsterIndex]);
                 int value = weapon.projectile.attack - gp.monster[gp.currentMap][monsterIndex].defense;
                 if(value < 0) value = 0;

@@ -58,7 +58,8 @@ public class Player extends Entity{
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
 
-        speed = 5;
+        defaultSpeed = 5;
+        speed = defaultSpeed;
         direction = "down";
 
         level = 1;
@@ -458,7 +459,7 @@ public class Player extends Entity{
             //Check monster collision with the updated worldx worldy solidarea
             if(haveMeleeAttacked == false) {
                 int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-                damageMonster(monsterIndex, attack);
+                damageMonster(monsterIndex, attack, currentWeapon.knockBackPower);
                 int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
                 damageInteractiveTile(iTileIndex);
                 haveMeleeAttacked = true;
@@ -482,6 +483,12 @@ public class Player extends Entity{
                 gp.occupiedDropPlaces[gp.obj[gp.currentMap][i].worldX][gp.obj[gp.currentMap][i].worldY] = 0;
                 gp.obj[gp.currentMap][i].use(this);
                 gp.obj[gp.currentMap][i] = null;
+            }
+            else if(gp.obj[gp.currentMap][i].type == type_obstacle) {
+                if(keyH.enterPressed == true) {
+                    attackCanceled = true;
+                    gp.obj[gp.currentMap][i].interact();
+                }
             }
             else {
                 gp.occupiedDropPlaces[gp.obj[gp.currentMap][i].worldX][gp.obj[gp.currentMap][i].worldY] = 0;
@@ -521,10 +528,13 @@ public class Player extends Entity{
             }
         }
     }
-    public void damageMonster(int i, int attack) {
+    public void damageMonster(int i, int attack, int knockBackPower) {
         if(i != 999) {
             if(gp.monster[gp.currentMap][i].invincible == false) {
                 gp.playSE(5);
+                if(knockBackPower > 0) {
+                    knockBack(gp.monster[gp.currentMap][i], knockBackPower);
+                }
 
                 int damage = attack - gp.monster[gp.currentMap][i].defense;
                 if(damage < 0) damage = 0;
@@ -544,6 +554,11 @@ public class Player extends Entity{
                 }
             }
         }
+    }
+    public void knockBack(Entity entity, int knockBackPower) {
+        entity.direction = direction;
+        entity.speed += knockBackPower;
+        entity.knockBack = true;
     }
     public void damageInteractiveTile(int i) {
         if(i != 999 && gp.iTile[gp.currentMap][i].destructible == true &&
@@ -610,8 +625,9 @@ public class Player extends Entity{
                 }
             }
             if(selectedItem.type == type_consumable) {
-                selectedItem.use(this);
-                inventory.remove(itemIndex);
+                if(selectedItem.use(this) == true) {
+                    inventory.remove(itemIndex);
+                }
             }
         }
     }
@@ -700,6 +716,7 @@ public class Player extends Entity{
             }
         }
     }
+
 }
 
 
