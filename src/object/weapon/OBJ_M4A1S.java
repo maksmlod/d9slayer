@@ -12,6 +12,7 @@ public class OBJ_M4A1S extends Entity {
     GamePanel gp;
     public Projectile[] projectiles = new Projectile[50];
     public int i = 0;
+    UtilityTool uTool = new UtilityTool();
     public OBJ_M4A1S(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -34,6 +35,8 @@ public class OBJ_M4A1S extends Entity {
         for(int i = 0; i < 50; i++) {
             projectiles[i] = new OBJ_Bullet(gp);
         }
+        albumOrigin = spiderr;
+        albumOrigin = uTool.scaleImage(albumOrigin,gp.tileSize/2,gp.tileSize/2);
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {

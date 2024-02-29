@@ -528,6 +528,12 @@ public class UI {
 
                 g2.setColor(rarityColor);
                 g2.drawString(entity.inventory.get(itemIndex).name,textX,textY);
+                if(entity.inventory.get(itemIndex).albumOrigin != null) {
+                    int width = g2.getFontMetrics().stringWidth(entity.inventory.get(itemIndex).name) + 10;
+                    textX += width;
+                    g2.drawImage(entity.inventory.get(itemIndex).albumOrigin, textX, textY - gp.tileSize/2 + 4, null);
+                    textX -= width;
+                }
                 textY += 5;
                 textX = dFrameX + 20;
                 for(int i = 0; i < rarityCount; i++) {
@@ -614,6 +620,12 @@ public class UI {
                 else if(gp.player.currentWeapon.rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
                 g2.setColor(rarityColor);
                 g2.drawString(gp.player.currentWeapon.name, frameX, frameY);
+                if(gp.player.currentWeapon.albumOrigin != null) {
+                    int width = g2.getFontMetrics().stringWidth(gp.player.currentWeapon.name) + 10;
+                    frameX += width;
+                    g2.drawImage(gp.player.currentWeapon.albumOrigin, frameX, frameY - gp.tileSize/2 + 4, null);
+                    frameX -= width;
+                }
                 frameY += 5;
                 for(int i = 0; i < rarityCount; i++) {
                     g2.drawImage(starImage,frameX,frameY,null);
@@ -791,6 +803,12 @@ public class UI {
         else if(gp.player.currentWeapon.rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
         g2.setColor(rarityColor);
         g2.drawString(gp.player.currentWeapon.name, frameX, frameY);
+        if(gp.player.currentWeapon.albumOrigin != null) {
+            int width = g2.getFontMetrics().stringWidth(gp.player.currentWeapon.name) + 10;
+            frameX += width;
+            g2.drawImage(gp.player.currentWeapon.albumOrigin, frameX, frameY - gp.tileSize/2 + 4, null);
+            frameX -= width;
+        }
         frameY += 5;
         for(int i = 0; i < rarityCount; i++) {
                     g2.drawImage(starImage,frameX,frameY,null);

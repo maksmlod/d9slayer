@@ -88,6 +88,7 @@ public class Entity {
     public int nextLevelExp;
     public int coin;
     public int price;
+    public BufferedImage albumOrigin = null;
     public String rarity = "common"; //common uncommon rare epic legendary
     public int dropAmount = 1;
     public String damageText;
@@ -111,6 +112,9 @@ public class Entity {
     public static BufferedImage rock_up1, rock_up2, rock_down1, rock_down2,
             rock_left1, rock_left2, rock_right1, rock_right2;
     public static BufferedImage bullet_down1;
+    public static BufferedImage spiderr;
+    public static BufferedImage crest;
+
 
 
 
@@ -480,6 +484,9 @@ public class Entity {
         rock_right2 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
 
         bullet_down1 = setup("/projectile/bullet",gp.tileSize,gp.tileSize);
+
+        spiderr = setup("/tiles/drain_albums/spiderr",gp.tileSize,gp.tileSize);
+        crest = setup("/tiles/drain_albums/crest",gp.tileSize,gp.tileSize);
     }
     public void searchPath(int goalCol, int goalRow, boolean follow) {
         int startCol = (worldX + solidArea.x)/gp.tileSize;

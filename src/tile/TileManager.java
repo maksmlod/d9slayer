@@ -42,6 +42,26 @@ public class TileManager {
             setup(9, "009wallcrest", true);
             setup(10, "010floor2crest", false);
             setup(11, "011crest", false);
+            setup(12, "012spiderr00", true);
+            setup(13, "013spiderr01", true);
+            setup(14, "014spiderr02", true);
+            setup(15, "015spiderr03", true);
+            setup(16, "016spiderr04", true);
+            setup(17, "017spiderr05", true);
+            setup(18, "018spiderr06", true);
+            setup(19, "019spiderr07", true);
+            setup(20, "020spiderr08", true);
+            setup(21, "021spiderr09", true);
+            setup(22, "022spiderr10", true);
+            setup(23, "023spiderr11", true);
+            setup(24, "024spiderr12", false);
+            setup(25, "025spiderr13", false);
+            setup(26, "026spiderr14", false);
+            setup(27, "027spiderr15", true);
+            setup(28, "028spiderr16", true);
+            setup(29, "029spiderr17", true);
+            setup(30, "030spiderr18a", true);
+
 
 
     }
