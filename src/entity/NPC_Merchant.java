@@ -1,6 +1,7 @@
 package entity;
 
 import main.GamePanel;
+import object.OBJ_Axe;
 import object.OBJ_Key;
 import object.OBJ_Potion_Red;
 import object.accessory.OBJ_Shield_Blue;
@@ -45,6 +46,7 @@ public class NPC_Merchant extends Entity {
         inventory.add(new OBJ_Shield_Wood(gp));
         inventory.add(new OBJ_M4A1S(gp));
         inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Axe(gp));
     }
     public void speak() {
         super.speak();

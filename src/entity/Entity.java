@@ -125,6 +125,8 @@ public class Entity {
     public int manaCounter = 0;
     public int castSpeed;
     public int knockBackPower = 0;
+    public boolean stackable = false;
+    public int amount = 1;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
