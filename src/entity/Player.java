@@ -76,7 +76,7 @@ public class Player extends Entity{
         currentWeapon = new OBJ_Normal_Sword(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack();
-        defense = getDefense();
+        defense = getDefense() + 20;
         projectile = new OBJ_Fireball(gp);
     }
     public void setDefaultPositions() {

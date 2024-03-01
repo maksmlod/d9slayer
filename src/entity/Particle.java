@@ -3,6 +3,7 @@ package entity;
 import main.GamePanel;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Particle extends Entity{
     Entity generator;
@@ -10,9 +11,11 @@ public class Particle extends Entity{
     int size;
     int xd;
     int yd;
+    BufferedImage image;
     boolean isDamageParticle = false;
+    boolean isImageParticle = false;
     public Particle(GamePanel gp, Entity generator, Color color,
-                    int size, int speed, int maxLife, int xd, int yd, String damageText) {
+                    int size, int speed, int maxLife, int xd, int yd, String damageText, BufferedImage image) {
         super(gp);
         this.generator = generator;
         this.color = color;
@@ -22,6 +25,7 @@ public class Particle extends Entity{
         this.xd = xd;
         this.yd = yd;
         this.damageText = damageText;
+        this.image = image;
 
         life = maxLife;
         int offset = (gp.tileSize/2) - (size/2);
@@ -48,6 +52,9 @@ public class Particle extends Entity{
             int scale = 25 + damage;
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, scale));
             g2.drawString(damageText,screenX,screenY);
+        }
+        else if(isImageParticle == true) {
+            g2.drawImage(image, screenX- 20, screenY - 20, null);
         }
         else {
             g2.setColor(color);

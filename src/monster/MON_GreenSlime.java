@@ -17,7 +17,7 @@ public class MON_GreenSlime extends Entity {
 
         type = type_monster;
         name = "Green Slime";
-        defaultSpeed = 1;
+        defaultSpeed = 3;
         speed = defaultSpeed;
         maxLife = 4;
         life = maxLife;
@@ -55,9 +55,9 @@ public class MON_GreenSlime extends Entity {
         if(onPath == false && tileDistance < 5) {
             onPath = true;
         }
-//        if(onPath == true && tileDistance > 20) {
-//            onPath = false;
-//        }
+        if(onPath == true && tileDistance > 10) {
+            onPath = false;
+        }
     }
     public void setAction() {
         if(canAttack == true) {

@@ -60,7 +60,7 @@ public class TileManager {
             setup(27, "027spiderr15", true);
             setup(28, "028spiderr16", true);
             setup(29, "029spiderr17", true);
-            setup(30, "030spiderr18a", true);
+            setup(30, "030spiderr18", true);
 
 
 

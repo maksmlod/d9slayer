@@ -1,5 +1,6 @@
 package main;
 
+import animals.GuineaPig;
 import entity.NPC_Merchant;
 import entity.NPC_OldMan;
 import monster.*;
@@ -78,12 +79,18 @@ public class AssetSetter {
         gp.npc[mapNum][i].worldY = gp.tileSize*19;
         i++;
 
+        gp.npc[mapNum][i] = new GuineaPig(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*17;
+        gp.npc[mapNum][i].worldY = gp.tileSize*20;
+        i++;
+
 
 
     }
 
     public void setMonster(int selectedMap, boolean allMap) {
         int mapNum = 0;
+        /*
         if(selectedMap == mapNum || allMap == true) {
             int i = 0;
             gp.monster[mapNum][i] = new MON_GreenSlime(gp);
@@ -127,17 +134,29 @@ public class AssetSetter {
             gp.monster[mapNum][i].worldY = gp.tileSize * 19;
             i++;
         }
+        */
         mapNum = 1;
         if(selectedMap == mapNum || allMap == true) {
             int i = 0;
             gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
-            gp.monster[mapNum][i].worldX = gp.tileSize * 36;
-            gp.monster[mapNum][i].worldY = gp.tileSize * 20;
+            gp.monster[mapNum][i].spawnCol = 17;
+            gp.monster[mapNum][i].spawnRow = 3;
+            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
+            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
             i++;
 
             gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
-            gp.monster[mapNum][i].worldX = gp.tileSize * 36;
-            gp.monster[mapNum][i].worldY = gp.tileSize * 17;
+            gp.monster[mapNum][i].spawnCol = 19;
+            gp.monster[mapNum][i].spawnRow = 4;
+            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
+            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
+            i++;
+
+            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
+            gp.monster[mapNum][i].spawnCol = 19;
+            gp.monster[mapNum][i].spawnRow = 6;
+            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
+            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
             i++;
 
             gp.monster[mapNum][i] = new MON_BigOrangeSpider(gp);

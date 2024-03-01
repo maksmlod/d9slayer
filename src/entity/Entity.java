@@ -20,7 +20,7 @@ public class Entity {
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
-    String dialogues[] = new String[20];
+    public String dialogues[] = new String[20];
     public BufferedImage image, image2, image3;
 
     //state
@@ -38,6 +38,15 @@ public class Entity {
     boolean hpBarOn = false;
     public boolean onPath = false;
     public boolean knockBack = false;
+
+    //ai
+    public int spawnCol;
+    public int spawnRow;
+    public boolean returning = false;
+    public int goalCol;
+    public int goalRow;
+    public int returningSpeed;
+    public int followingSpeed;
 
 
     //counter
@@ -238,13 +247,13 @@ public class Entity {
         int maxLife = generator.getParticleMaxLife();
 
         Particle p1 = new Particle(gp, target, color, size, speed, maxLife,
-                -2, -1, "");
+                -2, -1, "", null);
         Particle p2 = new Particle(gp, target, color, size, speed, maxLife,
-                2, -1, "");
+                2, -1, "", null);
         Particle p3 = new Particle(gp, target, color, size, speed, maxLife,
-                -2, 1, "");
+                -2, 1, "", null);
         Particle p4 = new Particle(gp, target, color, size, speed, maxLife,
-                2, 1, "");
+                2, 1, "", null);
         gp.particleList.add(p1);
         gp.particleList.add(p2);
         gp.particleList.add(p3);
@@ -256,10 +265,31 @@ public class Entity {
         int maxLife = 20;
         String value = String.valueOf(damage);
         Particle p1 = new Particle(gp, target, color, 0, speed, maxLife,
-                1, 0, value);
+                1, 0, value, null);
         p1.isDamageParticle = true;
         gp.particleList.add(p1);
     }
+    public void generateImageParticle(Entity generator, Entity target, BufferedImage image) {
+        int speed = 1;
+        int maxLife = 20;
+        Particle p1 = new Particle(gp, target, null, 0, speed, maxLife,
+                -1, -1,"", image);
+        Particle p2 = new Particle(gp, target, null, 0, speed, maxLife,
+                1, -1,"", image);
+        Particle p3 = new Particle(gp, target, null, 0, speed, maxLife,
+                -1, 1,"", image);
+        Particle p4 = new Particle(gp, target, null, 0, speed, maxLife,
+                1, 1,"", image);
+        p1.isImageParticle = true;
+        p2.isImageParticle = true;
+        p3.isImageParticle = true;
+        p4.isImageParticle = true;
+        gp.particleList.add(p1);
+        gp.particleList.add(p2);
+        gp.particleList.add(p3);
+        gp.particleList.add(p4);
+    }
+
     public void update() {
         if(knockBack == true) {
             checkCollision();
@@ -550,6 +580,7 @@ public class Entity {
             int nextRow = gp.pFinder.pathList.get(0).row;
             if (nextCol == goalCol && nextRow == goalRow) {
                 onPath = false;
+                speed = defaultSpeed;
             }
         }
     }

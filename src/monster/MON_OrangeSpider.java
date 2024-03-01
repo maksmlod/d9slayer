@@ -2,7 +2,6 @@ package monster;
 
 import entity.Entity;
 import main.GamePanel;
-import main.UtilityTool;
 import object.OBJ_Coin;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
@@ -17,13 +16,15 @@ public class MON_OrangeSpider extends Entity {
         this.gp = gp;
 
         type = type_monster;
-        name = "Green Slime";
-        speed = 4;
-        maxLife = 20;
+        name = "Orange Spider";
+        defaultSpeed = 3;
+        speed = defaultSpeed;
+        returningSpeed = defaultSpeed*2;
+        maxLife = 4;
         life = maxLife;
         attack = 5;
         defense = 0;
-        exp = 20;
+        exp = 2;
         projectile = new OBJ_Rock(gp);
 
         solidArea.x = 3;
@@ -34,6 +35,7 @@ public class MON_OrangeSpider extends Entity {
         solidAreaDefaultY = solidArea.y;
 
         getImage();
+        dropAmount = 2;
     }
     public void getImage() {
         up1 = setup("/monster/orangespider/orangespider_up_1", gp.tileSize, gp.tileSize);
@@ -45,59 +47,90 @@ public class MON_OrangeSpider extends Entity {
         left1 = setup("/monster/orangespider/orangespider_left_1", gp.tileSize, gp.tileSize);
         left2 = setup("/monster/orangespider/orangespider_left_2", gp.tileSize, gp.tileSize);
     }
+    public void update() {
+        super.update();
+
+        int xDistance = Math.abs(worldX - gp.player.worldX);
+        int yDistance = Math.abs(worldY - gp.player.worldY);
+        int tileDistance = (xDistance + yDistance)/gp.tileSize;
+        if(onPath == false && tileDistance < 5) {
+            onPath = true;
+            returning = false;
+        }
+        if(onPath == true && tileDistance > 10) {
+            returning = true;
+        }
+    }
     public void setAction() {
-        actionLockCounter ++;
         if(canAttack == true) {
-
-            if (actionLockCounter == 15) {
-                Random random = new Random();
-                int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
-
-                if (i <= 25) {
-                    direction = "up";
-                } else if (i > 25 && i <= 50) {
-                    direction = "down";
-                } else if (i > 50 && i <= 75) {
-                    direction = "left";
-                } else if (i > 75 && i <= 100) {
-                    direction = "right";
+            if(onPath == true) {
+                if(returning == true) {
+                    speed = returningSpeed;
+                    goalCol = spawnCol;
+                    goalRow = spawnRow;
+                    searchPath(goalCol, goalRow, false);
                 }
-                actionLockCounter = 0;
+                else {
+                    goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
+                    goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
+                    searchPath(goalCol, goalRow, true);
+                }
+                int i = new Random().nextInt(100) + 1;
+                if (i > 95 && projectile.alive == false && shotAvailableCounter == 30) {
+                    projectile.set(worldX, worldY, direction, "", true, this, null);
+                    gp.projectileList.add(projectile);
+
+                    String directionTemp = null;
+                    if (direction == "left") directionTemp = "right";
+                    else if (direction == "right") directionTemp = "left";
+                    else if (direction == "up") directionTemp = "down";
+                    else directionTemp = "up";
+                    projectile4 = new OBJ_Rock(gp);
+                    projectile4.set(worldX, worldY, directionTemp, "", true, this, null);
+                    projectile4.speed = 15;
+                    gp.projectileList.add(projectile4);
+
+                    shotAvailableCounter = 0;
+                }
             }
-            int i = new Random().nextInt(100) + 1;
-            if (i > 50 && projectile.alive == false && shotAvailableCounter == 30) {
-                projectile.set(worldX, worldY, direction, "", true, this, null);
-                projectile.speed = 15;
-                gp.projectileList.add(projectile);
+            else {
+                actionLockCounter++;
+                if (actionLockCounter == 60) {
+                    Random random = new Random();
+                    int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
 
-                String directionTemp = null;
-                if (direction == "left") directionTemp = "right";
-                else if (direction == "right") directionTemp = "left";
-                else if (direction == "up") directionTemp = "down";
-                else directionTemp = "up";
-                projectile4 = new OBJ_Rock(gp);
-                projectile4.set(worldX, worldY, directionTemp, "", true, this, null);
-                projectile4.speed = 15;
-                gp.projectileList.add(projectile4);
-
-                shotAvailableCounter = 0;
+                    if (i <= 25) {
+                        direction = "up";
+                    }
+                    if (i > 25 && i <= 50) {
+                        direction = "down";
+                    }
+                    if (i > 50 && i <= 75) {
+                        direction = "left";
+                    }
+                    if (i > 75 && i <= 100) {
+                        direction = "right";
+                    }
+                    actionLockCounter = 0;
+                }
             }
         }
     }
     public void damageReaction() {
         actionLockCounter = 0;
-        direction = gp.player.direction;
+        //direction = gp.player.direction;
+        onPath = true;
     }
     public void checkDrop() {
         for(int j = 0; j < dropAmount; j++) {
             int i = new Random().nextInt(100) + 1;
-            if (i < 50) {
+            if (i < 70) {
                 dropItem(new OBJ_Coin(gp));
             }
-            if (i >= 50 && i < 75) {
+            if (i >= 70 && i < 85) {
                 dropItem(new OBJ_Heart(gp));
             }
-            if (i >= 75 && i < 100) {
+            if (i >= 85 && i < 100) {
                 dropItem(new OBJ_ManaCrystal(gp));
             }
         }
