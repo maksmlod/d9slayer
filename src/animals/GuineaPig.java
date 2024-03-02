@@ -22,14 +22,14 @@ public class GuineaPig extends Entity {
 
         direction = "down";
         name = "Guinea pig";
-        defaultSpeed = 1;
+        defaultSpeed = 7;
         followingSpeed = 4;
         speed = defaultSpeed;
 
-        solidArea.x = 0;
-        solidArea.y = 0;
-        solidArea.width = 0;
-        solidArea.height = 0;
+        solidArea.x = 10;
+        solidArea.y = 10;
+        solidArea.width = 28;
+        solidArea.height = 28;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         littleheart = setup("/objects/little_heart",gp.tileSize,gp.tileSize);
@@ -68,6 +68,10 @@ public class GuineaPig extends Entity {
         else {
             if (onPath == false && tileDistance < 1) {
                 onPath = true;
+                borderYDown = defaultBorderYDown;
+                borderYUp = defaultBorderYUp;
+                borderXLeft = defaultBorderXLeft;
+                borderXRight = defaultBorderXRight;
             }
             if (onPath == true) {
                 speed = followingSpeed;
@@ -90,7 +94,7 @@ public class GuineaPig extends Entity {
         }
         else {
                 actionLockCounter++;
-                if (actionLockCounter == 120) {
+                if (actionLockCounter == 30) {
                     Random random = new Random();
                     int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
 

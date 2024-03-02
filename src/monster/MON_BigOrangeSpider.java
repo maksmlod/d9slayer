@@ -17,8 +17,8 @@ public class MON_BigOrangeSpider extends Entity {
         this.gp = gp;
 
         type = type_monster;
-        name = "Green Slime";
-        speed = 2;
+        name = "Big orange spider";
+        speed = 3;
         maxLife = 50;
         life = maxLife;
         attack = 5;

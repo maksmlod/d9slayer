@@ -47,6 +47,19 @@ public class Entity {
     public int goalRow;
     public int returningSpeed;
     public int followingSpeed;
+    //borders for movement
+    public int borderXRight = 0;
+    public int borderXLeft = 0;
+    public int borderYUp = 0;
+    public int borderYDown = 0;
+    public int defaultBorderXRight = 0;
+    public int defaultBorderXLeft = 0;
+    public int defaultBorderYUp = 0;
+    public int defaultBorderYDown = 0;
+    public int tempBorderXRight = 0;
+    public int tempBorderXLeft = 0;
+    public int tempBorderYUp = 0;
+    public int tempBorderYDown = 0;
 
 
     //counter
@@ -105,6 +118,7 @@ public class Entity {
     public Entity currentShield;
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
+
     public Projectile projectile;
     public Projectile projectile2;
     public Projectile projectile3;
@@ -143,6 +157,19 @@ public class Entity {
 
     public Entity(GamePanel gp) {
         this.gp = gp;
+        borderXRight = gp.maxWorldCol * gp.tileSize;
+        borderXLeft = 0;
+        borderYUp = 0;
+        borderYDown = gp.maxWorldRow * gp.tileSize;
+        defaultBorderXRight = gp.maxWorldCol * gp.tileSize;
+        defaultBorderXLeft = 0;
+        defaultBorderYUp = 0;
+        defaultBorderYDown = gp.maxWorldRow * gp.tileSize;
+        tempBorderXRight = gp.maxWorldCol * gp.tileSize;
+        tempBorderXLeft = 0;
+        tempBorderYUp = 0;
+        tempBorderYDown = gp.maxWorldRow * gp.tileSize;
+
     }
     public int getLeftX() {return worldX + solidArea.x;}
     public int getRightX() {return worldX + solidArea.x + solidArea.width;}
@@ -575,12 +602,13 @@ public class Entity {
             }
         }
         //if reaches the goal
-        if(follow == false) {
+        if(follow == false && gp.pFinder.pathList.size() != 0) {
             int nextCol = gp.pFinder.pathList.get(0).col;
             int nextRow = gp.pFinder.pathList.get(0).row;
             if (nextCol == goalCol && nextRow == goalRow) {
                 onPath = false;
                 speed = defaultSpeed;
+                setDefaultBorders();
             }
         }
     }
@@ -619,4 +647,6 @@ public class Entity {
         }
         return index;
     }
+    public void setDefaultBorders() {}
+    public void setTempBorders() {}
 }

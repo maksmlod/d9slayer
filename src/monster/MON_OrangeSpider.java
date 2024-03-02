@@ -20,7 +20,7 @@ public class MON_OrangeSpider extends Entity {
         defaultSpeed = 3;
         speed = defaultSpeed;
         returningSpeed = defaultSpeed*2;
-        maxLife = 4;
+        maxLife = 10;
         life = maxLife;
         attack = 5;
         defense = 0;
@@ -74,6 +74,10 @@ public class MON_OrangeSpider extends Entity {
                     goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
                     goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
                     searchPath(goalCol, goalRow, true);
+                    borderXRight = defaultBorderXRight;
+                    borderXLeft = defaultBorderXLeft;
+                    borderYUp = defaultBorderYUp;
+                    borderYDown = defaultBorderYDown;
                 }
                 int i = new Random().nextInt(100) + 1;
                 if (i > 95 && projectile.alive == false && shotAvailableCounter == 30) {
@@ -134,6 +138,19 @@ public class MON_OrangeSpider extends Entity {
                 dropItem(new OBJ_ManaCrystal(gp));
             }
         }
+    }
+    public void setDefaultBorders() {
+        borderYUp = tempBorderYUp;
+        borderYDown = tempBorderYDown;
+        borderXRight = tempBorderXRight;
+        borderXLeft = tempBorderXLeft;
+    }
+
+    public void setTempBorders() {
+        tempBorderYUp = borderYUp;
+        tempBorderYDown = borderYDown;
+        tempBorderXRight = borderXRight;
+        tempBorderXLeft = borderXLeft;
     }
 
 }

@@ -80,8 +80,12 @@ public class AssetSetter {
         i++;
 
         gp.npc[mapNum][i] = new GuineaPig(gp);
-        gp.npc[mapNum][i].worldX = gp.tileSize*17;
-        gp.npc[mapNum][i].worldY = gp.tileSize*20;
+        gp.npc[mapNum][i].worldX = gp.tileSize*26;
+        gp.npc[mapNum][i].worldY = gp.tileSize*17;
+        gp.npc[mapNum][i].borderXLeft = gp.tileSize*25;
+        gp.npc[mapNum][i].borderXRight = gp.tileSize*27;
+        gp.npc[mapNum][i].borderYUp = gp.tileSize*16;
+        gp.npc[mapNum][i].borderYDown = gp.tileSize*18;
         i++;
 
 
@@ -141,6 +145,11 @@ public class AssetSetter {
             gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
             gp.monster[mapNum][i].spawnCol = 17;
             gp.monster[mapNum][i].spawnRow = 3;
+            gp.monster[mapNum][i].borderXRight = 19*gp.tileSize;
+            gp.monster[mapNum][i].borderXLeft = 17*gp.tileSize;
+            gp.monster[mapNum][i].borderYDown = 6*gp.tileSize;
+            gp.monster[mapNum][i].borderYUp = 3*gp.tileSize;
+            gp.monster[mapNum][i].setTempBorders();
             gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
             gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
             i++;
@@ -148,6 +157,11 @@ public class AssetSetter {
             gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
             gp.monster[mapNum][i].spawnCol = 19;
             gp.monster[mapNum][i].spawnRow = 4;
+            gp.monster[mapNum][i].borderXRight = 19*gp.tileSize;
+            gp.monster[mapNum][i].borderXLeft = 17*gp.tileSize;
+            gp.monster[mapNum][i].borderYDown = 6*gp.tileSize;
+            gp.monster[mapNum][i].borderYUp = 3*gp.tileSize;
+            gp.monster[mapNum][i].setTempBorders();
             gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
             gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
             i++;
@@ -155,13 +169,66 @@ public class AssetSetter {
             gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
             gp.monster[mapNum][i].spawnCol = 19;
             gp.monster[mapNum][i].spawnRow = 6;
+            gp.monster[mapNum][i].borderXRight = 19*gp.tileSize;
+            gp.monster[mapNum][i].borderXLeft = 17*gp.tileSize;
+            gp.monster[mapNum][i].borderYDown = 6*gp.tileSize;
+            gp.monster[mapNum][i].borderYUp = 3*gp.tileSize;
+            gp.monster[mapNum][i].setTempBorders();
+            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
+            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
+            i++;
+///////////////////////////////////////
+            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
+            gp.monster[mapNum][i].spawnCol = 32;
+            gp.monster[mapNum][i].spawnRow = 6;
+            gp.monster[mapNum][i].borderXRight = 36*gp.tileSize;
+            gp.monster[mapNum][i].borderXLeft = 32*gp.tileSize;
+            gp.monster[mapNum][i].borderYDown = 9*gp.tileSize;
+            gp.monster[mapNum][i].borderYUp = 6*gp.tileSize;
+            gp.monster[mapNum][i].setTempBorders();
+            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
+            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
+            i++;
+
+            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
+            gp.monster[mapNum][i].spawnCol = 35;
+            gp.monster[mapNum][i].spawnRow = 6;
+            gp.monster[mapNum][i].borderXRight = 36*gp.tileSize;
+            gp.monster[mapNum][i].borderXLeft = 32*gp.tileSize;
+            gp.monster[mapNum][i].borderYDown = 9*gp.tileSize;
+            gp.monster[mapNum][i].borderYUp = 6*gp.tileSize;
+            gp.monster[mapNum][i].setTempBorders();
+            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
+            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
+            i++;
+
+            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
+            gp.monster[mapNum][i].spawnCol = 35;
+            gp.monster[mapNum][i].spawnRow = 8;
+            gp.monster[mapNum][i].borderXRight = 36*gp.tileSize;
+            gp.monster[mapNum][i].borderXLeft = 32*gp.tileSize;
+            gp.monster[mapNum][i].borderYDown = 9*gp.tileSize;
+            gp.monster[mapNum][i].borderYUp = 6*gp.tileSize;
+            gp.monster[mapNum][i].setTempBorders();
+            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
+            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
+            i++;
+
+            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
+            gp.monster[mapNum][i].spawnCol = 33;
+            gp.monster[mapNum][i].spawnRow = 8;
+            gp.monster[mapNum][i].borderXRight = 36*gp.tileSize;
+            gp.monster[mapNum][i].borderXLeft = 32*gp.tileSize;
+            gp.monster[mapNum][i].borderYDown = 9*gp.tileSize;
+            gp.monster[mapNum][i].borderYUp = 6*gp.tileSize;
+            gp.monster[mapNum][i].setTempBorders();
             gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
             gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
             i++;
 
             gp.monster[mapNum][i] = new MON_BigOrangeSpider(gp);
-            gp.monster[mapNum][i].worldX = gp.tileSize * 31;
-            gp.monster[mapNum][i].worldY = gp.tileSize * 34;
+            gp.monster[mapNum][i].worldX = gp.tileSize * 44;
+            gp.monster[mapNum][i].worldY = gp.tileSize * 42;
             i++;
         }
         mapNum = 2;
