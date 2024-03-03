@@ -90,6 +90,7 @@ public class Entity {
     public final int type_wand = 8;
     public final int type_accessory = 9;
     public final int type_obstacle = 10;
+    public final int type_item = 11;
     public int weapon_id;
     public boolean canMeleeAttack = false;
     public boolean haveProjectile = false;
@@ -110,6 +111,9 @@ public class Entity {
     public int nextLevelExp;
     public int coin;
     public int price;
+    public boolean needItemToBuy = false;
+    public Entity neededItemToBuy = null;
+    public int neededItemAmount = 0;
     public BufferedImage albumOrigin = null;
     public String rarity = "common"; //common uncommon rare epic legendary
     public int dropAmount = 1;
@@ -134,6 +138,8 @@ public class Entity {
             iceball_left1, iceball_left2, iceball_right1, iceball_right2;
     public static BufferedImage rock_up1, rock_up2, rock_down1, rock_down2,
             rock_left1, rock_left2, rock_right1, rock_right2;
+    public static BufferedImage webshot_up1, webshot_up2, webshot_down1, webshot_down2,
+            webshot_left1, webshot_left2, webshot_right1, webshot_right2;
     public static BufferedImage bullet_down1;
     public static BufferedImage spiderr;
     public static BufferedImage crest;
@@ -544,6 +550,15 @@ public class Entity {
 
         spiderr = setup("/tiles/drain_albums/spiderr",gp.tileSize,gp.tileSize);
         crest = setup("/tiles/drain_albums/crest",gp.tileSize,gp.tileSize);
+
+        webshot_up1 = setup("/projectile/webshot_up_1",gp.tileSize,gp.tileSize);
+        webshot_up2 = setup("/projectile/webshot_up_2",gp.tileSize,gp.tileSize);
+        webshot_down1 = setup("/projectile/webshot_down_1",gp.tileSize,gp.tileSize);
+        webshot_down2 = setup("/projectile/webshot_down_2",gp.tileSize,gp.tileSize);
+        webshot_left1 = setup("/projectile/webshot_left_1",gp.tileSize,gp.tileSize);
+        webshot_left2 = setup("/projectile/webshot_left_2",gp.tileSize,gp.tileSize);
+        webshot_right1 = setup("/projectile/webshot_right_1",gp.tileSize,gp.tileSize);
+        webshot_right2 = setup("/projectile/webshot_right_2",gp.tileSize,gp.tileSize);
     }
     public void searchPath(int goalCol, int goalRow, boolean follow) {
         int startCol = (worldX + solidArea.x)/gp.tileSize;

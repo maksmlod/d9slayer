@@ -3,6 +3,7 @@ package main;
 import animals.GuineaPig;
 import entity.NPC_Merchant;
 import entity.NPC_OldMan;
+import entity.NPC_Spider_Merchant;
 import monster.*;
 import object.*;
 import object.weapon.*;
@@ -69,7 +70,7 @@ public class AssetSetter {
         i++;
          */
 
-        gp.npc[mapNum][i] = new NPC_Merchant(gp, 0);
+        gp.npc[mapNum][i] = new NPC_Merchant(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize*17;
         gp.npc[mapNum][i].worldY = gp.tileSize*22;
         i++;
@@ -88,6 +89,12 @@ public class AssetSetter {
         gp.npc[mapNum][i].borderYDown = gp.tileSize*18;
         i++;
 
+        mapNum = 1;
+        i = 0;
+        gp.npc[mapNum][i] = new NPC_Spider_Merchant(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*11;
+        gp.npc[mapNum][i].worldY = gp.tileSize*23;
+        i++;
 
 
     }

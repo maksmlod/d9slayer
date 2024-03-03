@@ -9,7 +9,7 @@ import object.accessory.OBJ_Shield_Wood;
 import object.weapon.*;
 
 public class NPC_Merchant extends Entity {
-    public NPC_Merchant(GamePanel gp, int mapNumber) {
+    public NPC_Merchant(GamePanel gp) {
         super(gp);
 
         direction = "down";

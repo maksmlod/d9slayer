@@ -6,6 +6,7 @@ import main.UtilityTool;
 import object.OBJ_Coin;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
+import object.OBJ_Spider_Scale;
 import object.projectile.OBJ_Rock;
 
 import java.util.Random;
@@ -104,14 +105,14 @@ public class MON_BigOrangeSpider extends Entity {
     public void checkDrop() {
         for(int j = 0; j < dropAmount; j++) {
             int i = new Random().nextInt(100) + 1;
-            if (i < 50) {
-                dropItem(new OBJ_Coin(gp));
+            if (i < 10) {
+                dropItem(new OBJ_Spider_Scale(gp));
             }
-            if (i >= 50 && i < 75) {
-                dropItem(new OBJ_Heart(gp));
+            else if (i < 15) {
+                dropItem(new OBJ_Spider_Scale(gp));
             }
-            if (i >= 75 && i < 100) {
-                dropItem(new OBJ_ManaCrystal(gp));
+            else if (i < 100) {
+                dropItem(new OBJ_Spider_Scale(gp));
             }
         }
     }

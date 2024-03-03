@@ -1286,7 +1286,10 @@ public class UI {
             width = (int)(gp.tileSize * 2.5);
             height = gp.tileSize;
             drawSubWindow(x,y,width,height);
-            g2.drawImage(coin,x+10,y+8,32,32,null);
+            if(npc.inventory.get(itemIndex).needItemToBuy == false)
+                g2.drawImage(coin,x+10,y+8,32,32,null);
+            else
+                g2.drawImage(npc.inventory.get(itemIndex).neededItemToBuy.down1,x+10,y+8,32,32,null);
 
             int price = npc.inventory.get(itemIndex).price;
             String text = "" + price;
@@ -1294,37 +1297,63 @@ public class UI {
             g2.drawString(text, x, y+31);
 
             if(gp.keyH.enterPressed == true) {
-                if(npc.inventory.get(itemIndex).price > gp.player.coin) {
-                    subState = 0;
-                    gp.gameState = gp.dialogueState;
-                    currentDialogue = "You need more coin!";
-                    drawDialogueScreen();
+                if(npc.inventory.get(itemIndex).needItemToBuy == false) {
+                    if (npc.inventory.get(itemIndex).price > gp.player.coin) {
+                        subState = 0;
+                        gp.gameState = gp.dialogueState;
+                        currentDialogue = "You need more coin!";
+                        drawDialogueScreen();
+                    } else {
+                        if (npc.inventory.get(itemIndex).stackable == true) {
+                            if (gp.player.canObtainItem(npc.inventory.get(itemIndex)) == true) {
+                                gp.player.coin -= npc.inventory.get(itemIndex).price;
+                            } else {
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Your inventory is full!";
+                                drawDialogueScreen();
+                            }
+                        } else {
+                            if (gp.player.inventory.size() == gp.player.maxInventorySize) {
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Your inventory is full!";
+                                drawDialogueScreen();
+                            } else {
+                                gp.player.coin -= npc.inventory.get(itemIndex).price;
+                                gp.player.inventory.add((Entity) getItemFromNpc(itemIndex));
+                            }
+                        }
+                    }
                 }
                 else {
-                    if (npc.inventory.get(itemIndex).stackable == true) {
-                        if (gp.player.canObtainItem(npc.inventory.get(itemIndex)) == true) {
-                            gp.player.coin -= npc.inventory.get(itemIndex).price;
-                        } else {
-                            subState = 0;
-                            gp.gameState = gp.dialogueState;
-                            currentDialogue = "Your inventory is full!";
-                            drawDialogueScreen();
+                    boolean playerHasItem = false;
+                    int neededItemIndex = 0;
+                    for(int i = 0; i < gp.player.inventory.size(); i++) {
+                        if(gp.player.inventory.get(i).getClass().equals(npc.inventory.get(itemIndex).neededItemToBuy.getClass())) {
+                            playerHasItem = true;
+                            neededItemIndex = i;
+                            break;
                         }
                     }
-                    else {
-                        if(gp.player.inventory.size() == gp.player.maxInventorySize) {
-                            subState = 0;
-                            gp.gameState = gp.dialogueState;
-                            currentDialogue = "Your inventory is full!";
-                            drawDialogueScreen();
+                    if(playerHasItem == true) {
+                        if(gp.player.inventory.get(neededItemIndex).amount >= npc.inventory.get(itemIndex).neededItemAmount) {
+                            gp.player.inventory.get(neededItemIndex).amount -= npc.inventory.get(itemIndex).neededItemAmount;
+                            if(gp.player.inventory.get(neededItemIndex).amount == 0)
+                                gp.player.inventory.remove(neededItemIndex);
+                            gp.player.inventory.add((Entity) getItemFromNpc(itemIndex));
                         }
                         else {
-                            gp.player.coin -= npc.inventory.get(itemIndex).price;
-                            gp.player.inventory.add((Entity)getItemFromNpc(itemIndex));
+                            subState = 0;
+                            gp.gameState = gp.dialogueState;
+                            currentDialogue = "You need more: " + gp.player.inventory.get(neededItemIndex).name;
+                            drawDialogueScreen();
                         }
                     }
-                }
 
+
+
+                }
             }
         }
     }

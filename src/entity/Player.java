@@ -447,9 +447,9 @@ public class Player extends Entity{
             int solidAreaHeight = solidArea.height;
             //adjust players worldx/y for the attackArea
             switch(attackDirection) {
-                case "up": worldY -= attackArea.height; break;
+                case "up": worldY -= 2*attackArea.height; break;
                 case "down": worldY += attackArea.height; break;
-                case "left": worldX -= attackArea.width; break;
+                case "left": worldX -= 2*attackArea.width; break;
                 case "right": worldX += attackArea.width; break;
             }
             //attackArea becomes solidArea
