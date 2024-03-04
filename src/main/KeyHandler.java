@@ -50,6 +50,9 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.tradeState) {
             tradeState(code);
         }
+        else if(gp.gameState == gp.mapState) {
+            mapState(code);
+        }
     }
     public void titleState(int code) {
         if(code == KeyEvent.VK_W) {
@@ -124,6 +127,13 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_E) {
             gp.gameState = gp.inventoryState;
         }
+        if(code == KeyEvent.VK_M) {
+            gp.gameState = gp.mapState;
+        }
+        if(code == KeyEvent.VK_X) {
+            if(gp.map.miniMapOn == false) gp.map.miniMapOn = true;
+            else gp.map.miniMapOn = false;
+        }
 
         //debug
         if(code == KeyEvent.VK_T) {
@@ -148,6 +158,11 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_P) {
             gp.gameState = gp.playState;
             gp.resumeMusic();
+        }
+    }
+    public void mapState(int code) {
+        if(code == KeyEvent.VK_M) {
+            gp.gameState = gp.playState;
         }
     }
     public void dialogueState(int code) {

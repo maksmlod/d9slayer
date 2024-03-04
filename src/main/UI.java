@@ -16,7 +16,8 @@ public class UI {
 
     GamePanel gp;
     Graphics2D g2;
-    Font maruMonica, purisaB;
+    public Font maruMonica;
+    public Font purisaB;
 
     BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_half, crystal_blank, coin, starImage;
     public boolean messageOn = false;
@@ -458,7 +459,7 @@ public class UI {
 
             //amount
             if(entity.inventory.get(i).amount > 1 && entity == gp.player) {
-                g2.setFont(g2.getFont().deriveFont(32f));
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD,24F));
                 int amountX;
                 int amountY;
                 String s = "" + entity.inventory.get(i).amount;
@@ -701,7 +702,7 @@ public class UI {
 
             //amount
             if(gp.player.inventory.get(i).amount > 1) {
-                g2.setFont(g2.getFont().deriveFont(32f));
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD,24F));
                 int amountX;
                 int amountY;
                 String s = "" + gp.player.inventory.get(i).amount;

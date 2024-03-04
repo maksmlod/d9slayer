@@ -23,7 +23,7 @@ public class OBJ_Web_Staff extends Entity {
         attackValue = 0;
         attackArea.width = 0;
         attackArea.height = 0;
-        description = "Web shot";
+        description = "Web shot\nsplitting to 4";
         projectile = new OBJ_Webshot(gp);
         castSpeed = 15;
         useCost = 1;
@@ -40,7 +40,13 @@ public class OBJ_Web_Staff extends Entity {
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        if(i > 70) i = 0;
+        if(i > 70) {
+            i = 0;
+            for(int j = 0; j < projectiles.length; j++)
+            {
+                projectiles[j].speed = 12;
+            }
+        }
         projectiles[i].set(worldX, worldY, direction, "",alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
@@ -50,19 +56,29 @@ public class OBJ_Web_Staff extends Entity {
     }
     public void reactAfterDamagingMonster(int worldX, int worldY, String direction, boolean alive, Entity user, Entity monster) {
         projectiles[i].set(worldX, worldY + 2*monster.solidArea.height, "down", "",alive, gp.player,this);
+        projectiles[i].speed = 4;
         gp.projectileList.add(projectiles[i]);
         i++;
         projectiles[i].set(worldX + 2*monster.solidArea.width, worldY, "right", "",alive, gp.player,this);
+        projectiles[i].speed = 4;
         gp.projectileList.add(projectiles[i]);
         i++;
         projectiles[i].set(worldX - monster.solidArea.width, worldY, "left", "",alive, gp.player,this);
+        projectiles[i].speed = 4;
         gp.projectileList.add(projectiles[i]);
         i++;
         projectiles[i].set(worldX, worldY - monster.solidArea.height, "up", "",alive, gp.player,this);
+        projectiles[i].speed = 4;
         gp.projectileList.add(projectiles[i]);
         i++;
 
 
-        if(i > 70) i = 0;
+        if(i > 70) {
+            i = 0;
+            for(int j = 0; j < projectiles.length; j++)
+            {
+                projectiles[j].speed = 12;
+            }
+        }
     }
 }

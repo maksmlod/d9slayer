@@ -4,6 +4,7 @@ import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import object.projectile.OBJ_Fireball;
+import tile.Map;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
 
@@ -48,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
     public KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
     Sound sound = new Sound();
+    Map map = new Map(this);
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
@@ -81,6 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int skinsState = 8;
     public final int inventoryState = 9;
     public final int tradeState = 10;
+    public final int mapState = 11;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -237,6 +240,9 @@ public class GamePanel extends JPanel implements Runnable {
             ui.draw(g2);
 
         }
+        else if(gameState == mapState) {
+            map.drawFullMapScreen(g2);
+        }
         else {
             // Tile
             tileM.draw(g2);
@@ -291,7 +297,8 @@ public class GamePanel extends JPanel implements Runnable {
             }
             entityList.clear();
 
-
+            //map
+            map.drawMiniMap(g2);
 
             // UI
             ui.draw(g2);
