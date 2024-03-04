@@ -10,7 +10,7 @@ import object.projectile.OBJ_Webshot;
 
 public class OBJ_Web_Staff extends Entity {
     GamePanel gp;
-    public Projectile[] projectiles = new Projectile[50];
+    public Projectile[] projectiles = new Projectile[80];
     public int i = 0;
     public OBJ_Web_Staff(GamePanel gp) {
         super(gp);
@@ -23,14 +23,14 @@ public class OBJ_Web_Staff extends Entity {
         attackValue = 0;
         attackArea.width = 0;
         attackArea.height = 0;
-        description = "Fast Ice Projectile";
+        description = "Web shot";
         projectile = new OBJ_Webshot(gp);
         castSpeed = 15;
         useCost = 1;
         canMeleeAttack = false;
         haveProjectile = true;
         rarity = "rare";
-        for(int i = 0; i < 50; i++) {
+        for(int i = 0; i < 80; i++) {
             projectiles[i] = new OBJ_Webshot(gp);
         }
         needItemToBuy = true;
@@ -40,12 +40,29 @@ public class OBJ_Web_Staff extends Entity {
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        if(i > 45) i = 0;
+        if(i > 70) i = 0;
         projectiles[i].set(worldX, worldY, direction, "",alive, user,this);
         gp.projectileList.add(projectiles[i]);
         i++;
 
         user.mana = user.mana - useCost;
         gp.playSE(14);
+    }
+    public void reactAfterDamagingMonster(int worldX, int worldY, String direction, boolean alive, Entity user, Entity monster) {
+        projectiles[i].set(worldX, worldY + 2*monster.solidArea.height, "down", "",alive, gp.player,this);
+        gp.projectileList.add(projectiles[i]);
+        i++;
+        projectiles[i].set(worldX + 2*monster.solidArea.width, worldY, "right", "",alive, gp.player,this);
+        gp.projectileList.add(projectiles[i]);
+        i++;
+        projectiles[i].set(worldX - monster.solidArea.width, worldY, "left", "",alive, gp.player,this);
+        gp.projectileList.add(projectiles[i]);
+        i++;
+        projectiles[i].set(worldX, worldY - monster.solidArea.height, "up", "",alive, gp.player,this);
+        gp.projectileList.add(projectiles[i]);
+        i++;
+
+
+        if(i > 70) i = 0;
     }
 }

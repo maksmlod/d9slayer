@@ -664,4 +664,5 @@ public class Entity {
     }
     public void setDefaultBorders() {}
     public void setTempBorders() {}
+    public void reactAfterDamagingMonster(int worldX, int worldY, String direction, boolean alive, Entity user, Entity monster) {}
 }

@@ -551,6 +551,8 @@ public class Player extends Entity{
                     exp += gp.monster[gp.currentMap][i].exp;
                     checkLevelUp();
                 }
+                currentWeapon.reactAfterDamagingMonster(gp.monster[gp.currentMap][i].worldX,
+                        gp.monster[gp.currentMap][i].worldY, "", true, null, gp.monster[gp.currentMap][i]);
             }
         }
     }
