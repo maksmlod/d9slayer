@@ -164,7 +164,9 @@ public class Entity {
     public int amount = 1;
     public String armorSetName = null;
     public Map<String, Integer> armorSetCounters = new HashMap<>();
+    public Map<String, Integer[]> armorSetTypes = new HashMap<>();
     public String armorSetOrigin = null;
+    public String armorType = null; // helmet, gloves, armor, boots
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -671,12 +673,47 @@ public class Entity {
     public void setTempBorders() {}
     public void reactAfterDamagingMonster(int worldX, int worldY, String direction, boolean alive, Entity user, Entity monster) {}
 
-    public void incrementArmorSetCounter(String armorName) {
-        int count = armorSetCounters.getOrDefault(armorName, 0);
-        armorSetCounters.put(armorName, count + 1);
+    public void incrementArmorSetCounter(String armorName, Entity object) {
+        int index = 999;
+        if(object.armorType == "helmet") index = 0;
+        else if(object.armorType == "armor") index = 1;
+        else if(object.armorType == "gloves") index = 2;
+        else if(object.armorType == "boots") index = 3;
+
+        if(armorSetTypes.get(armorName) == null) {
+            Integer[] array = {0, 0, 0, 0};
+            armorSetTypes.put(armorName, array);
+        }
+        if(armorSetTypes.get(armorName)[index] >= 0 && index != 999) {
+            armorSetTypes.get(armorName)[index] ++;
+        }
     }
-    public void decrementArmorSetCounter(String armorName) {
-        int count = armorSetCounters.getOrDefault(armorName, 0);
-        armorSetCounters.put(armorName, count - 1);
+    public void decrementArmorSetCounter(String armorName, Entity object) {
+        int index = 999;
+        if(object.armorType == "helmet") index = 0;
+        else if(object.armorType == "armor") index = 1;
+        else if(object.armorType == "gloves") index = 2;
+        else if(object.armorType == "boots") index = 3;
+
+        if(armorSetTypes.get(armorName) == null) {
+            Integer[] array = {0, 0, 0, 0};
+            armorSetTypes.put(armorName, array);
+        }
+        if(armorSetTypes.get(armorName)[index] >= 1 && index != 999) {
+            armorSetTypes.get(armorName)[index] --;
+        }
     }
+    public boolean isFullSet(String armorName) {
+        boolean isFull = false;
+        int counter = 0;
+        if(armorSetTypes.get(armorName) != null) {
+            for(int i = 0; i < armorSetTypes.get(armorName).length; i++) {
+                if(armorSetTypes.get(armorName)[i] >= 1) counter ++;
+            }
+        }
+        if(counter >= 4) isFull = true;
+        return isFull;
+    }
+    public void effectBonus(Entity user) {}
+    public void revertEffectBonus(Entity user) {}
 }

@@ -25,6 +25,7 @@ public class Player extends Entity{
     public String lastPressedDirection = "down";
     public int numberOfPressedDirections = 0;
     public ArrayList<String> pressedDirections = new ArrayList<>();
+    boolean wasBonusEffected = false;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -607,16 +608,40 @@ public class Player extends Entity{
                 }
                 if(doesContain == true)  {
                     accessories[containingIndex].revertEffect(this);
+                    if(accessories[index].armorSetName != null) {
+                        if(isFullSet(accessories[index].armorSetName) == false && wasBonusEffected == true) {
+                            wasBonusEffected = false;
+                            accessories[index].revertEffectBonus(this);
+                        }
+                    }
                     accessories[containingIndex] = null;
                 }
                 if(accessories[index] != null) {
                     accessories[index].revertEffect(this);
+                    if(accessories[index].armorSetName != null) {
+                        if(isFullSet(accessories[index].armorSetName) == false && wasBonusEffected == true) {
+                            wasBonusEffected = false;
+                            accessories[index].revertEffectBonus(this);
+                        }
+                    }
                     accessories[index] = selectedItem;
                     accessories[index].effect(this);
+                    if(accessories[index].armorSetName != null) {
+                        if(isFullSet(accessories[index].armorSetName) == true) {
+                            accessories[index].effectBonus(this);
+                            wasBonusEffected = true;
+                        }
+                    }
                 }
                 else {
                     accessories[index] = selectedItem;
                     accessories[index].effect(this);
+                    if(accessories[index].armorSetName != null) {
+                        if(isFullSet(accessories[index].armorSetName) == true) {
+                            accessories[index].effectBonus(this);
+                            wasBonusEffected = true;
+                        }
+                    }
                 }
             }
             if(selectedItem.type == type_consumable) {

@@ -17,16 +17,15 @@ public class OBJ_Spider_Armor extends Entity {
         albumOrigin = spiderr;
         armorSetName = "spider";
         armorSetOrigin = "spider";
+        armorType = "armor";
     }
     public void effect(Entity user) {
         user.defense += defenseValue;
-        user.incrementArmorSetCounter(armorSetName);
-        if(user.armorSetCounters.get(armorSetName) == 4) effectBonus(user);
+        user.incrementArmorSetCounter(armorSetName, this);
     }
     public void revertEffect(Entity user) {
         user.defense -= defenseValue;
-        user.decrementArmorSetCounter(armorSetName);
-        if(user.armorSetCounters.get(armorSetName) == 3) revertEffectBonus(user);
+        user.decrementArmorSetCounter(armorSetName, this);
     }
     public void effectBonus(Entity user) {
         user.defense += 10;

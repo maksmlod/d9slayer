@@ -485,6 +485,20 @@ public class UI {
                 if(eqNumber != 0) g2.drawString(Integer.toString(eqNumber),slotX+gp.tileSize-12 + 1,slotY+14 + 1);
                 g2.setColor(Color.white);
                 if(eqNumber != 0) g2.drawString(Integer.toString(eqNumber),slotX+gp.tileSize-12,slotY+14);
+
+                //rarities
+                Color color = null;
+                if(entity.inventory.get(i).rarity == "common") color = common;
+                else if(entity.inventory.get(i).rarity == "uncommon") color = uncommon;
+                else if(entity.inventory.get(i).rarity == "rare") color = rare;
+                else if(entity.inventory.get(i).rarity == "epic") color = epic;
+                else if(entity.inventory.get(i).rarity == "legendary") color = legendary;
+                if(color != null) {
+                    Color tempColor = g2.getColor();
+                    g2.setColor(color);
+                    g2.fillRect(slotX,slotY + 45,gp.tileSize, 3);
+                    g2.setColor(tempColor);
+                }
             }
 
 
@@ -549,7 +563,7 @@ public class UI {
                     textX = dFrameX + 20;
                     textY += 40;
                     Font tempFont = g2.getFont();
-                    g2.setColor(new Color(194,197,204));
+                    g2.setColor(new Color(205,205,210));
                     g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 15F));
                     g2.drawString(entity.inventory.get(itemIndex).armorSetOrigin,textX,textY);
                     g2.setFont(tempFont);
@@ -745,7 +759,19 @@ public class UI {
                 g2.setColor(Color.white);
                 if(eqNumber != 0) g2.drawString(Integer.toString(eqNumber),slotX+gp.tileSize-12,slotY+14);
 
-
+            //rarities
+            Color color = null;
+            if(gp.player.inventory.get(i).rarity == "common") color = common;
+            else if(gp.player.inventory.get(i).rarity == "uncommon") color = uncommon;
+            else if(gp.player.inventory.get(i).rarity == "rare") color = rare;
+            else if(gp.player.inventory.get(i).rarity == "epic") color = epic;
+            else if(gp.player.inventory.get(i).rarity == "legendary") color = legendary;
+            if(color != null) {
+                Color tempColor = g2.getColor();
+                g2.setColor(color);
+                g2.fillRect(slotX,slotY + 45,gp.tileSize, 3);
+                g2.setColor(tempColor);
+            }
 
             slotX += slotSize;
             if(i == 4 || i == 9 || i == 14) {
