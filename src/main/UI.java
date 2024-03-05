@@ -1137,7 +1137,7 @@ public class UI {
         //wallpaper
         BufferedImage wallpaper;
         Entity entity = new Entity(gp);
-        wallpaper = entity.setup("/objects/wallp",1080,607);
+        wallpaper = entity.setup("/objects/wallp",1080/2,607/2);
         g2.drawImage(wallpaper, 0, 24, gp.screenWidth,gp.screenHeight - 3*gp.tileSize, null);
 
         //title name

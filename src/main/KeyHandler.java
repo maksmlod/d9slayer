@@ -147,12 +147,12 @@ public class KeyHandler implements KeyListener {
                 gp.tileM.drawPath = false;
             }
         }
-        if(code == KeyEvent.VK_R) {
-            switch(gp.currentMap) {
-                case 0: gp.tileM.loadMap("/maps/world01.txt",0); break;
-                case 1: gp.tileM.loadMap("/maps/map1.txt",1); break;
-            }
-        }
+//        if(code == KeyEvent.VK_R) {
+//            switch(gp.currentMap) {
+//                case 0: gp.tileM.loadMap("/maps/world01.txt",0); break;
+//                case 1: gp.tileM.loadMap("/maps/map1.txt",1); break;
+//            }
+//        }
     }
     public void pauseState(int code) {
         if(code == KeyEvent.VK_P) {

@@ -1,6 +1,7 @@
 package main;
 
 import animals.GuineaPig;
+import entity.Entity;
 import entity.NPC_Merchant;
 import entity.NPC_OldMan;
 import entity.NPC_Spider_Merchant;
@@ -9,6 +10,9 @@ import object.*;
 import object.weapon.*;
 import tile_interactive.IT_DryTree;
 import tile_interactive.IT_Reset;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AssetSetter {
     GamePanel gp;
@@ -149,89 +153,22 @@ public class AssetSetter {
         mapNum = 1;
         if(selectedMap == mapNum || allMap == true) {
             int i = 0;
-            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
-            gp.monster[mapNum][i].spawnCol = 17;
-            gp.monster[mapNum][i].spawnRow = 3;
-            gp.monster[mapNum][i].borderXRight = 19*gp.tileSize;
-            gp.monster[mapNum][i].borderXLeft = 17*gp.tileSize;
-            gp.monster[mapNum][i].borderYDown = 6*gp.tileSize;
-            gp.monster[mapNum][i].borderYUp = 3*gp.tileSize;
-            gp.monster[mapNum][i].setTempBorders();
-            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
-            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
-            i++;
+            setPackOfMonsters(new MON_OrangeSpider(gp), 17, 19, 3, 6,
+                    3,i,mapNum);
+            i = 3;
+            setPackOfMonsters(new MON_OrangeSpider(gp), 32, 36, 6, 9,
+                    4,i,mapNum);
+            i = 7;
+            setPackOfMonsters(new MON_OrangeSpider(gp), 20, 24, 30, 34,
+                    4,i,mapNum);
+            i = 11;
+            setPackOfMonsters(new MON_OrangeSpider(gp), 4, 9, 36, 42,
+                    7,i,mapNum);
+            i = 18;
+            setPackOfMonsters(new MON_OrangeSpider(gp), 41, 46, 21, 24,
+                    5,i,mapNum);
+            i = 23;
 
-            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
-            gp.monster[mapNum][i].spawnCol = 19;
-            gp.monster[mapNum][i].spawnRow = 4;
-            gp.monster[mapNum][i].borderXRight = 19*gp.tileSize;
-            gp.monster[mapNum][i].borderXLeft = 17*gp.tileSize;
-            gp.monster[mapNum][i].borderYDown = 6*gp.tileSize;
-            gp.monster[mapNum][i].borderYUp = 3*gp.tileSize;
-            gp.monster[mapNum][i].setTempBorders();
-            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
-            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
-            i++;
-
-            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
-            gp.monster[mapNum][i].spawnCol = 19;
-            gp.monster[mapNum][i].spawnRow = 6;
-            gp.monster[mapNum][i].borderXRight = 19*gp.tileSize;
-            gp.monster[mapNum][i].borderXLeft = 17*gp.tileSize;
-            gp.monster[mapNum][i].borderYDown = 6*gp.tileSize;
-            gp.monster[mapNum][i].borderYUp = 3*gp.tileSize;
-            gp.monster[mapNum][i].setTempBorders();
-            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
-            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
-            i++;
-///////////////////////////////////////
-            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
-            gp.monster[mapNum][i].spawnCol = 32;
-            gp.monster[mapNum][i].spawnRow = 6;
-            gp.monster[mapNum][i].borderXRight = 36*gp.tileSize;
-            gp.monster[mapNum][i].borderXLeft = 32*gp.tileSize;
-            gp.monster[mapNum][i].borderYDown = 9*gp.tileSize;
-            gp.monster[mapNum][i].borderYUp = 6*gp.tileSize;
-            gp.monster[mapNum][i].setTempBorders();
-            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
-            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
-            i++;
-
-            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
-            gp.monster[mapNum][i].spawnCol = 35;
-            gp.monster[mapNum][i].spawnRow = 6;
-            gp.monster[mapNum][i].borderXRight = 36*gp.tileSize;
-            gp.monster[mapNum][i].borderXLeft = 32*gp.tileSize;
-            gp.monster[mapNum][i].borderYDown = 9*gp.tileSize;
-            gp.monster[mapNum][i].borderYUp = 6*gp.tileSize;
-            gp.monster[mapNum][i].setTempBorders();
-            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
-            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
-            i++;
-
-            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
-            gp.monster[mapNum][i].spawnCol = 35;
-            gp.monster[mapNum][i].spawnRow = 8;
-            gp.monster[mapNum][i].borderXRight = 36*gp.tileSize;
-            gp.monster[mapNum][i].borderXLeft = 32*gp.tileSize;
-            gp.monster[mapNum][i].borderYDown = 9*gp.tileSize;
-            gp.monster[mapNum][i].borderYUp = 6*gp.tileSize;
-            gp.monster[mapNum][i].setTempBorders();
-            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
-            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
-            i++;
-
-            gp.monster[mapNum][i] = new MON_OrangeSpider(gp);
-            gp.monster[mapNum][i].spawnCol = 33;
-            gp.monster[mapNum][i].spawnRow = 8;
-            gp.monster[mapNum][i].borderXRight = 36*gp.tileSize;
-            gp.monster[mapNum][i].borderXLeft = 32*gp.tileSize;
-            gp.monster[mapNum][i].borderYDown = 9*gp.tileSize;
-            gp.monster[mapNum][i].borderYUp = 6*gp.tileSize;
-            gp.monster[mapNum][i].setTempBorders();
-            gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
-            gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
-            i++;
 
             gp.monster[mapNum][i] = new MON_BigOrangeSpider(gp);
             gp.monster[mapNum][i].worldX = gp.tileSize * 44;
@@ -277,6 +214,53 @@ public class AssetSetter {
 
 
     }
+
+
+    public void setPackOfMonsters(Entity monster, int borderXLeft, int borderXRight,
+                                  int borderYUp, int borderYDown, int quantity, int i, int mapNum) {
+        Class<?> monsterClass = monster.getClass();
+        int[][] spawns = new int[51][51];
+        try {
+            for(int j = 0; j < quantity; j++) {
+                gp.monster[mapNum][i] = (Entity)monsterClass.getDeclaredConstructor(GamePanel.class).newInstance(gp);
+                boolean flag = true;
+                int counter = 0;
+                int randomX = 0;
+                int randomY = 0;
+                while(flag) {
+                    randomX = ThreadLocalRandom.current().nextInt(borderXLeft, borderXRight + 1);
+                    randomY = ThreadLocalRandom.current().nextInt(borderYUp, borderYDown + 1);
+                    if(spawns[randomX][randomY] == 0) {
+                        flag = false;
+                        spawns[randomX][randomY] = 1;
+                    }
+                    counter ++;
+                    if(counter > 50) break;
+                }
+                gp.monster[mapNum][i].spawnCol = randomX;
+                gp.monster[mapNum][i].spawnRow = randomY;
+
+                gp.monster[mapNum][i].borderXRight = borderXRight*gp.tileSize;
+                gp.monster[mapNum][i].borderXLeft = borderXLeft*gp.tileSize;
+                gp.monster[mapNum][i].borderYDown = borderYDown*gp.tileSize;
+                gp.monster[mapNum][i].borderYUp = borderYUp*gp.tileSize;
+                gp.monster[mapNum][i].setTempBorders();
+
+                gp.monster[mapNum][i].worldX = gp.tileSize * gp.monster[mapNum][i].spawnCol;
+                gp.monster[mapNum][i].worldY = gp.tileSize * gp.monster[mapNum][i].spawnRow;
+                i++;
+            }
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
 
