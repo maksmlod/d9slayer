@@ -162,8 +162,8 @@ public class UI {
         }
 
         //coin
-        x = gp.screenWidth - 2*gp.tileSize;
-        y = gp.tileSize/2;
+        x = (gp.tileSize/2)-3;
+        y = (int)(gp.tileSize*3);
         g2.drawImage(coin, x, y, null);
 
         y += gp.tileSize/2 + 12;
@@ -171,9 +171,9 @@ public class UI {
         g2.setColor(Color.black);
         String value = String.valueOf(gp.player.coin);
         x = getXforAlignToRightText(value, x);
-        g2.drawString(value,x+2,y+2);
+        g2.drawString(value,x + 2*gp.tileSize + 2,y+2);
         g2.setColor(Color.white);
-        g2.drawString(value,x,y);
+        g2.drawString(value,x + 2*gp.tileSize,y);
 
         //exp
         x = gp.screenWidth/2 - 2*gp.tileSize;
@@ -532,7 +532,10 @@ public class UI {
                 if(entity.inventory.get(itemIndex).albumOrigin != null) {
                     int width = g2.getFontMetrics().stringWidth(entity.inventory.get(itemIndex).name) + 10;
                     textX += width;
-                    g2.drawImage(entity.inventory.get(itemIndex).albumOrigin, textX, textY - gp.tileSize/2 + 4, null);
+                    UtilityTool uTool = new UtilityTool();
+                    BufferedImage image = entity.inventory.get(itemIndex).albumOrigin;
+                    image = uTool.scaleImage(image,gp.tileSize/2,gp.tileSize/2);
+                    g2.drawImage(image, textX, textY - gp.tileSize/2 + 4, null);
                     textX -= width;
                 }
                 textY += 5;
@@ -540,6 +543,17 @@ public class UI {
                 for(int i = 0; i < rarityCount; i++) {
                     g2.drawImage(starImage,textX,textY,null);
                     textX += 20;
+                }
+
+                if(entity.inventory.get(itemIndex).armorSetOrigin != null) {
+                    textX = dFrameX + 20;
+                    textY += 40;
+                    Font tempFont = g2.getFont();
+                    g2.setColor(new Color(194,197,204));
+                    g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 15F));
+                    g2.drawString(entity.inventory.get(itemIndex).armorSetOrigin,textX,textY);
+                    g2.setFont(tempFont);
+                    textY -= 40;
                 }
 
                 textY += 75;
@@ -624,7 +638,10 @@ public class UI {
                 if(gp.player.currentWeapon.albumOrigin != null) {
                     int width = g2.getFontMetrics().stringWidth(gp.player.currentWeapon.name) + 10;
                     frameX += width;
-                    g2.drawImage(gp.player.currentWeapon.albumOrigin, frameX, frameY - gp.tileSize/2 + 4, null);
+                    UtilityTool uTool = new UtilityTool();
+                    BufferedImage image = entity.inventory.get(itemIndex).albumOrigin;
+                    image = uTool.scaleImage(image,gp.tileSize/2,gp.tileSize/2);
+                    g2.drawImage(image, textX, textY - gp.tileSize/2 + 4, null);
                     frameX -= width;
                 }
                 frameY += 5;
@@ -1456,6 +1473,11 @@ public class UI {
     public int getXforAlignToRightText(String text, int tailX) {
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = tailX - length;
+        return x;
+    }
+    public int getXforAlignToLeftText(String text, int tailX) {
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = tailX + length;
         return x;
     }
 

@@ -1,4 +1,4 @@
-package object.accessory;
+package object.armor;
 
 import entity.Entity;
 import main.GamePanel;

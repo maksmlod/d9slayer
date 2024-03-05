@@ -2,6 +2,10 @@ package entity;
 
 import main.GamePanel;
 import object.OBJ_Spider_Scale;
+import object.armor.OBJ_Spider_Armor;
+import object.armor.OBJ_Spider_Boots;
+import object.armor.OBJ_Spider_Gloves;
+import object.armor.OBJ_Spider_Helmet;
 import object.projectile.OBJ_Webshot;
 import object.weapon.OBJ_Web_Staff;
 
@@ -34,6 +38,10 @@ public class NPC_Spider_Merchant extends Entity {
     public void setItems() {
         inventory.add(new OBJ_Spider_Scale(gp));
         inventory.add(new OBJ_Web_Staff(gp));
+        inventory.add(new OBJ_Spider_Helmet(gp));
+        inventory.add(new OBJ_Spider_Armor(gp));
+        inventory.add(new OBJ_Spider_Gloves(gp));
+        inventory.add(new OBJ_Spider_Boots(gp));
     }
     public void speak() {
         super.speak();

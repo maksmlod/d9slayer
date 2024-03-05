@@ -36,7 +36,6 @@ public class OBJ_M4A1S extends Entity {
             projectiles[i] = new OBJ_Bullet(gp);
         }
         albumOrigin = spiderr;
-        albumOrigin = uTool.scaleImage(albumOrigin,gp.tileSize/2,gp.tileSize/2);
     }
 
     public void attack(int worldX, int worldY, String direction, boolean alive, Entity user) {

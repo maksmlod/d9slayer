@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class Map extends TileManager{
     GamePanel gp;
     BufferedImage worldMap[];
-    public boolean miniMapOn = false;
+    public boolean miniMapOn = true;
 
     public Map(GamePanel gp) {
         super(gp);
@@ -66,10 +66,10 @@ public class Map extends TileManager{
     }
     public void drawMiniMap(Graphics2D g2) {
         if(miniMapOn == true) {
-            int width = 200;
-            int height = 200;
+            int width = 150;
+            int height = 150;
             int x = gp.screenWidth - width - 50;
-            int y = 50;
+            int y = 20;
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.8f));
             g2.drawImage(worldMap[gp.currentMap],x,y,width,height,null);
 

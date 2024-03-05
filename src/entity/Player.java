@@ -3,8 +3,7 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
-import object.*;
-import object.accessory.OBJ_Shield_Wood;
+import object.armor.OBJ_Shield_Wood;
 import object.projectile.OBJ_Fireball;
 import object.weapon.OBJ_Normal_Sword;
 
@@ -76,7 +75,7 @@ public class Player extends Entity{
         currentWeapon = new OBJ_Normal_Sword(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack();
-        defense = getDefense() + 20;
+        defense = getDefense();
         projectile = new OBJ_Fireball(gp);
     }
     public void setDefaultPositions() {
@@ -414,6 +413,7 @@ public class Player extends Entity{
         else if(mana < 0) mana = 0;
 
         if(life <= 0) {
+            alive = false;
             gp.gameState = gp.gameOverState;
             gp.playSE(12);
             gp.player.invincible = false;
@@ -584,12 +584,6 @@ public class Player extends Entity{
             }
             level += ii;
             maxLife += 2 * ii;
-            strength += ii;
-            dexterity += ii;
-
-            attack = getAttack();
-            defense = getDefense();
-
             gp.playSE(8);
         }
     }
@@ -615,7 +609,7 @@ public class Player extends Entity{
                     accessories[containingIndex].revertEffect(this);
                     accessories[containingIndex] = null;
                 }
-                if (accessories[index] != null) {
+                if(accessories[index] != null) {
                     accessories[index].revertEffect(this);
                     accessories[index] = selectedItem;
                     accessories[index].effect(this);

@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Entity {
@@ -160,6 +162,9 @@ public class Entity {
     public int knockBackPower = 0;
     public boolean stackable = false;
     public int amount = 1;
+    public String armorSetName = null;
+    public Map<String, Integer> armorSetCounters = new HashMap<>();
+    public String armorSetOrigin = null;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -665,4 +670,13 @@ public class Entity {
     public void setDefaultBorders() {}
     public void setTempBorders() {}
     public void reactAfterDamagingMonster(int worldX, int worldY, String direction, boolean alive, Entity user, Entity monster) {}
+
+    public void incrementArmorSetCounter(String armorName) {
+        int count = armorSetCounters.getOrDefault(armorName, 0);
+        armorSetCounters.put(armorName, count + 1);
+    }
+    public void decrementArmorSetCounter(String armorName) {
+        int count = armorSetCounters.getOrDefault(armorName, 0);
+        armorSetCounters.put(armorName, count - 1);
+    }
 }

@@ -18,10 +18,10 @@ public class MON_OrangeSpider extends Entity {
 
         type = type_monster;
         name = "Orange Spider";
-        defaultSpeed = 3;
+        defaultSpeed = 6;
         speed = defaultSpeed;
         returningSpeed = defaultSpeed*2;
-        maxLife = 10;
+        maxLife = 50;
         life = maxLife;
         attack = 5;
         defense = 0;
@@ -58,7 +58,7 @@ public class MON_OrangeSpider extends Entity {
             onPath = true;
             returning = false;
         }
-        if(onPath == true && tileDistance > 10) {
+        if((onPath == true && tileDistance > 10) || gp.player.alive == false) {
             returning = true;
         }
     }
