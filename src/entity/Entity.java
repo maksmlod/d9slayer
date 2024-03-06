@@ -97,6 +97,7 @@ public class Entity {
     public boolean canMeleeAttack = false;
     public boolean haveProjectile = false;
     public boolean canAttack = true;
+    public Entity pet = null;
 
     public int maxLife;
     public int life;

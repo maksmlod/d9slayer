@@ -587,6 +587,40 @@ public class UI {
                     gp.player.selectItem(0);
                 }
 
+                //dropping item
+                if(gp.keyH.qPressed == true && entity == gp.player && entity.inventory.get(itemIndex) != entity.currentWeapon &&
+                        entity.inventory.get(itemIndex) != entity.accessories[0] &&
+                        entity.inventory.get(itemIndex) != entity.accessories[1] &&
+                        entity.inventory.get(itemIndex) != entity.accessories[2] &&
+                        entity.inventory.get(itemIndex) != entity.accessories[3] ) {
+                    int xChange = 0;
+                    int yChange = 0;
+                    if(entity.direction == "up") {
+                        entity.worldY -= (int)(1.5*gp.tileSize);
+                        yChange = (int)(1.5*gp.tileSize);
+                    }
+                    else if(entity.direction == "down") {
+                        entity.worldY += (int)(1.5*gp.tileSize);
+                        yChange = -(int)(1.5*gp.tileSize);
+                    }
+                    else if(entity.direction == "left") {
+                        entity.worldX -= (int)(1.5*gp.tileSize);
+                        xChange = (int)(1.5*gp.tileSize);
+                    }
+                    else if(entity.direction == "right") {
+                        entity.worldX += (int)(1.5*gp.tileSize);
+                        xChange = -(int)(1.5*gp.tileSize);
+                    }
+
+                    entity.dropItem(entity.inventory.get(itemIndex));
+                    entity.inventory.remove(itemIndex);
+                    gp.keyH.qPressed = false;
+
+                    entity.worldX += xChange;
+                    entity.worldY += yChange;
+                }
+                else gp.keyH.qPressed = false;
+
             }
 /*
             //inventory right (player's current items)

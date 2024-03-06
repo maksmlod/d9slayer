@@ -72,6 +72,7 @@ public class GuineaPig extends Entity {
                 borderYUp = defaultBorderYUp;
                 borderXLeft = defaultBorderXLeft;
                 borderXRight = defaultBorderXRight;
+                gp.player.pet = this;
             }
             if (onPath == true) {
                 speed = followingSpeed;

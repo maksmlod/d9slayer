@@ -9,6 +9,7 @@ public class KeyHandler implements KeyListener {
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed;
     public boolean upArrowPressed, downArrowPressed, leftArrowPressed, rightArrowPressed;
+    public boolean qPressed;
     boolean showDebugText = false;
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -296,6 +297,9 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_ENTER) {
             enterPressed = true;
+        }
+        if(code == KeyEvent.VK_Q) {
+            qPressed = true;
         }
         if(gp.ui.subState == 0) {
             if (code == KeyEvent.VK_ESCAPE) {
