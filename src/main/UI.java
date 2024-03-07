@@ -391,13 +391,52 @@ public class UI {
         g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
 
         if(counter == 50) {
+            int previousMap = gp.currentMap;
+            int nextMap = gp.eHandler.tempMap;
             counter = 0;
             gp.gameState = gp.playState;
-            gp.currentMap = gp.eHandler.tempMap;
+            gp.currentMap = nextMap;
             gp.player.worldX = gp.tileSize * gp.eHandler.tempCol;
             gp.player.worldY = gp.tileSize * gp.eHandler.tempRow;
             gp.eHandler.previousEventX = gp.player.worldX;
             gp.eHandler.previousEventY = gp.player.worldY;
+
+            //pet
+            if(gp.player.pet != null) {
+                for(int i = 0; i < gp.npc[previousMap].length; i++) {
+                    if(gp.npc[previousMap][i] == gp.player.pet) {
+                        //find next null index to put pet
+                        int index = 0;
+                        for(int k = 0; k < gp.npc[nextMap].length; k++) {
+                            if(gp.npc[nextMap][k] == null) {
+                                index = k;
+                                break;
+                            }
+                        }
+                        gp.npc[nextMap][index] = gp.player.pet;
+                        gp.npc[previousMap][i] = null;
+
+                        //pick place without collision
+                        gp.player.pet.worldX = gp.tileSize * (gp.eHandler.tempCol + 1);
+                        gp.player.pet.worldY = gp.tileSize * (gp.eHandler.tempRow);
+                        gp.player.pet.checkCollision();
+                        if(gp.player.pet.collisionOn == true) {
+                            gp.player.pet.worldX = gp.tileSize * (gp.eHandler.tempCol - 1);
+                            gp.player.pet.worldY = gp.tileSize * (gp.eHandler.tempRow);
+                            gp.player.pet.checkCollision();
+                            if(gp.player.pet.collisionOn == true) {
+                                gp.player.pet.worldX = gp.tileSize * (gp.eHandler.tempCol);
+                                gp.player.pet.worldY = gp.tileSize * (gp.eHandler.tempRow + 1);
+                                gp.player.pet.checkCollision();
+                                if(gp.player.pet.collisionOn == true) {
+                                    gp.player.pet.worldX = gp.tileSize * (gp.eHandler.tempCol);
+                                    gp.player.pet.worldY = gp.tileSize * (gp.eHandler.tempRow - 1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     public void drawInventory(Entity entity, boolean cursor, boolean isTrading) {

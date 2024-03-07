@@ -57,6 +57,7 @@ public class GuineaPig extends Entity {
         int yDistance = Math.abs(worldY - gp.player.worldY);
         int tileDistance = (xDistance + yDistance)/gp.tileSize;
         if(isLeaving == true) {
+            if(gp.player.pet == this) gp.player.pet = null;
             onPath = false;
             leavingCounter --;
             speed = defaultSpeed;

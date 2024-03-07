@@ -32,7 +32,7 @@ public class IT_DryTree extends InteractiveTile{
         return tile;
     }
     public Color getParticleColor() {
-        Color color = new Color(65,50,30);
+        Color color = new Color(10,10,10);
         return color;
     }
     public int getParticleSize() {
