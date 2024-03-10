@@ -20,6 +20,8 @@ public class Player extends Entity{
     public boolean attackCanceled = false;
     public int accessorySize = 4;
     public boolean haveMeleeAttacked = false;
+    public int availableSkillPoints = 80;
+    public int allSkillPoints = 0;
 
 
     public String lastPressedDirection = "down";
@@ -585,6 +587,7 @@ public class Player extends Entity{
             }
             level += ii;
             maxLife += 2 * ii;
+            availableSkillPoints++;
             gp.playSE(8);
         }
     }
@@ -608,7 +611,7 @@ public class Player extends Entity{
                 }
                 if(doesContain == true)  {
                     accessories[containingIndex].revertEffect(this);
-                    if(accessories[index].armorSetName != null) {
+                    if(accessories[containingIndex].armorSetName != null) {
                         if(isFullSet(accessories[index].armorSetName) == false && wasBonusEffected == true) {
                             wasBonusEffected = false;
                             accessories[index].revertEffectBonus(this);

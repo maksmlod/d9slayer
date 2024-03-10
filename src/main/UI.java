@@ -114,6 +114,9 @@ public class UI {
         if(gp.gameState == gp.tradeState) {
             drawTradeScreen();
         }
+        if(gp.gameState == gp.skillTreeState) {
+            gp.skillTree.draw(g2);
+        }
     }
     public void drawPlayerLife() {
         int x = gp.tileSize/2;
@@ -1210,7 +1213,7 @@ public class UI {
         //wallpaper
         BufferedImage wallpaper;
         Entity entity = new Entity(gp);
-        wallpaper = entity.setup("/objects/wallp",1080/2,607/2);
+        wallpaper = entity.setup("/objects/wallp",1080,607);
         g2.drawImage(wallpaper, 0, 24, gp.screenWidth,gp.screenHeight - 3*gp.tileSize, null);
 
         //title name

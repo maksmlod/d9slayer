@@ -2,7 +2,6 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 
 public class KeyHandler implements KeyListener {
 
@@ -54,6 +53,9 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.mapState) {
             mapState(code);
         }
+        else if(gp.gameState == gp.skillTreeState) {
+            skillTreeState(code);
+        }
     }
     public void titleState(int code) {
         if(code == KeyEvent.VK_W) {
@@ -96,7 +98,7 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_D) {
             rightPressed = true;
         }
-        if(code == KeyEvent.VK_P) {
+        if(code == KeyEvent.VK_K) {
             gp.gameState = gp.pauseState;
             gp.pauseMusic();
         }
@@ -135,6 +137,9 @@ public class KeyHandler implements KeyListener {
             if(gp.map.miniMapOn == false) gp.map.miniMapOn = true;
             else gp.map.miniMapOn = false;
         }
+        if(code == KeyEvent.VK_P) {
+            gp.gameState = gp.skillTreeState;
+        }
 
         //debug
         if(code == KeyEvent.VK_T) {
@@ -156,7 +161,7 @@ public class KeyHandler implements KeyListener {
 //        }
     }
     public void pauseState(int code) {
-        if(code == KeyEvent.VK_P) {
+        if(code == KeyEvent.VK_K) {
             gp.gameState = gp.playState;
             gp.resumeMusic();
         }
@@ -434,6 +439,43 @@ public class KeyHandler implements KeyListener {
                 gp.ui.npcSlotCol++;
                 gp.playSE(9);
             }
+        }
+    }
+    public void skillTreeState(int code) {
+        if(code == KeyEvent.VK_P) {
+            gp.gameState = gp.playState;
+        }
+        if(code == KeyEvent.VK_D) {
+            if(gp.skillTree.numOfTalentsInDepth.get(gp.skillTree.currentDepth)-1 > gp.skillTree.currentIndexInRow)
+                gp.skillTree.currentIndexInRow++;
+        }
+        if(code == KeyEvent.VK_A) {
+            if(gp.skillTree.currentIndexInRow > 0)
+                gp.skillTree.currentIndexInRow--;
+        }
+        if(code == KeyEvent.VK_W) {
+            if(gp.skillTree.currentDepth > 0) {
+                int x = gp.skillTree.talentsInOrderInDepth[gp.skillTree.currentDepth].
+                        get(gp.skillTree.currentIndexInRow).x;
+                gp.skillTree.currentDepth--;
+                gp.skillTree.currentIndexInRow = gp.skillTree.findNearestIndexInRow(x);
+            }
+        }
+        if(code == KeyEvent.VK_S) {
+            if(gp.skillTree.currentDepth < gp.skillTree.numberOfDepths-1) {
+                int x = gp.skillTree.talentsInOrderInDepth[gp.skillTree.currentDepth].
+                        get(gp.skillTree.currentIndexInRow).x;
+                gp.skillTree.currentDepth++;
+                gp.skillTree.currentIndexInRow = gp.skillTree.findNearestIndexInRow(x);
+            }
+        }
+        if(code == KeyEvent.VK_ENTER) {
+            gp.skillTree.obtainTalent();
+        }
+        if(code == KeyEvent.VK_ESCAPE) {
+            gp.skillTree.currentDepth = 0;
+            gp.skillTree.currentIndexInRow = 0;
+            gp.gameState = gp.playState;
         }
     }
     @Override

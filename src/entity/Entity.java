@@ -330,7 +330,6 @@ public class Entity {
         gp.particleList.add(p3);
         gp.particleList.add(p4);
     }
-
     public void update() {
         if(knockBack == true) {
             checkCollision();
@@ -673,7 +672,6 @@ public class Entity {
     public void setDefaultBorders() {}
     public void setTempBorders() {}
     public void reactAfterDamagingMonster(int worldX, int worldY, String direction, boolean alive, Entity user, Entity monster) {}
-
     public void incrementArmorSetCounter(String armorName, Entity object) {
         int index = 999;
         if(object.armorType == "helmet") index = 0;

@@ -4,6 +4,8 @@ import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import object.projectile.OBJ_Fireball;
+import skill_tree.SkillTree;
+import skill_tree.Talent;
 import tile.Map;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
@@ -68,7 +70,10 @@ public class GamePanel extends JPanel implements Runnable {
     ArrayList<Entity> entityList = new ArrayList<>();
     public ArrayList<Entity> projectileList = new ArrayList<>();
     public ArrayList<Entity> particleList = new ArrayList<>();
+    public Talent talents[][] = new Talent[20][10];
 
+
+    public SkillTree skillTree = new SkillTree(this);
 
     // GAME STATE
     public int gameState;
@@ -84,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int inventoryState = 9;
     public final int tradeState = 10;
     public final int mapState = 11;
+    public final int skillTreeState = 12;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -439,7 +445,6 @@ public class GamePanel extends JPanel implements Runnable {
         sound.setFile(i);
         sound.play();
     }
-
     public void deleteProjectilesAndParticles() {
         projectileList.clear();
         particleList.clear();
