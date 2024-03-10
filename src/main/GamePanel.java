@@ -112,6 +112,10 @@ public class GamePanel extends JPanel implements Runnable {
 
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //g2.setRenderingHint( RenderingHints.  KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+        //g2.setRenderingHint( RenderingHints.  KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        //g2.setRenderingHint( RenderingHints.  KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
         if(fullScreanOn == true) setFullScreen();
         else if(fullScreanOn == false) setSmallScreen();

@@ -96,14 +96,17 @@ public class SkillTree {
         for(int i = 0; i < Math.min(gp.talents.length,1); i++) {
             for(int j = 0; j < gp.talents[0].length; j++) {
                 if(gp.talents[i][j] != null) {
-                    g2.drawImage(gp.talents[i][j].image, x, y, null);
-                    gp.talents[i][j].x = x;
-                    gp.talents[i][j].y = y;
                     if(gp.talents[i][j].obtained == true) {
                         g2.setColor(new Color(240,190,90));
                         g2.fillRoundRect(x,y,gp.tileSize,gp.tileSize,10,10);
                         g2.setColor(Color.white);
                     }
+                    g2.setColor(Color.darkGray);
+                    g2.drawRoundRect(x-2,y-2,gp.tileSize+4,gp.tileSize+4,10,10);
+                    g2.setColor(Color.white);
+                    g2.drawImage(gp.talents[i][j].image, x, y, null);
+                    gp.talents[i][j].x = x;
+                    gp.talents[i][j].y = y;
                 }
                 x += 5*gp.tileSize;
             }
@@ -115,14 +118,17 @@ public class SkillTree {
         for(int i = 1; i < Math.max(gp.talents.length, 1); i++) {
             for(int j = 0; j < gp.talents[0].length; j++) {
                 if(gp.talents[i][j] != null) {
-                    g2.drawImage(gp.talents[i][j].image, x, y, null);
-                    gp.talents[i][j].x = x;
-                    gp.talents[i][j].y = y;
                     if(gp.talents[i][j].obtained == true) {
                         g2.setColor(new Color(240,190,90));
                         g2.fillRoundRect(x,y,gp.tileSize,gp.tileSize,10,10);
                         g2.setColor(Color.white);
                     }
+                    g2.setColor(Color.darkGray);
+                    g2.drawRoundRect(x-2,y-2,gp.tileSize+4,gp.tileSize+4,10,10);
+                    g2.setColor(Color.white);
+                    g2.drawImage(gp.talents[i][j].image, x, y, null);
+                    gp.talents[i][j].x = x;
+                    gp.talents[i][j].y = y;
                 }
                 x += 2*gp.tileSize;
             }
@@ -164,7 +170,7 @@ public class SkillTree {
         g2.drawRoundRect(x, y, width, height, 10, 10);
     }
     public void loadImages() {
-        defenseTalent = setup("/tiles/004error",gp.tileSize,gp.tileSize);
+        defenseTalent = setup("/talents/tal_def",gp.tileSize,gp.tileSize);
     }
     public BufferedImage setup(String imagePath, int width, int height) {
         UtilityTool uTool = new UtilityTool();
@@ -199,10 +205,14 @@ public class SkillTree {
         for(int i = 1; i < gp.talents.length; i++) {
             for(int j = 0; j < gp.talents[0].length; j++) {
                 if(gp.talents[i][j] != null) {
+                    if(gp.talents[i][j].obtained == true) {
+                        g2.setColor(Color.green);
+                    }
                     g2.drawLine(gp.talents[i][j].x + gp.tileSize/2,
                             gp.talents[i][j].y,
                             gp.talents[i][j].requirement.x + gp.tileSize/2,
                             gp.talents[i][j].requirement.y + gp.tileSize);
+                    g2.setColor(Color.white);
                 }
             }
         }
