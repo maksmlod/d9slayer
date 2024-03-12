@@ -15,6 +15,7 @@ public class OBJ_Spider_Helmet extends Entity {
         rarity = "legendary";
         price = 10;
         albumOrigin = spiderr;
+        armorSetBonusDescription = "+10 def";
         armorSetName = "spider";
         armorSetOrigin = "spider";
         armorType = "helmet";

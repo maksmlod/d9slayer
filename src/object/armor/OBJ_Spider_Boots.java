@@ -18,6 +18,7 @@ public class OBJ_Spider_Boots extends Entity {
         albumOrigin = spiderr;
         armorSetName = "spider";
         armorSetOrigin = "spider";
+        armorSetBonusDescription = "+10 def";
         armorType = "boots";
         //rarity = "legendary";
         int j = new Random().nextInt(100) + 1;

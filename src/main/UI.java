@@ -5,6 +5,7 @@ import object.OBJ_Coin;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -449,6 +450,7 @@ public class UI {
         }
         gp.keyH.enterPressed = false;
     }
+
     public void show_items(Entity entity, boolean cursor, boolean isTrading) {
         int frameX = 0;
         int frameY = 0;
@@ -712,6 +714,22 @@ public class UI {
                 g2.drawString("Accessory 4:",frameX,frameY);
                 frameY = 2*gp.tileSize + 5;
 
+                if(gp.player.wasBonusEffected == true) {
+                    int x = 2*gp.tileSize + 18;
+                    int y = 3*gp.tileSize + 14;
+                    int width = 5*gp.tileSize + 15;
+                    int height = 7*gp.tileSize + 15;
+                    g2.setColor(Color.darkGray);
+                    g2.drawRoundRect(x,y,width,height,10,10);
+                    g2.setColor(Color.white);
+                    Font font = g2.getFont();
+                    g2.setFont(g2.getFont().deriveFont(14F));
+                    drawSubWindow(8*gp.tileSize,9*gp.tileSize,4*gp.tileSize,2*gp.tileSize);
+                    g2.drawString("Set bonus activated", 8*gp.tileSize + 13, 9*gp.tileSize + 30);
+                    g2.drawString(gp.player.accessories[0].armorSetBonusDescription, 8*gp.tileSize + 13, 9*gp.tileSize + 55);
+                    g2.setFont(font);
+                }
+
                 int defaultX = frameX;
                 g2.drawImage(gp.player.currentWeapon.down1,frameX,frameY,null);
                 frameX += gp.tileSize + 15;
@@ -729,7 +747,7 @@ public class UI {
                     int width = g2.getFontMetrics().stringWidth(gp.player.currentWeapon.name) + 10;
                     frameX += width;
                     UtilityTool uTool = new UtilityTool();
-                    BufferedImage image = entity.inventory.get(itemIndex).albumOrigin;
+                    BufferedImage image = gp.player.currentWeapon.albumOrigin;
                     image = uTool.scaleImage(image,gp.tileSize/2,gp.tileSize/2);
                     g2.drawImage(image, textX, textY - gp.tileSize/2 + 4, null);
                     frameX -= width;
@@ -924,6 +942,22 @@ public class UI {
         g2.drawString("Accessory 4:",frameX,frameY);
         frameY = 2*gp.tileSize + 5;
 
+        if(gp.player.wasBonusEffected == true) {
+            int x = 2*gp.tileSize + 18;
+            int y = 3*gp.tileSize + 14;
+            int width = 5*gp.tileSize + 15;
+            int height = 7*gp.tileSize + 15;
+            g2.setColor(Color.darkGray);
+            g2.drawRoundRect(x,y,width,height,10,10);
+            g2.setColor(Color.white);
+            Font font = g2.getFont();
+            g2.setFont(g2.getFont().deriveFont(14F));
+            drawSubWindow(8*gp.tileSize,9*gp.tileSize,4*gp.tileSize,2*gp.tileSize);
+            g2.drawString("Set bonus activated", 8*gp.tileSize + 13, 9*gp.tileSize + 30);
+            g2.drawString(gp.player.accessories[0].armorSetBonusDescription, 8*gp.tileSize + 13, 9*gp.tileSize + 55);
+            g2.setFont(font);
+        }
+
         int defaultX = frameX;
         g2.drawImage(gp.player.currentWeapon.down1,frameX,frameY,null);
         frameX += gp.tileSize + 15;
@@ -1004,6 +1038,7 @@ public class UI {
             commandNum = 0;
         }
     }
+
     public void drawOptionsScreen() throws IOException {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(32F));
@@ -1211,10 +1246,14 @@ public class UI {
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
         //wallpaper
+        /*
         BufferedImage wallpaper;
         Entity entity = new Entity(gp);
         wallpaper = entity.setup("/objects/wallp",1080,607);
         g2.drawImage(wallpaper, 0, 24, gp.screenWidth,gp.screenHeight - 3*gp.tileSize, null);
+        */
+        Image icon = new ImageIcon(getClass().getResource("/gifs/draingang_title.gif")).getImage();
+        g2.drawImage(icon, 0, 0, gp.screenWidth,gp.screenHeight, null);
 
         //title name
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));

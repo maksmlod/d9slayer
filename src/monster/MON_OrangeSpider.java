@@ -18,7 +18,7 @@ public class MON_OrangeSpider extends Entity {
 
         type = type_monster;
         name = "Orange Spider";
-        defaultSpeed = 6;
+        defaultSpeed = 4;
         speed = defaultSpeed;
         returningSpeed = defaultSpeed*2;
         maxLife = 50;

@@ -168,6 +168,7 @@ public class Entity {
     public Map<String, Integer[]> armorSetTypes = new HashMap<>();
     public String armorSetOrigin = null;
     public String armorType = null; // helmet, gloves, armor, boots
+    public String armorSetBonusDescription = null;
 
     public Entity(GamePanel gp) {
         this.gp = gp;

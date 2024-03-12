@@ -12,6 +12,7 @@ public class OBJ_Spider_Armor extends Entity {
         down1 = setup("/armor/spider_armor", gp.tileSize, gp.tileSize);
         defenseValue = 2;
         description = "Increase def\nby 2\nSet bonus: +10 def";
+        armorSetBonusDescription = "+10 def";
         rarity = "legendary";
         price = 10;
         albumOrigin = spiderr;

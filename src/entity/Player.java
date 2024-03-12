@@ -27,7 +27,7 @@ public class Player extends Entity{
     public String lastPressedDirection = "down";
     public int numberOfPressedDirections = 0;
     public ArrayList<String> pressedDirections = new ArrayList<>();
-    boolean wasBonusEffected = false;
+    public boolean wasBonusEffected = false;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {

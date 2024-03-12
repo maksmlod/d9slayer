@@ -16,6 +16,7 @@ public class OBJ_Spider_Gloves extends Entity {
         price = 10;
         albumOrigin = spiderr;
         armorSetName = "spider";
+        armorSetBonusDescription = "+10 def";
         armorSetOrigin = "spider";
         armorType = "gloves";
     }
