@@ -10,10 +10,10 @@ public class Config {
     public void saveConfig() throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter("config.txt"));
         //full screen
-        if(gp.fullScreanOn == true) {
+        if(gp.fullScreenOn == true) {
             bw.write("On");
         }
-        if(gp.fullScreanOn == false) {
+        if(gp.fullScreenOn == false) {
             bw.write("Off");
         }
         bw.newLine();
@@ -30,10 +30,10 @@ public class Config {
         String s = br.readLine();
         //full screen
         if(s.equals("On")) {
-            gp.fullScreanOn = true;
+            gp.fullScreenOn = true;
         }
         if(s.equals("Off")) {
-            gp.fullScreanOn = false;
+            gp.fullScreenOn = false;
         }
         //music volume
         s = br.readLine();

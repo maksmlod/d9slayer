@@ -40,6 +40,7 @@ public class UI {
     Color rare = new Color(0,112,221);
     Color epic = new Color(163,53,238);
     Color legendary = new Color(255,128,0);
+    Color special = new Color(253,40,19);
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -537,6 +538,7 @@ public class UI {
                 else if(entity.inventory.get(i).rarity == "rare") color = rare;
                 else if(entity.inventory.get(i).rarity == "epic") color = epic;
                 else if(entity.inventory.get(i).rarity == "legendary") color = legendary;
+                else if(entity.inventory.get(i).rarity == "special") color = special;
                 if(color != null) {
                     Color tempColor = g2.getColor();
                     g2.setColor(color);
@@ -584,6 +586,7 @@ public class UI {
                 else if(entity.inventory.get(itemIndex).rarity == "rare") {rarityColor = rare; rarityCount = 3;}
                 else if(entity.inventory.get(itemIndex).rarity == "epic") {rarityColor = epic; rarityCount = 4;}
                 else if(entity.inventory.get(itemIndex).rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+                else if(entity.inventory.get(itemIndex).rarity == "special") {rarityColor = special; rarityCount = 6;}
 
                 g2.setColor(rarityColor);
                 g2.drawString(entity.inventory.get(itemIndex).name,textX,textY);
@@ -603,13 +606,13 @@ public class UI {
                     textX += 20;
                 }
 
-                if(entity.inventory.get(itemIndex).armorSetOrigin != null) {
+                if(entity.inventory.get(itemIndex).armorSetName != null) {
                     textX = dFrameX + 20;
                     textY += 40;
                     Font tempFont = g2.getFont();
                     g2.setColor(new Color(205,205,210));
                     g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 15F));
-                    g2.drawString(entity.inventory.get(itemIndex).armorSetOrigin,textX,textY);
+                    g2.drawString(entity.inventory.get(itemIndex).armorSetName,textX,textY);
                     g2.setFont(tempFont);
                     textY -= 40;
                 }
@@ -741,16 +744,19 @@ public class UI {
                 else if(gp.player.currentWeapon.rarity == "rare") {rarityColor = rare; rarityCount = 3;}
                 else if(gp.player.currentWeapon.rarity == "epic") {rarityColor = epic; rarityCount = 4;}
                 else if(gp.player.currentWeapon.rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+                else if(gp.player.currentWeapon.rarity == "special") {rarityColor = special; rarityCount = 6;}
                 g2.setColor(rarityColor);
                 g2.drawString(gp.player.currentWeapon.name, frameX, frameY);
                 if(gp.player.currentWeapon.albumOrigin != null) {
                     int width = g2.getFontMetrics().stringWidth(gp.player.currentWeapon.name) + 10;
+                    int tempX = frameX;
                     frameX += width;
                     UtilityTool uTool = new UtilityTool();
                     BufferedImage image = gp.player.currentWeapon.albumOrigin;
                     image = uTool.scaleImage(image,gp.tileSize/2,gp.tileSize/2);
-                    g2.drawImage(image, textX, textY - gp.tileSize/2 + 4, null);
-                    frameX -= width;
+                    g2.drawImage(image, frameX, frameY - gp.tileSize/2 + 4, null);
+
+                    frameX = tempX;
                 }
                 frameY += 5;
                 for(int i = 0; i < rarityCount; i++) {
@@ -772,8 +778,20 @@ public class UI {
                         else if(gp.player.accessories[i].rarity == "rare") {rarityColor = rare; rarityCount = 3;}
                         else if(gp.player.accessories[i].rarity == "epic") {rarityColor = epic; rarityCount = 4;}
                         else if(gp.player.accessories[i].rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+                        else if(gp.player.accessories[i].rarity == "special") {rarityColor = special; rarityCount = 6;}
                         g2.setColor(rarityColor);
                         g2.drawString(gp.player.accessories[i].name, frameX, frameY);
+
+                        if(gp.player.accessories[i].albumOrigin != null) {
+                            int width = g2.getFontMetrics().stringWidth(entity.inventory.get(itemIndex).name) + 10;
+                            textX += width;
+                            UtilityTool uTool = new UtilityTool();
+                            BufferedImage image = gp.player.accessories[i].albumOrigin;
+                            image = uTool.scaleImage(image,gp.tileSize/2,gp.tileSize/2);
+                            g2.drawImage(image, textX, textY - gp.tileSize/2 + 4, null);
+                            textX -= width;
+                        }
+
                         frameY += 5;
                         for(int j = 0; j < rarityCount; j++) {
                             g2.drawImage(starImage,frameX,frameY,null);
@@ -860,6 +878,7 @@ public class UI {
             else if(gp.player.inventory.get(i).rarity == "rare") color = rare;
             else if(gp.player.inventory.get(i).rarity == "epic") color = epic;
             else if(gp.player.inventory.get(i).rarity == "legendary") color = legendary;
+            else if(gp.player.inventory.get(i).rarity == "special") color = special;
             if(color != null) {
                 Color tempColor = g2.getColor();
                 g2.setColor(color);
@@ -903,6 +922,7 @@ public class UI {
                 else if(gp.player.inventory.get(itemIndex).rarity == "rare") {rarityColor = rare; rarityCount = 3;}
                 else if(gp.player.inventory.get(itemIndex).rarity == "epic") {rarityColor = epic; rarityCount = 4;}
                 else if(gp.player.inventory.get(itemIndex).rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+                else if(gp.player.inventory.get(itemIndex).rarity == "special") {rarityColor = special; rarityCount = 6;}
 
                 g2.setColor(rarityColor);
                 g2.drawString(gp.player.inventory.get(itemIndex).name,textX,textY);
@@ -912,6 +932,17 @@ public class UI {
                     g2.drawImage(starImage,textX,textY,null);
                     textX += 20;
                 }
+
+            if(gp.player.inventory.get(itemIndex).armorSetName != null) {
+                textX = dFrameX + 20;
+                textY += 40;
+                Font tempFont = g2.getFont();
+                g2.setColor(new Color(205,205,210));
+                g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 15F));
+                g2.drawString(gp.player.inventory.get(itemIndex).armorSetName,textX,textY);
+                g2.setFont(tempFont);
+                textY -= 40;
+            }
 
                 textY += 75;
                 textX = dFrameX + 20;
@@ -969,12 +1000,16 @@ public class UI {
         else if(gp.player.currentWeapon.rarity == "rare") {rarityColor = rare; rarityCount = 3;}
         else if(gp.player.currentWeapon.rarity == "epic") {rarityColor = epic; rarityCount = 4;}
         else if(gp.player.currentWeapon.rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+        else if(gp.player.currentWeapon.rarity == "special") {rarityColor = special; rarityCount = 6;}
         g2.setColor(rarityColor);
         g2.drawString(gp.player.currentWeapon.name, frameX, frameY);
         if(gp.player.currentWeapon.albumOrigin != null) {
             int width = g2.getFontMetrics().stringWidth(gp.player.currentWeapon.name) + 10;
             frameX += width;
-            g2.drawImage(gp.player.currentWeapon.albumOrigin, frameX, frameY - gp.tileSize/2 + 4, null);
+            UtilityTool uTool = new UtilityTool();
+            BufferedImage image = gp.player.currentWeapon.albumOrigin;
+            image = uTool.scaleImage(image,gp.tileSize/2,gp.tileSize/2);
+            g2.drawImage(image, frameX, frameY - gp.tileSize/2 + 4, null);
             frameX -= width;
         }
         frameY += 5;
@@ -996,6 +1031,7 @@ public class UI {
                         else if(gp.player.accessories[i].rarity == "rare") {rarityColor = rare; rarityCount = 3;}
                         else if(gp.player.accessories[i].rarity == "epic") {rarityColor = epic; rarityCount = 4;}
                         else if(gp.player.accessories[i].rarity == "legendary") {rarityColor = legendary; rarityCount = 5;}
+                        else if(gp.player.accessories[i].rarity == "special") {rarityColor = special; rarityCount = 6;}
                         g2.setColor(rarityColor);
                         g2.drawString(gp.player.accessories[i].name, frameX, frameY);
                         frameY += 5;
@@ -1070,12 +1106,12 @@ public class UI {
         if(commandNum == 0) {
             g2.drawString(">", textX-25, textY);
             if(gp.keyH.enterPressed == true) {
-                if(gp.fullScreanOn == false) {
-                    gp.fullScreanOn = true;
+                if(gp.fullScreenOn == false) {
+                    gp.fullScreenOn = true;
                     gp.setFullScreen();
                 }
                 else {
-                    gp.fullScreanOn = false;
+                    gp.fullScreenOn = false;
                     gp.setSmallScreen();
                 }
             }
@@ -1129,7 +1165,7 @@ public class UI {
         textY = frameY + (int)(gp.tileSize*2.5);
         g2.setStroke(new BasicStroke(3));
         g2.drawRect(textX,textY,24,24);
-        if(gp.fullScreanOn == true) g2.fillRect(textX,textY,24,24);
+        if(gp.fullScreenOn == true) g2.fillRect(textX,textY,24,24);
 
         //music volume
         textY += gp.tileSize;

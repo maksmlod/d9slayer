@@ -31,7 +31,7 @@ public class OBJ_M4A1S extends Entity {
         canMeleeAttack = false;
         haveProjectile = true;
         price = 10;
-        rarity = "legendary";
+        rarity = "special";
         for(int i = 0; i < 50; i++) {
             projectiles[i] = new OBJ_Bullet(gp);
         }

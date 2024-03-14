@@ -17,7 +17,6 @@ public class OBJ_Spider_Gloves extends Entity {
         albumOrigin = spiderr;
         armorSetName = "spider";
         armorSetBonusDescription = "+10 def";
-        armorSetOrigin = "spider";
         armorType = "gloves";
     }
     public void effect(Entity user) {

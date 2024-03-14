@@ -3,7 +3,6 @@ package main;
 import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
-import object.projectile.OBJ_Fireball;
 import skill_tree.SkillTree;
 import skill_tree.Talent;
 import tile.Map;
@@ -15,7 +14,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -42,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     int screenHeight2 = screenHeight;
     BufferedImage tempScreen;
     Graphics2D g2;
-    public boolean fullScreanOn = false;
+    public boolean fullScreenOn = false;
 
     final int FPS = 60;
 
@@ -118,8 +116,8 @@ public class GamePanel extends JPanel implements Runnable {
         //g2.setRenderingHint( RenderingHints.  KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         //g2.setRenderingHint( RenderingHints.  KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-        if(fullScreanOn == true) setFullScreen();
-        else if(fullScreanOn == false) setSmallScreen();
+        if(fullScreenOn == true) setFullScreen();
+        else if(fullScreenOn == false) setSmallScreen();
     }
     public void setFullScreen() {
 
@@ -214,7 +212,6 @@ public class GamePanel extends JPanel implements Runnable {
                         monster[currentMap][i].checkDrop();
                         monster[currentMap][i] = null;
                     }
-
                 }
             }
             for(int i = 0; i < projectileList.size(); i++) {

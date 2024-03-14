@@ -17,7 +17,6 @@ public class OBJ_Spider_Boots extends Entity {
         price = 10;
         albumOrigin = spiderr;
         armorSetName = "spider";
-        armorSetOrigin = "spider";
         armorSetBonusDescription = "+10 def";
         armorType = "boots";
         //rarity = "legendary";
