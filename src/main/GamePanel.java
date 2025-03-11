@@ -3,6 +3,7 @@ package main;
 import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
+import environment.EnvironmentManager;
 import skill_tree.SkillTree;
 import skill_tree.Talent;
 import tile.Map;
@@ -57,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
     public EventHandler eHandler = new EventHandler(this);
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
+    EnvironmentManager eManager = new EnvironmentManager(this);
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
@@ -88,6 +90,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tradeState = 10;
     public final int mapState = 11;
     public final int skillTreeState = 12;
+    public final int bossState = 13;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -103,10 +106,12 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setMonster(999, true);
         aSetter.setInteractiveTile();
+        eManager.setup();
 
         playMusic(0);
         stopMusic();
         gameState = titleState;
+        player.setDefaultPositions();
 
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
@@ -153,10 +158,16 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
+    public void resetGame() {
+        player.setDefaultPositions();
+        player.restoreLifeAndMana();
+        aSetter.setNPC();
+        aSetter.setMonster(999, true);
+    }
     public void retry() {
         player.setDefaultPositions();
         player.restoreLifeAndMana();
-        //aSetter.setNPC();
+        aSetter.setNPC();
         eHandler.teleportWithoutTransition(0,player.worldX/tileSize,player.worldY/tileSize);
     }
     public void restart() {
@@ -166,7 +177,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setMonster(999, true);
         aSetter.setObject();
         aSetter.setInteractiveTile();
-        eHandler.teleportWithoutTransition(0,player.worldX/tileSize,player.worldY/tileSize);
+        //  bneHandler.teleportWithoutTransition(0,player.worldX/tileSize,player.worldY/tileSize);
         gameState = titleState;
     }
     @Override
@@ -231,6 +242,7 @@ public class GamePanel extends JPanel implements Runnable {
                     iTile[currentMap][i].update();
                 }
             }
+            eManager.update();
         }
         if(gameState == pauseState) {}
 
@@ -307,6 +319,8 @@ public class GamePanel extends JPanel implements Runnable {
 
             //map
             map.drawMiniMap(g2);
+
+            eManager.draw(g2);
 
             // UI
             ui.draw(g2);

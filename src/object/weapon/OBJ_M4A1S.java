@@ -17,6 +17,7 @@ public class OBJ_M4A1S extends Entity {
         super(gp);
         this.gp = gp;
 
+        damageType = "physical";
         weapon_id = 101;
         type = type_wand;
         name = "M4A1-S";

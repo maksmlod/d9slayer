@@ -12,7 +12,8 @@ public class OBJ_Iceball extends Projectile {
         super(gp);
         this.gp = gp;
 
-        name= "Fireball";
+        name = "ice ball";
+        damageType = "ice";
         speed = 13;
         maxLife = 120;
         life = maxLife;

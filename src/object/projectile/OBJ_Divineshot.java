@@ -11,6 +11,7 @@ public class OBJ_Divineshot extends Projectile {
         super(gp);
         this.gp = gp;
 
+        damageType = "lightning";
         name= "Divine";
         speed = 5;
         maxLife = 120;

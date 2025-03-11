@@ -15,6 +15,7 @@ public class OBJ_Hellfire extends Entity {
         super(gp);
         this.gp = gp;
 
+        damageType = "fire";
         weapon_id = 100;
         type = type_wand;
         name = "Hellfire";

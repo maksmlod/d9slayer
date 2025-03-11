@@ -48,6 +48,15 @@ public class Particle extends Entity{
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
         if(isDamageParticle == true) {
             g2.setColor(Color.red);
+
+         //   System.out.println(damageType);
+
+            if(damageType == "fire") g2.setColor(Color.red);
+            else if(damageType == "ice") g2.setColor(Color.blue);
+            else if(damageType == "lightning") g2.setColor(Color.yellow);
+            else if(damageType == "physical") g2.setColor(Color.white);
+            else if(damageType == "chaos") g2.setColor(Color.MAGENTA);
+
             int damage = Integer.parseInt(damageText);
             int scale = 25 + damage;
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, scale));

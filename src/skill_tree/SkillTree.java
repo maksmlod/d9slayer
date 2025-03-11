@@ -2,6 +2,7 @@ package skill_tree;
 
 import main.GamePanel;
 import main.UtilityTool;
+import skill_tree.talents.TAL_Dash;
 import skill_tree.talents.TAL_Def;
 
 import javax.imageio.ImageIO;
@@ -13,6 +14,7 @@ import java.util.Collections;
 
 public class SkillTree {
     public static BufferedImage defenseTalent;
+    public static BufferedImage dashTalent;
     public int currentDepth = 0;
     public int currentIndexInRow = 0;
     public int numberOfDepths = 0;
@@ -66,7 +68,7 @@ public class SkillTree {
         addNewTalent(new TAL_Def(gp,3,2),2,2);
         addNewTalent(new TAL_Def(gp,3,3),2,2);
         addNewTalent(new TAL_Def(gp,3,4),2,5);
-        addNewTalent(new TAL_Def(gp,3,5),2,5);
+        addNewTalent(new TAL_Dash(gp,3,5),2,5);
     }
     public void addNewTalent(Talent talent, int requiredTalentDepth, int requiredTalentIndexInRow) {
         gp.talents[talent.depth][talent.indexInRow] = talent;
@@ -171,6 +173,7 @@ public class SkillTree {
     }
     public void loadImages() {
         defenseTalent = setup("/talents/tal_def",gp.tileSize,gp.tileSize);
+        dashTalent = setup("/talents/tal_dash",gp.tileSize,gp.tileSize);
     }
     public BufferedImage setup(String imagePath, int width, int height) {
         UtilityTool uTool = new UtilityTool();

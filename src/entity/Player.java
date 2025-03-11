@@ -1,5 +1,7 @@
 package entity;
 
+import abilities.Ability;
+import abilities.Dash;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
@@ -9,7 +11,10 @@ import object.weapon.OBJ_Normal_Sword;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Player extends Entity{
 
@@ -18,16 +23,25 @@ public class Player extends Entity{
     public final int screenY;
     int standCounter = 0;
     public boolean attackCanceled = false;
+    public boolean lightUpdated = false;
     public int accessorySize = 4;
     public boolean haveMeleeAttacked = false;
     public int availableSkillPoints = 80;
     public int allSkillPoints = 0;
+    int auraCounter = 0;
+
+    public Map<String, Integer> abilities = new HashMap<>();
 
 
     public String lastPressedDirection = "down";
     public int numberOfPressedDirections = 0;
     public ArrayList<String> pressedDirections = new ArrayList<>();
     public boolean wasBonusEffected = false;
+
+    // abilities
+    public Ability[] abilitiesArray = new Ability[50];
+
+
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -49,12 +63,14 @@ public class Player extends Entity{
         //attackArea.height = 36;
         accessories = new Entity[accessorySize];
 
+        loadAbilities();
 
         setDefaultValues();
         String skinName = "bladee";
         getPlayerImage(skinName);
         getPlayerAttackImage();
         setItems();
+
     }
     public void setDefaultValues() {
         worldX = gp.tileSize * 23;
@@ -82,9 +98,10 @@ public class Player extends Entity{
         projectile = new OBJ_Fireball(gp);
     }
     public void setDefaultPositions() {
-        worldX = gp.tileSize * 23;
-        worldY = gp.tileSize * 21;
+        worldX = gp.tileSize * 13;
+        worldY = gp.tileSize * 23;
         direction = "down";
+        this.gp.currentMap = 1;
     }
     public void restoreLifeAndMana() {
         life = maxLife;
@@ -415,6 +432,8 @@ public class Player extends Entity{
         if(mana > maxMana) mana = maxMana;
         else if(mana < 0) mana = 0;
 
+        useAbilities();
+
         if(life <= 0) {
             alive = false;
             gp.gameState = gp.gameOverState;
@@ -647,6 +666,15 @@ public class Player extends Entity{
                     }
                 }
             }
+            if(selectedItem.type == type_light) {
+                if(currentLight == selectedItem) {
+                    currentLight = null;
+                }
+                else {
+                    currentLight = selectedItem;
+                }
+                lightUpdated = true;
+            }
             if(selectedItem.type == type_consumable) {
                 if(selectedItem.use(this) == true) {
                     if(selectedItem.amount > 1) {
@@ -696,7 +724,6 @@ public class Player extends Entity{
         BufferedImage image2 = null;
         int tempScreenX = screenX;
         int tempScreenY = screenY;
-
         if(attacking == false) {
             switch(direction) {
                 case "up":
@@ -738,10 +765,13 @@ public class Player extends Entity{
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
 
+        if(this.currentWeapon.producesAura == true)  drawBlueAura(g2);
+
+        //dashing
+        if(abilitiesArray[1].dashFlag == 3) drawBlueAura(g2);
 
 
         g2.drawImage(image, tempScreenX, tempScreenY, null);
-        //reset alpha
         drawAttackImage(g2);
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
@@ -775,6 +805,125 @@ public class Player extends Entity{
                 g2.drawImage(image2, screenX, screenY - gp.tileSize, null);
             }
         }
+    }
+    public void drawBlueAura(Graphics2D g2) {
+
+        auraCounter++;
+        if(auraCounter < 7) aura = blueAura1;
+        else if(auraCounter < 14) aura = blueAura2;
+        else if(auraCounter < 21) aura = blueAura3;
+        else if(auraCounter <= 28) aura = blueAura4;
+        if(auraCounter == 28) auraCounter = 0;
+        g2.drawImage(aura, screenX - (int)(0.5*gp.tileSize), screenY - (int)(0.5*gp.tileSize), null);
+
+    }
+    public void loadAbilities() {
+        abilitiesArray[1] = new Dash(gp);
+    }
+    public void useAbilities() {
+        //dash
+        if(abilities.getOrDefault("dash",0) == 1) {
+            if(abilitiesArray[Dash.abilityNumber].dashFlag == 0 && (keyH.upPressed == true || keyH.downPressed == true ||
+                    keyH.leftPressed == true || keyH.rightPressed == true)) {
+                if(keyH.upPressed == true && keyH.downPressed == false &&
+                        keyH.leftPressed == false && keyH.rightPressed == false) abilitiesArray[Dash.abilityNumber].dashDirection = "up";
+                else if(keyH.upPressed == false && keyH.downPressed == true &&
+                        keyH.leftPressed == false && keyH.rightPressed == false) abilitiesArray[Dash.abilityNumber].dashDirection = "down";
+                else if(keyH.upPressed == false && keyH.downPressed == false &&
+                        keyH.leftPressed == true && keyH.rightPressed == false) abilitiesArray[Dash.abilityNumber].dashDirection = "left";
+                else if(keyH.upPressed == false && keyH.downPressed == false &&
+                        keyH.leftPressed == false && keyH.rightPressed == true) abilitiesArray[Dash.abilityNumber].dashDirection = "right";
+
+                abilitiesArray[Dash.abilityNumber].dashTimer = 7;
+                abilitiesArray[Dash.abilityNumber].dashFlag = 1;
+            }
+            if(abilitiesArray[Dash.abilityNumber].dashFlag == 1 && abilitiesArray[1].dashTimer > 0) {
+                abilitiesArray[Dash.abilityNumber].dashTimer --;
+                if(abilitiesArray[Dash.abilityNumber].dashTimer == 0) {
+                    abilitiesArray[Dash.abilityNumber].dashFlag = 0;
+                }
+                else {
+                    if((abilitiesArray[Dash.abilityNumber].dashDirection == "down" && keyH.downPressed == false) ||
+                            (abilitiesArray[Dash.abilityNumber].dashDirection == "up" && keyH.upPressed == false) ||
+                            (abilitiesArray[Dash.abilityNumber].dashDirection == "right" && keyH.rightPressed == false) ||
+                            (abilitiesArray[Dash.abilityNumber].dashDirection == "left" && keyH.leftPressed == false)) {
+                        abilitiesArray[Dash.abilityNumber].dashTimer = 7;
+                        abilitiesArray[Dash.abilityNumber].dashFlag = 2;
+                    }
+                }
+            }
+            // active that to dash
+            String tempDirection = "down";
+            if(abilitiesArray[Dash.abilityNumber].dashFlag == 2) {
+                abilitiesArray[Dash.abilityNumber].dashTimer --;
+                if(abilitiesArray[Dash.abilityNumber].dashTimer == 0) {
+                    abilitiesArray[Dash.abilityNumber].dashFlag = 0;
+                }
+                else {
+                    if((abilitiesArray[Dash.abilityNumber].dashDirection == "down" && keyH.downPressed == true) ||
+                            (abilitiesArray[Dash.abilityNumber].dashDirection == "up" && keyH.upPressed == true) ||
+                            (abilitiesArray[Dash.abilityNumber].dashDirection == "right" && keyH.rightPressed == true) ||
+                            (abilitiesArray[Dash.abilityNumber].dashDirection == "left" && keyH.leftPressed == true)) {
+                        //dziala
+                        abilitiesArray[Dash.abilityNumber].effect(this);
+                        abilitiesArray[Dash.abilityNumber].dashFlag = 3;
+
+                    }
+                }
+            }
+            // dashing
+            else if(abilitiesArray[Dash.abilityNumber].dashFlag == 3) {
+        /*
+                if(abilitiesArray[Dash.abilityNumber].dashDirection == "left") {
+                    keyH.leftPressed = true;
+                    direction = "left";
+                    tempDirection = "left";
+                }
+                else if(abilitiesArray[Dash.abilityNumber].dashDirection == "right") {
+                    keyH.rightPressed = true;
+                    direction = "right";
+                    tempDirection = "right";
+                }
+                else if(abilitiesArray[Dash.abilityNumber].dashDirection == "up") {
+                    keyH.upPressed = true;
+                    direction = "up";
+                    tempDirection = "up";
+                }
+                else if(abilitiesArray[Dash.abilityNumber].dashDirection == "down") {
+                    keyH.downPressed = true;
+                    direction = "down";
+                    tempDirection = "down";
+                }
+
+         */
+
+                abilitiesArray[Dash.abilityNumber].dashDuration --;
+                if(abilitiesArray[Dash.abilityNumber].dashDuration < 1) {
+                    abilitiesArray[Dash.abilityNumber].dashFlag = 4;
+                    abilitiesArray[Dash.abilityNumber].dashDuration = abilitiesArray[Dash.abilityNumber].dashAllDuration;
+                    abilitiesArray[Dash.abilityNumber].revertEffect(this);
+
+                    /*
+                    if(tempDirection == "left") keyH.leftPressed = false;
+                    else if(tempDirection == "up") keyH.upPressed = false;
+                    else if(tempDirection == "right") keyH.rightPressed = false;
+                    else if(tempDirection == "down") keyH.downPressed = false;
+                     */
+                }
+            }
+            // cooldown after dashing
+            else if(abilitiesArray[Dash.abilityNumber].dashFlag == 4) {
+                abilitiesArray[Dash.abilityNumber].dashCooldown --;
+                if(abilitiesArray[Dash.abilityNumber].dashCooldown < 1) {
+                    abilitiesArray[Dash.abilityNumber].dashCooldown = Dash.cooldownTime;
+                    abilitiesArray[Dash.abilityNumber].dashFlag = 0;
+                }
+            }
+
+        }
+
+
+
     }
 
 }

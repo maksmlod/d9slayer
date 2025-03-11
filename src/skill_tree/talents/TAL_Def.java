@@ -4,6 +4,8 @@ import main.GamePanel;
 import skill_tree.SkillTree;
 import skill_tree.Talent;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class TAL_Def extends Talent {
     public GamePanel gp;
     int defenseValue = 1;

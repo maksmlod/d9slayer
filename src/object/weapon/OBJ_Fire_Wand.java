@@ -13,6 +13,7 @@ public class OBJ_Fire_Wand extends Entity {
         super(gp);
         this.gp = gp;
 
+        damageType = "fire";
         weapon_id = 100;
         type = type_wand;
         name = "Fire wand";

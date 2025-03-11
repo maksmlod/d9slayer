@@ -11,6 +11,7 @@ public class OBJ_Webshot extends Projectile {
         super(gp);
         this.gp = gp;
 
+        damageType = "physical";
         name= "Divine";
         speed = 12;
         maxLife = 140;

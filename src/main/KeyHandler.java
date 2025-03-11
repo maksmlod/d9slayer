@@ -56,6 +56,9 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.skillTreeState) {
             skillTreeState(code);
         }
+        else if(gp.gameState == gp.bossState) {
+            bossState(code);
+        }
     }
     public void titleState(int code) {
         if(code == KeyEvent.VK_W) {
@@ -477,6 +480,9 @@ public class KeyHandler implements KeyListener {
             gp.skillTree.currentIndexInRow = 0;
             gp.gameState = gp.playState;
         }
+    }
+    public void bossState(int code) {
+
     }
     @Override
     public void keyReleased(KeyEvent e) {

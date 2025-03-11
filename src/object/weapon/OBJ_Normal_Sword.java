@@ -7,6 +7,7 @@ public class OBJ_Normal_Sword extends Entity {
     public OBJ_Normal_Sword(GamePanel gp) {
             super(gp);
 
+            damageType = "physical";
             canMeleeAttack = true;
             type = type_sword;
             name = "Normal Sword";

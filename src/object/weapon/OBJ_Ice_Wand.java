@@ -14,6 +14,7 @@ public class OBJ_Ice_Wand extends Entity {
         super(gp);
         this.gp = gp;
 
+        damageType = "ice";
         weapon_id = 101;
         type = type_wand;
         name = "Ice wand";

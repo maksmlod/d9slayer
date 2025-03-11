@@ -12,6 +12,7 @@ public class OBJ_Bullet extends Projectile {
         super(gp);
         this.gp = gp;
 
+        damageType = "physical";
         name= "Bullet";
         speed = 20;
         maxLife = 150;

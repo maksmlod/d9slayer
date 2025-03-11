@@ -53,6 +53,11 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = 18 * gp.tileSize;
         i++;
 
+        gp.obj[1][i] = new OBJ_Lantern(gp);
+        gp.obj[1][i].worldX = 14 * gp.tileSize;
+        gp.obj[1][i].worldY = 27 * gp.tileSize;
+        i++;
+
 
 
 
@@ -98,6 +103,11 @@ public class AssetSetter {
         gp.npc[mapNum][i] = new NPC_Spider_Merchant(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize*11;
         gp.npc[mapNum][i].worldY = gp.tileSize*23;
+        i++;
+
+        gp.npc[mapNum][i] = new NPC_Merchant(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*11;
+        gp.npc[mapNum][i].worldY = gp.tileSize*25;
         i++;
 
 

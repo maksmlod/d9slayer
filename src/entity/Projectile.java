@@ -55,7 +55,18 @@ public class Projectile extends Entity{
         if(user == gp.player) {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             if(monsterIndex != 999) {
-                gp.player.damageMonster(monsterIndex, attack, knockBackPower);
+
+                int tempAttack = 0;
+                int bonusAttack = 0;
+                if(this.damageType == "lightning") bonusAttack = gp.player.bonusLightningDmg;
+                else if(this.damageType == "fire") bonusAttack = gp.player.bonusFireDmg;
+                else if(this.damageType == "ice") bonusAttack =  gp.player.bonusIceDmg;
+                else if(this.damageType == "chaos") bonusAttack = gp.player.bonusChaosDmg;
+                else if(this.damageType == "physical") bonusAttack = gp.player.bonusPhysicalDmg;
+
+                tempAttack = attack + bonusAttack;
+
+                gp.player.damageMonster(monsterIndex, tempAttack, knockBackPower);
                 generateParticle(weapon.projectile, gp.monster[gp.currentMap][monsterIndex]);
                 int value = weapon.projectile.attack - gp.monster[gp.currentMap][monsterIndex].defense;
                 if(value < 0) value = 0;

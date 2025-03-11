@@ -15,6 +15,7 @@ public class OBJ_Heaven_Reaper extends Entity {
         super(gp);
         this.gp = gp;
 
+        damageType = "lightning";
         weapon_id = 103;
         canMeleeAttack = true;
         type = type_sword;

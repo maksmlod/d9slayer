@@ -14,6 +14,7 @@ public class OBJ_Freezer extends Entity {
         super(gp);
         this.gp = gp;
 
+        damageType = "ice";
         weapon_id = 102;
         type = type_wand;
         name = "Freezer";
@@ -29,6 +30,7 @@ public class OBJ_Freezer extends Entity {
         haveProjectile = true;
         price = 20;
         rarity = "rare";
+        producesAura = true;
         for(int i = 0; i < 100; i++) {
             projectiles[i] = new OBJ_Iceball(gp);
         }

@@ -451,7 +451,6 @@ public class UI {
         }
         gp.keyH.enterPressed = false;
     }
-
     public void show_items(Entity entity, boolean cursor, boolean isTrading) {
         int frameX = 0;
         int frameY = 0;
@@ -496,7 +495,8 @@ public class UI {
             for(int j = 0; j < gp.player.accessories.length; j++) {
                 if(gp.player.accessories[j] == entity.inventory.get(i)) isAccessory = true;
             }
-            if(entity.inventory.get(i) == entity.currentWeapon || isAccessory == true) {
+            if(entity.inventory.get(i) == entity.currentWeapon || isAccessory == true ||
+                    entity.inventory.get(i) == entity.currentLight) {
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
             }
@@ -783,7 +783,7 @@ public class UI {
                         g2.drawString(gp.player.accessories[i].name, frameX, frameY);
 
                         if(gp.player.accessories[i].albumOrigin != null) {
-                            int width = g2.getFontMetrics().stringWidth(entity.inventory.get(itemIndex).name) + 10;
+                            int width = g2.getFontMetrics().stringWidth(gp.player.accessories[i].name) + 10;
                             textX += width;
                             UtilityTool uTool = new UtilityTool();
                             BufferedImage image = gp.player.accessories[i].albumOrigin;
@@ -1074,7 +1074,6 @@ public class UI {
             commandNum = 0;
         }
     }
-
     public void drawOptionsScreen() throws IOException {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(32F));

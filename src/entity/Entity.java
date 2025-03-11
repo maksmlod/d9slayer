@@ -93,11 +93,17 @@ public class Entity {
     public final int type_accessory = 9;
     public final int type_obstacle = 10;
     public final int type_item = 11;
+    public final int type_light = 12;
     public int weapon_id;
     public boolean canMeleeAttack = false;
     public boolean haveProjectile = false;
     public boolean canAttack = true;
     public Entity pet = null;
+
+    //damage types: physical, fire, ice, lightning, chaos
+    public String damageType = "physical";
+
+
 
     public int maxLife;
     public int life;
@@ -123,8 +129,19 @@ public class Entity {
     public String damageText;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Entity currentLight;
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
+    public BufferedImage aura = null;
+    public boolean producesAura = false;
+
+    //bonus elemental dmg
+    public int bonusFireDmg = 0;
+    public int bonusIceDmg = 0;
+    public int bonusLightningDmg = 0;
+    public int bonusChaosDmg = 0;
+    public int bonusPhysicalDmg = 0;
+
 
     public Projectile projectile;
     public Projectile projectile2;
@@ -146,6 +163,13 @@ public class Entity {
     public static BufferedImage bullet_down1;
     public static BufferedImage spiderr;
     public static BufferedImage crest;
+
+    //auras
+    public static BufferedImage greenAura;
+    public static BufferedImage blueAura1;
+    public static BufferedImage blueAura2;
+    public static BufferedImage blueAura3;
+    public static BufferedImage blueAura4;
 
 
 
@@ -169,6 +193,7 @@ public class Entity {
     public String armorSetOrigin = null;
     public String armorType = null; // helmet, gloves, armor, boots
     public String armorSetBonusDescription = null;
+    public int lightRadius;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -302,12 +327,23 @@ public class Entity {
         gp.particleList.add(p4);
     }
     public void generateDamageParticle(Entity generator, Entity target, int damage) {
-        Color color = Color.red;
+        Color color = Color.RED;
+
         int speed = 2;
         int maxLife = 20;
         String value = String.valueOf(damage);
         Particle p1 = new Particle(gp, target, color, 0, speed, maxLife,
                 1, 0, value, null);
+
+        if(generator == gp.player && generator.currentWeapon.haveProjectile) {
+            if (generator.currentWeapon.projectile.damageType == "fire") p1.damageType = "fire";
+            else if (generator.currentWeapon.projectile.damageType == "ice") p1.damageType = "ice";
+            else if (generator.currentWeapon.projectile.damageType == "lightning") p1.damageType = "lightning";
+            else if (generator.currentWeapon.projectile.damageType == "physical") p1.damageType = "physical";
+            else if (generator.currentWeapon.projectile.damageType == "chaos") p1.damageType = "chaos";
+        }
+
+
         p1.isDamageParticle = true;
         gp.particleList.add(p1);
     }
@@ -567,6 +603,13 @@ public class Entity {
         webshot_left2 = setup("/projectile/webshot_left_2",gp.tileSize,gp.tileSize);
         webshot_right1 = setup("/projectile/webshot_right_1",gp.tileSize,gp.tileSize);
         webshot_right2 = setup("/projectile/webshot_right_2",gp.tileSize,gp.tileSize);
+
+
+        greenAura = setup("/aura/greenaura", gp.tileSize*3,gp.tileSize*3);
+        blueAura1 = setup("/aura/sprite_123", gp.tileSize*2,gp.tileSize*2);
+        blueAura2 = setup("/aura/sprite_124", gp.tileSize*2,gp.tileSize*2);
+        blueAura3 = setup("/aura/sprite_125", gp.tileSize*2,gp.tileSize*2);
+        blueAura4 = setup("/aura/sprite_126", gp.tileSize*2,gp.tileSize*2);
     }
     public void searchPath(int goalCol, int goalRow, boolean follow) {
         int startCol = (worldX + solidArea.x)/gp.tileSize;

@@ -16,6 +16,7 @@ public class OBJ_Web_Staff extends Entity {
         super(gp);
         this.gp = gp;
 
+        damageType = "physical";
         weapon_id = 101;
         type = type_wand;
         name = "Web staff";
